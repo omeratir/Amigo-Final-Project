@@ -1,0 +1,17 @@
+agm-map
+{
+  height: 500px;
+}
+
+.checked {
+  color: orange;
+}
+
+.header-style{
+  font-weight: bold;
+}
+
+table {
+  width: 50%;
+}
+

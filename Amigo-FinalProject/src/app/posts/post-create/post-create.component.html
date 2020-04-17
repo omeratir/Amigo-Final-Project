@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="title" placeholder="Post Title">
+      <mat-error *ngIf="form.get('title').invalid">Please enter a post title.</mat-error>
+    </mat-form-field>
+    <p></p>
+
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+      <input type="file" #filePicker (change)="onImagePicked($event)">
+      <p></p>
+      <p></p>
+    </div>
+
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+      <img [src]="imagePreview" [alt]="form.value.title">
+    </div>
+
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="place" placeholder="Post place">
+      <mat-error *ngIf="form.get('place').invalid">Please enter a post place.</mat-error>
+    </mat-form-field> -->
+
+    <p>
+    <mat-form-field>
+      <mat-label>Select Attraction</mat-label>
+      <mat-select formControlName="place">
+        <mat-option *ngFor="let place of places" [value]="place.name">
+          {{ place.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+
+<p>
+    <mat-form-field>
+      <mat-label>Select Your Rate Of Attraction</mat-label>
+      <mat-select formControlName="rating">
+        <mat-option *ngFor="let rate of rates" [value]="rate.value">
+          {{rate.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+
+    <mat-form-field>
+      <textarea matInput rows="4" formControlName="content" placeholder="Post Content"></textarea>
+      <mat-error *ngIf="form.get('content').invalid">Please enter a post context.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit">Save Post</button>
+  </form>
+</mat-card>

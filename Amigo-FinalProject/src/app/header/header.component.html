@@ -1,0 +1,42 @@
+<img src="assets/images/AMIGO_Header2.jpg" alt="image" width="100%"/>
+
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/home"> A M I G O </a>
+  </span>
+  <span class="spacer">
+  <ul>
+    <li>
+      <a mat-button routerLink="/"> POSTS </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/placelist"> PLACES </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/map"> MAP </a>
+    </li>
+  </ul>
+  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/postcreate" routerLinkActive="mat-accent">New Post</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/placecreate" routerLinkActive="mat-accent">New Place</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
+
+</mat-toolbar>
+
+
+

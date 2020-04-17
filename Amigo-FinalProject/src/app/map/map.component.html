@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" (mapClick)="placeMarker($event)">
+    <agm-marker *ngFor="let marker of places;"
+    [latitude]="marker.lat"
+    [longitude]="marker.lng"
+    (markerClick)="clickedMarker(infoWindow)"
+    >
+    <agm-info-window #infoWindow>
+      <div class="container-fluid">
+        <table class="table table-bordered"  style="width: 100%;">
+          <ng-container *ngFor="let post of posts" >
+          <tr *ngIf="post.place === marker.name" >
+            <td>
+            <span class="header-style"> {{post.title}}</span>
+            <div *ngIf="post.rating == '1-Very Bad'">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <div *ngIf="post.rating == '2-Bad'">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <div *ngIf="post.rating == '3-Nice'">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <div *ngIf="post.rating == '4-Very Good'">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <div *ngIf="post.rating == '5-Excellent'">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </div>
+          </td>
+          </tr>
+          </ng-container>
+        </table>
+      </div>
+    </agm-info-window>
+</agm-marker>
+</agm-map>
