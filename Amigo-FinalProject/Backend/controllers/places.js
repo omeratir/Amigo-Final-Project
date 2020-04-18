@@ -8,6 +8,7 @@ exports.createPlace = (req, res, next) => {
     city: req.body.city,
     lat: req.body.lat,
     lng: req.body.lng,
+    avgOfStars: req.body.lng,
     creator: req.userData.userId
   });
   place.save()
@@ -35,6 +36,7 @@ exports.updatePlace = (req, res, next) => {
     city: req.body.city,
     lat: req.body.lat,
     lng: req.body.lng,
+    avgOfStars: req.body.lng,
     creator: req.userData.userId
   });
   Place.updateOne({ _id: req.params.id, creator: req.userData.userId }, place)
