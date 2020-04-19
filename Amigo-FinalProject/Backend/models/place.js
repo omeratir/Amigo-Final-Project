@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const placeSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  address: { type: String, required: true },
-  city: { type: String, required: true },
-  lat: { type: String , required: true },
-  lng: { type: String , required: true },
-  avgOfStars: { type: Number , required: true },
+  nameOfPlace: { type: String, required: true },
+  lng: { type: Number, required: true },
+  lat: { type: Number, required: true },
+  averageDaysOfPlace: { type: Number , required: false }, 
+  destinationForSex: { type: Number, required: false },
+  destinationForAges: { type: Number, required: false },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 

@@ -7,10 +7,18 @@ exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
-      password: hash
+      password: hash,
+      firstName: req.body.email,
+      lastName: req.body.email,
+      age: req.body.email,
+      sex: req.body.email,
+      addressOfStart: req.body.email,
+      addressOfEnd: req.body.email,
+      numberOfDays: req.body.email,
+      purposeOfTheTrip: req.body.email,
+      hobbies: req.body.email
     });
-    user
-      .save()
+    user.save()
       .then(result => {
         res.status(201).json({
           message: "User created!",

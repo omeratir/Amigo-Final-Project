@@ -5,10 +5,10 @@
 
   <mat-expansion-panel *ngFor="let place of places">
     <mat-expansion-panel-header>
-      {{ place.name }}
+      {{ place.nameOfPlace }}
     </mat-expansion-panel-header>
-    <p>{{ place.address }}</p>
-    <p>{{ place.city }}</p>
+    <!-- <p>{{ place.address }}</p>
+    <p>{{ place.city }}</p> -->
     <p>{{ place.lat }}</p>
     <p>{{ place.lng }}</p>
     <mat-action-row *ngIf="userIsAuthenticated && userId === place.creator">

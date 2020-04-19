@@ -27,8 +27,8 @@
     <mat-form-field>
       <mat-label>Select Attraction</mat-label>
       <mat-select formControlName="place">
-        <mat-option *ngFor="let place of places" [value]="place.name">
-          {{ place.name }}
+        <mat-option *ngFor="let place of places" [value]="place.nameOfPlace">
+          {{ place.nameOfPlace }}
         </mat-option>
       </mat-select>
     </mat-form-field>

@@ -1,8 +1,9 @@
 export interface Place {
   id: string;
-  name: string;
-  address: string;
-  city: string;
+  nameOfPlace: string;
+  averageDaysOfPlace: number;
+  destinationForSex: number;
+  destinationForAges: number;
   lat: string;
   lng: string;
   creator: string;

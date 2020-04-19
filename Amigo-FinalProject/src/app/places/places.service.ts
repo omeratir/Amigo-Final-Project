@@ -27,9 +27,10 @@ export class PlacesService {
           return {
             places: placeData.places.map(place => {
               return {
-                name: place.name,
-                address: place.address,
-                city: place.city,
+                nameOfPlace: place.nameOfPlace,
+                averageDaysOfPlace: place.averageDaysOfPlace,
+                destinationForSex: place.destinationForSex,
+                destinationForAges: place.destinationForAges,
                 lat: place.lat,
                 lng: place.lng,
                 id: place._id,
@@ -56,20 +57,22 @@ export class PlacesService {
   getPlace(id: string) {
     return this.http.get<{
       _id: string;
-      name: string;
-      address: string;
-      city: string,
+      nameOfPlace: string;
+      averageDaysOfPlace: number;
+      destinationForSex: number;
+      destinationForAges: number;
       lat: string,
       lng: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addPlace(name: string,  address: string, city: string, lat: string, lng: string) {
+  addPlace(nameOfPlace: string, lat: string, lng: string ) {
     const placeData = new FormData();
-    placeData.append('name', name);
-    placeData.append('address', address);
-    placeData.append('city', city);
+    placeData.append('nameOfPlace', nameOfPlace);
+    // placeData.append('averageDaysOfPlace', averageDaysOfPlace);
+    // placeData.append('destinationForSex', destinationForSex);
+    // placeData.append('destinationForAges', destinationForAges);
     placeData.append('lat', lat);
     placeData.append('lng', lng);
     this.http
@@ -82,12 +85,13 @@ export class PlacesService {
       });
   }
 
-  updatePlace(id: string, name: string, address: string, city: string, lat: string, lng: string) {
+  updatePlace(id: string, nameOfPlace: string, lat: string, lng: string, averageDaysOfPlace: string ,destinationForSex: string ,destinationForAges: string) {
     let placeData: Place | FormData;
     placeData = new FormData();
-    placeData.append('name', name);
-    placeData.append('address', address);
-    placeData.append('city', city);
+    placeData.append('nameOfPlace', nameOfPlace);
+    placeData.append('averageDaysOfPlace', averageDaysOfPlace);
+    placeData.append('destinationForSex', destinationForSex);
+    placeData.append('destinationForAges', destinationForAges);
     placeData.append('lat', lat);
     placeData.append('lng', lng);
 

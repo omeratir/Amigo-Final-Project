@@ -36,11 +36,12 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
     this.form = new FormGroup({
-      name: new FormControl(null, {
+      nameOfPlace: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      address: new FormControl(null, { validators: [Validators.required] }),
-      city: new FormControl(null, { validators: [Validators.required] }),
+      averageDaysOfPlace: new FormControl(null, { validators: [Validators.nullValidator] }),
+      destinationForSex: new FormControl(null, { validators: [Validators.nullValidator] }),
+      destinationForAges: new FormControl(null, { validators: [Validators.nullValidator] }),
       lat: new FormControl(null, { validators: [Validators.required] }),
       lng: new FormControl(null, { validators: [Validators.required] })
     });
@@ -53,17 +54,19 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.place = {
             id: placeData._id,
-            name: placeData.name,
-            address: placeData.address,
-            city: placeData.city,
+            nameOfPlace: placeData.nameOfPlace,
+            averageDaysOfPlace: placeData.averageDaysOfPlace,
+            destinationForSex: placeData.destinationForSex,
+            destinationForAges: placeData.destinationForAges,
             lat: placeData.lat,
             lng: placeData.lng,
             creator: placeData.creator
           };
           this.form.setValue({
-            name: this.place.name,
-            address: this.place.address,
-            city: this.place.city,
+            nameOfPlace: this.place.nameOfPlace,
+            averageDaysOfPlace: this.place.averageDaysOfPlace,
+            destinationForSex: this.place.destinationForSex,
+            destinationForAges: this.place.destinationForAges,
             lat: this.place.lat,
             lng: this.place.lng
           });
@@ -82,18 +85,20 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (this.mode === 'createplace') {
       this.placesService.addPlace(
-        this.form.value.name,
-        this.form.value.address,
-        this.form.value.city,
+        this.form.value.nameOfPlace,
+        // this.form.value.averageDaysOfPlace,
+        // this.form.value.destinationForSex,
+        // this.form.value.destinationForAges,
         this.form.value.lat,
         this.form.value.lng
       );
     } else {
       this.placesService.updatePlace(
         this.placeId,
-        this.form.value.name,
-        this.form.value.address,
-        this.form.value.city,
+        this.form.value.nameOfPlace,
+        this.form.value.averageDaysOfPlace,
+        this.form.value.destinationForSex,
+        this.form.value.destinationForAges,
         this.form.value.lat,
         this.form.value.lng
       );

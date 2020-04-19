@@ -2,19 +2,19 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSavePlace()" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Place Name" maxlength=14>
-      <mat-error *ngIf="form.get('name').invalid">Please enter a place name.</mat-error>
+      <input matInput type="text" formControlName="nameOfPlace" placeholder="Place Name" maxlength=14>
+      <mat-error *ngIf="form.get('nameOfPlace').invalid">Please enter a place name.</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput type="text" formControlName="address" placeholder="Place Address">
-      <mat-error *ngIf="form.get('address').invalid">Please enter a place address.</mat-error>
-    </mat-form-field>
-
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="averageDaysOfPlace" placeholder="Stars">
+      <mat-error *ngIf="form.get('averageDaysOfPlace').invalid">Please enter a number of stars.</mat-error>
+    </mat-form-field> -->
+<!-- 
     <mat-form-field>
       <input matInput type="text" formControlName="city" placeholder="Place City">
       <mat-error *ngIf="form.get('city').invalid">Please enter a place city.</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field>
       <input matInput type="text" formControlName="lat" placeholder="Place Latitude">
