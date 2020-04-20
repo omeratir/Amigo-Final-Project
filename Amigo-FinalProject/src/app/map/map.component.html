@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <table class="table table-bordered"  style="width: 100%;">
           <ng-container *ngFor="let post of posts" >
-          <tr *ngIf="post.place === marker.name" >
+          <tr *ngIf="post.place === marker.nameOfPlace" >
             <td>
             <span class="header-style"> {{post.title}}</span>
             <div *ngIf="post.rating == '1-Very Bad'">

@@ -5,3 +5,8 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+

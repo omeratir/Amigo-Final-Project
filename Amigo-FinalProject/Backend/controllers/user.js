@@ -8,15 +8,15 @@ exports.createUser = (req, res, next) => {
     const user = new User({
       email: req.body.email,
       password: hash,
-      firstName: req.body.email,
-      lastName: req.body.email,
-      age: req.body.email,
-      sex: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      age: req.body.age,
+      sex: req.body.sex,
       addressOfStart: req.body.email,
       addressOfEnd: req.body.email,
-      numberOfDays: req.body.email,
-      purposeOfTheTrip: req.body.email,
-      hobbies: req.body.email
+      numberOfDays: req.body.numberOfDays,
+      purposeOfTheTrip: req.body.purposeOfTheTrip,
+      hobbies: req.body.hobbies
     });
     user.save()
       .then(result => {
