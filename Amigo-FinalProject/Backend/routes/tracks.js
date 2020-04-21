@@ -15,6 +15,6 @@ router.get("", TrackController.getTrack);
 
 router.get("/:id", TrackController.getTrack);
 
-// router.delete("/:id", checkAuth, TrackController.deleteTrack);
+router.delete("/:id", checkAuth, TrackController.deleteTrack);
 
 module.exports = router;

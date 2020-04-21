@@ -1,7 +1,7 @@
 const Track = require("../models/track");
 exports.createTrack = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
-  const track = new Track({
+  const track = new Track({ 
     hobbies: req.body.hobbies,
     purposeOfTheTrip: req.body.purposeOfTheTrip,
     sexRecommands: req.body.sexRecommands,
