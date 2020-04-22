@@ -46,52 +46,52 @@ app.use("/api/tracks", tracksRoutes);
 
 // One time - Import the csv file of places
 
-const mongodb = require("mongodb").MongoClient;
+// const mongodb = require("mongodb").MongoClient;
 
-const fs = require("fs");
-const fastcsv = require("fast-csv");
-// Amsterdamplaces.csv
-// Attraction.csv
-let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
-let csvData = [];
-let csvStream = fastcsv
-  .parse()
-  .on("data", function(data) {
-    csvData.push({
-      nameOfPlace: data[0],
-      lat: data[1],
-      lng: data[2],
-      averageDaysOfPlace: data[3],
-      destinationForSex: data[4],
-      destinationForAges: data[5]
-    });
-  })
-  .on("end", function() {
-    // remove the first line: header
-    csvData.shift();
+// const fs = require("fs");
+// const fastcsv = require("fast-csv");
+// // Amsterdamplaces.csv
+// // Attraction.csv
+// let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
+// let csvData = [];
+// let csvStream = fastcsv
+//   .parse()
+//   .on("data", function(data) {
+//     csvData.push({
+//       nameOfPlace: data[0],
+//       lat: data[1],
+//       lng: data[2],
+//       averageDaysOfPlace: data[3],
+//       destinationForSex: data[4],
+//       destinationForAges: data[5]
+//     });
+//   })
+//   .on("end", function() {
+//     // remove the first line: header
+//     csvData.shift();
 
-    // save to the MongoDB database collection
-  });
+//     // save to the MongoDB database collection
+//   });
 
-stream.pipe(csvStream);
+// stream.pipe(csvStream);
 
-let url = "mongodb+srv://amigoadmindb:" + process.env.MONGO_ATLAS_PW +"@amigofinalproject-yputx.mongodb.net/test?retryWrites=true&w=majority";
+// let url = "mongodb+srv://amigoadmindb:" + process.env.MONGO_ATLAS_PW +"@amigofinalproject-yputx.mongodb.net/test?retryWrites=true&w=majority";
 
-mongodb.connect(
-  url,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  (err, client) => {
-    if (err) throw err;
-    client
-      .db("test")
-      .collection("places")
-      .insertMany(csvData, (err, res) => {
-        if (err) throw err;
-        console.log(`Inserted: ${res.insertedCount} rows`);
-        client.close();
-      });
-  }
-);
+// mongodb.connect(
+//   url,
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   (err, client) => {
+//     if (err) throw err;
+//     client
+//       .db("test")
+//       .collection("places")
+//       .insertMany(csvData, (err, res) => {
+//         if (err) throw err;
+//         console.log(`Inserted: ${res.insertedCount} rows`);
+//         client.close();
+//       });
+//   }
+// );
 
 
 module.exports = app;
