@@ -6,7 +6,7 @@
     [longitude]="marker.lng"
     (markerClick)="clickedMarker(infoWindow)"
     >
-    <agm-info-window #infoWindow>
+    <agm-info-window #infoWindow *ngIf="countPins()">
     {{ marker.nameOfPlace }}
     </agm-info-window>
 </agm-marker>

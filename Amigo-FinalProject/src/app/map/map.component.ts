@@ -33,6 +33,7 @@ export class MapComponent implements OnInit {
   private placesSub: Subscription;
 
   placesPerPage = 100;
+  count = 1;
 
   placeMarker($event) {
     console.log('lat:' + $event.coords.lat);
@@ -44,7 +45,13 @@ export class MapComponent implements OnInit {
         this.previous.close();
     }
     this.previous = infoWindow;
- }
+  }
+
+  countPins() {
+    console.log(this.count);
+    this.count ++;
+    return true;
+  }
 
   constructor(
     public postsService: PostsService,

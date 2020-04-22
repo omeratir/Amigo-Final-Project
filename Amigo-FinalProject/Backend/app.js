@@ -44,7 +44,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/places", placesRoutes);
 app.use("/api/tracks", tracksRoutes);
 
-// Run one time to import the csv file of places
+// One time - Import the csv file of places
 
 // const mongodb = require("mongodb").MongoClient;
 
@@ -57,13 +57,12 @@ app.use("/api/tracks", tracksRoutes);
 //   .parse()
 //   .on("data", function(data) {
 //     csvData.push({
-//       id: data[0],
-//       nameOfPlace: data[1],
-//       lng: data[2],
-//       lat: data[3],
-//       averageDaysOfPlace: data[4],
-//       destinationForSex: data[5],
-//       destinationForAges: data[6]
+//       nameOfPlace: data[0],
+//       lng: data[1],
+//       lat: data[2],
+//       averageDaysOfPlace: data[3],
+//       destinationForSex: data[4],
+//       destinationForAges: data[5]
 //     });
 //   })
 //   .on("end", function() {
