@@ -12,9 +12,9 @@ import { Place } from '../places/place.model';
 })
 
 export class MapComponent implements OnInit {
-  lat = 31.968910;
-  lng = 34.770729;
-  zoom = 9;
+  lat = 52.373169;
+  lng = 4.890660;
+  zoom = 12;
   previous;
 
   posts: Post[] = [

@@ -4,9 +4,9 @@ import { Subscription } from 'rxjs';
 import {  MatRadioModule } from '@angular/material';
 
 import { AuthService } from '../auth.service';
-////////
+
 interface Sex {
-  value: number;
+  value: string;
 }
 
 @Component({

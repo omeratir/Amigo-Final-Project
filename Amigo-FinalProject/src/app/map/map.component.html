@@ -7,52 +7,7 @@
     (markerClick)="clickedMarker(infoWindow)"
     >
     <agm-info-window #infoWindow>
-      <div class="container-fluid">
-        <table class="table table-bordered"  style="width: 100%;">
-          <ng-container *ngFor="let post of posts" >
-          <tr *ngIf="post.place === marker.nameOfPlace" >
-            <td>
-            <span class="header-style"> {{post.title}}</span>
-            <div *ngIf="post.rating == '1-Very Bad'">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-            <div *ngIf="post.rating == '2-Bad'">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-            <div *ngIf="post.rating == '3-Nice'">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-            <div *ngIf="post.rating == '4-Very Good'">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-            </div>
-            <div *ngIf="post.rating == '5-Excellent'">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-            </div>
-          </td>
-          </tr>
-          </ng-container>
-        </table>
-      </div>
+    {{ marker.nameOfPlace }}
     </agm-info-window>
 </agm-marker>
 </agm-map>
