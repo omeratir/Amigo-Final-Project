@@ -13,6 +13,8 @@ router.put("/:id", checkAuth, extractFile, PlaceController.updatePlace);
 
 router.get("", PlaceController.getPlaces);
 
+router.get("/all", PlaceController.getAllPlaces);
+
 router.get("/:id", PlaceController.getPlace);
 
 router.delete("/:id", checkAuth, PlaceController.deletePlace);

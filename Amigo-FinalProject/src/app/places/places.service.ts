@@ -50,6 +50,19 @@ export class PlacesService {
       });
   }
 
+  getAllPlacesService() {
+    this.http
+      .get<{ places: any; maxPlaces: number }>(
+        BACKEND_URL + 'all'
+      ).subscribe(transformedPlaceData => {
+        this.places = transformedPlaceData.places;
+        this.placesUpdated.next({
+          places: [...this.places],
+          placeCount: transformedPlaceData.maxPlaces
+        });
+      });
+  }
+
   getPlaceUpdateListener() {
     return this.placesUpdated.asObservable();
   }

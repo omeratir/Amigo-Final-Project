@@ -54,6 +54,28 @@ exports.updatePlace = (req, res, next) => {
     });
 };
 
+exports.getAllPlaces = (req, res, next) => {
+  const placeQuery = Place.find();
+  let fetchedPlaces;
+  placeQuery
+    .then(documents => {
+      fetchedPlaces = documents;
+      return Place.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "All Places fetched successfully!",
+        places: fetchedPlaces,
+        maxPlaces: count
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching places failed!"
+      });
+    });
+  }
+
 exports.getPlaces = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;

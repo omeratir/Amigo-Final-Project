@@ -50,8 +50,9 @@ app.use("/api/tracks", tracksRoutes);
 
 // const fs = require("fs");
 // const fastcsv = require("fast-csv");
-// // Amsterdamplaces.csv
-// // Attraction.csv
+// // Amsterdamplaces.csv - 100 items
+// // Attraction.csv - 1370 items
+
 // let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
 // let csvData = [];
 // let csvStream = fastcsv

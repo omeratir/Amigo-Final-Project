@@ -17,23 +17,11 @@ export class MapComponent implements OnInit {
   zoom = 12;
   previous;
 
-  posts: Post[] = [
-
-  ];
-
   places: Place[] = [
 
   ];
 
-  private postsSub: Subscription;
-
-  postsPerPage = 100;
-  currentPage = 1;
-
   private placesSub: Subscription;
-
-  placesPerPage = 100;
-  count = 1;
 
   placeMarker($event) {
     console.log('lat:' + $event.coords.lat);
@@ -47,32 +35,19 @@ export class MapComponent implements OnInit {
     this.previous = infoWindow;
   }
 
-  countPins() {
-    console.log(this.count);
-    this.count ++;
-    return true;
-  }
-
   constructor(
-    public postsService: PostsService,
     public placesService: PlacesService
   ) {}
 
   ngOnInit() {
-    this.postsService.getPosts(this.postsPerPage, this.currentPage);
-    this.postsSub = this.postsService
-      .getPostUpdateListener()
-      .subscribe((postData: { posts: Post[]; postCount: number }) => {
-        this.posts = postData.posts;
-      });
-
-    this.placesService.getPlaces(this.placesPerPage, this.currentPage);
+    this.placesService.getAllPlacesService();
     this.placesSub = this.placesService
         .getPlaceUpdateListener()
         .subscribe((placeData: { places: Place[]; placeCount: number }) => {
           this.places = placeData.places;
         });
-  }
-
 
 }
+
+}
+

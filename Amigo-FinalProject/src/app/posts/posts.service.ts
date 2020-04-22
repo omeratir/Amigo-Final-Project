@@ -49,6 +49,21 @@ export class PostsService {
       });
   }
 
+
+  getAllPostsService() {
+    this.http
+      .get<{ posts: any; maxPosts: number }>(
+        BACKEND_URL + 'all'
+      ).subscribe(transformedPostsData => {
+        this.posts = transformedPostsData.posts;
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostsData.maxPosts
+        });
+      });
+  }
+
+
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
