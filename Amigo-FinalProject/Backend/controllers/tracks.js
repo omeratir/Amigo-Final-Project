@@ -10,7 +10,7 @@ exports.createTrack = (req, res, next) => {
     amountOfLikes: req.body.amountOfLikes,
     listOfPlaces: req.body.listOfPlaces
     // creator: req.userData.userId
-  }); 
+  });
   track.save()
     .then(createdTrack => {
       res.status(201).json({
@@ -48,7 +48,7 @@ exports.updateTrack = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't udpate place!"
+        message: "Couldn't udpate track!"
       });
     });
 };
@@ -68,7 +68,7 @@ exports.getTracks = (req, res, next) => {
     })
     .then(count => {
       res.status(200).json({
-        message: "Placed fetched successfully!",
+        message: "Tracked fetched successfully!",
         places: fetchedPlaces,
         maxPlaces: count
       });
@@ -96,19 +96,19 @@ exports.getTrack = (req, res, next) => {
     });
 };
 
-exports.deletePlace = (req, res, next) => {
+exports.deleteTrack = (req, res, next) => {
   Track.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
       console.log(result);
       if (result.n > 0) {
-        res.status(200).json({ message: "Deletion successful!" });
+        res.status(200).json({ message: "Delete trace successful!" });
       } else {
         res.status(401).json({ message: "Not authorized!" });
       }
     })
     .catch(error => {
       res.status(500).json({
-        message: "Deleting place failed!"
+        message: "Deleting track failed!"
       });
     });
 };

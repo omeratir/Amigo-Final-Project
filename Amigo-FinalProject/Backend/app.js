@@ -44,40 +44,36 @@ app.use("/api/user", userRoutes);
 app.use("/api/places", placesRoutes);
 app.use("/api/tracks", tracksRoutes);
 
-const mongodb = require("mongodb").MongoClient;
+// Run one time to import the csv file of places
 
-const fs = require("fs");
-const fastcsv = require("fast-csv");
+// const mongodb = require("mongodb").MongoClient;
 
-let stream = fs.createReadStream("./Backend/csv/Attraction.csv");
-let csvData = [];
-let csvStream = fastcsv
-  .parse()
-  .on("data", function(data) {
-    csvData.push({
-      id: data[0],
-      nameOfPlace: data[1],
-      lng: data[2],
-      lat: data[3],
-      averageDaysOfPlace: data[4],
-      destinationForSex: data[5],
-      destinationForAges: data[6]
-    });
-  })
-  .on("end", function() {
-    // remove the first line: header
-    csvData.shift();
+// const fs = require("fs");
+// const fastcsv = require("fast-csv");
 
-    // save to the MongoDB database collection
-  });
+// let stream = fs.createReadStream("./Backend/csv/Attraction.csv");
+// let csvData = [];
+// let csvStream = fastcsv
+//   .parse()
+//   .on("data", function(data) {
+//     csvData.push({
+//       id: data[0],
+//       nameOfPlace: data[1],
+//       lng: data[2],
+//       lat: data[3],
+//       averageDaysOfPlace: data[4],
+//       destinationForSex: data[5],
+//       destinationForAges: data[6]
+//     });
+//   })
+//   .on("end", function() {
+//     // remove the first line: header
+//     csvData.shift();
 
-stream.pipe(csvStream);
+//     // save to the MongoDB database collection
+//   });
 
-console.log(csvData);
-
-
-
-// run one time to upload the csv file
+// stream.pipe(csvStream);
 
 // let url = "mongodb+srv://amigoadmindb:" + process.env.MONGO_ATLAS_PW +"@amigofinalproject-yputx.mongodb.net/test?retryWrites=true&w=majority";
 
@@ -96,5 +92,6 @@ console.log(csvData);
 //       });
 //   }
 // );
+
 
 module.exports = app;
