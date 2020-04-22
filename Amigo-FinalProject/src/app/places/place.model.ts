@@ -1,10 +1,10 @@
 export interface Place {
   id: string;
   nameOfPlace: string;
+  lat: string;
+  lng: string;
   averageDaysOfPlace: number;
   destinationForSex: number;
   destinationForAges: number;
-  lat: string;
-  lng: string;
   creator: string;
 }

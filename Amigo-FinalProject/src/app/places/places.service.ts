@@ -27,13 +27,13 @@ export class PlacesService {
           return {
             places: placeData.places.map(place => {
               return {
+                id: place._id,
                 nameOfPlace: place.nameOfPlace,
+                lat: place.lat,
+                lng: place.lng,
                 averageDaysOfPlace: place.averageDaysOfPlace,
                 destinationForSex: place.destinationForSex,
                 destinationForAges: place.destinationForAges,
-                lat: place.lat,
-                lng: place.lng,
-                id: place._id,
                 creator: place.creator
               };
             }),
@@ -58,11 +58,11 @@ export class PlacesService {
     return this.http.get<{
       _id: string;
       nameOfPlace: string;
+      lat: string,
+      lng: string;
       averageDaysOfPlace: number;
       destinationForSex: number;
       destinationForAges: number;
-      lat: string,
-      lng: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
@@ -85,16 +85,16 @@ export class PlacesService {
       });
   }
 
-  updatePlace(id: string, nameOfPlace: string, lat: string, lng: string, averageDaysOfPlace: string ,destinationForSex: string ,destinationForAges: string) {
+  // tslint:disable-next-line: max-line-length
+  updatePlace(id: string, nameOfPlace: string, lat: string, lng: string, averageDaysOfPlace: string , destinationForSex: string , destinationForAges: string) {
     let placeData: Place | FormData;
     placeData = new FormData();
     placeData.append('nameOfPlace', nameOfPlace);
+    placeData.append('lat', lat);
+    placeData.append('lng', lng);
     placeData.append('averageDaysOfPlace', averageDaysOfPlace);
     placeData.append('destinationForSex', destinationForSex);
     placeData.append('destinationForAges', destinationForAges);
-    placeData.append('lat', lat);
-    placeData.append('lng', lng);
-
     this.http
       .put(BACKEND_URL + id, placeData)
       .subscribe(response => {

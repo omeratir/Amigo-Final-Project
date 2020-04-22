@@ -50,16 +50,17 @@ app.use("/api/tracks", tracksRoutes);
 
 // const fs = require("fs");
 // const fastcsv = require("fast-csv");
-
-// let stream = fs.createReadStream("./Backend/csv/Attraction.csv");
+// // Amsterdamplaces.csv
+// // Attraction.csv
+// let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
 // let csvData = [];
 // let csvStream = fastcsv
 //   .parse()
 //   .on("data", function(data) {
 //     csvData.push({
 //       nameOfPlace: data[0],
-//       lng: data[1],
-//       lat: data[2],
+//       lat: data[1],
+//       lng: data[2],
 //       averageDaysOfPlace: data[3],
 //       destinationForSex: data[4],
 //       destinationForAges: data[5]

@@ -4,13 +4,13 @@ exports.createPlace = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const place = new Place({
     nameOfPlace: req.body.nameOfPlace,
-    lng: req.body.lng,
     lat: req.body.lat,
+    lng: req.body.lng,
     averageOfStars: req.body.lng,
     destinationForSex: req.body.lng,
     destinationForAges: req.body.lng,
     creator: req.userData.userId
-  }); 
+  });
   place.save()
     .then(createdPlace => {
       res.status(201).json({
@@ -32,8 +32,8 @@ exports.updatePlace = (req, res, next) => {
   const place = new Place({
     _id: req.body.id,
     nameOfPlace: req.body.nameOfPlace,
-    lng: req.body.lng,
-    lat: req.body.lat,
+    lat: req.body.lng,
+    lng: req.body.lat,
     averageOfStars: req.body.lng,
     destinationForSex: req.body.lng,
     destinationForAges: req.body.lng,

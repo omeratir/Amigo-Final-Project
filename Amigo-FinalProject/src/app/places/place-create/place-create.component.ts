@@ -55,20 +55,20 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
           this.place = {
             id: placeData._id,
             nameOfPlace: placeData.nameOfPlace,
+            lat: placeData.lat,
+            lng: placeData.lng,
             averageDaysOfPlace: placeData.averageDaysOfPlace,
             destinationForSex: placeData.destinationForSex,
             destinationForAges: placeData.destinationForAges,
-            lat: placeData.lat,
-            lng: placeData.lng,
             creator: placeData.creator
           };
           this.form.setValue({
             nameOfPlace: this.place.nameOfPlace,
+            lat: this.place.lat,
+            lng: this.place.lng,
             averageDaysOfPlace: this.place.averageDaysOfPlace,
             destinationForSex: this.place.destinationForSex,
-            destinationForAges: this.place.destinationForAges,
-            lat: this.place.lat,
-            lng: this.place.lng
+            destinationForAges: this.place.destinationForAges
           });
         });
       } else {
@@ -86,21 +86,21 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     if (this.mode === 'createplace') {
       this.placesService.addPlace(
         this.form.value.nameOfPlace,
+        this.form.value.lat,
+        this.form.value.lng
         // this.form.value.averageDaysOfPlace,
         // this.form.value.destinationForSex,
         // this.form.value.destinationForAges,
-        this.form.value.lat,
-        this.form.value.lng
       );
     } else {
       this.placesService.updatePlace(
         this.placeId,
+        this.form.value.lat,
+        this.form.value.lng,
         this.form.value.nameOfPlace,
         this.form.value.averageDaysOfPlace,
         this.form.value.destinationForSex,
-        this.form.value.destinationForAges,
-        this.form.value.lat,
-        this.form.value.lng
+        this.form.value.destinationForAges
       );
     }
     this.form.reset();
