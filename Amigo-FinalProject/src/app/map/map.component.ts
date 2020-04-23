@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../posts/post.model';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { PostsService } from '../posts/posts.service';
 import { PlacesService } from '../places/places.service';
 import { Place } from '../places/place.model';
 
@@ -16,6 +14,12 @@ export class MapComponent implements OnInit {
   lng = 4.890660;
   zoom = 12;
   previous;
+
+
+  totalPlaces = 0;
+  placesPerPage = 2000;
+  placeslength = 1;
+  currentPage = 1;
 
   places: Place[] = [
 
@@ -40,13 +44,12 @@ export class MapComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.placesService.getAllPlacesService();
+    this.placesService.getPlaces(this.placesPerPage, this.currentPage);
     this.placesSub = this.placesService
-        .getPlaceUpdateListener()
-        .subscribe((placeData: { places: Place[]; placeCount: number }) => {
-          this.places = placeData.places;
-        });
-
+      .getPlaceUpdateListener()
+      .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+        this.places = placeData.places;
+      });
 }
 
 }

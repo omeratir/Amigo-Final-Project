@@ -11,11 +11,7 @@ exports.createUser = (req, res, next) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       age: req.body.age,
-      sex: req.body.sex,
-      addressOfStart: req.body.email,
-      addressOfEnd: req.body.email,
-      numberOfDays: req.body.numberOfDays,
-      purposeOfTheTrip: req.body.purposeOfTheTrip,
+      gender: req.body.gender,
       hobbies: req.body.hobbies
     });
     user.save()

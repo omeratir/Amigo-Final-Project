@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const placesRoutes = require("./routes/places");
-const tracksRoutes = require("./routes/tracks");
 const app = express();
 
 const io = require("socket.io");
@@ -42,9 +41,9 @@ app.use((req, res, next) => {
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/places", placesRoutes);
-app.use("/api/tracks", tracksRoutes);
 
-// One time - Import the csv file of places
+
+// ********* One time - Import the csv file of places ********** //
 
 // const mongodb = require("mongodb").MongoClient;
 
@@ -52,19 +51,18 @@ app.use("/api/tracks", tracksRoutes);
 // const fastcsv = require("fast-csv");
 // // Amsterdamplaces.csv - 100 items
 // // Attraction.csv - 1370 items
+// // Amsterdamplacestemp.csv - 100 items - only name & lat & lng
 
-// let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
+
+// let stream = fs.createReadStream("./Backend/csv/Amsterdamplacestemp.csv");
 // let csvData = [];
 // let csvStream = fastcsv
 //   .parse()
 //   .on("data", function(data) {
 //     csvData.push({
-//       nameOfPlace: data[0],
+//       name: data[0],
 //       lat: data[1],
-//       lng: data[2],
-//       averageDaysOfPlace: data[3],
-//       destinationForSex: data[4],
-//       destinationForAges: data[5]
+//       lng: data[2]
 //     });
 //   })
 //   .on("end", function() {
@@ -93,6 +91,7 @@ app.use("/api/tracks", tracksRoutes);
 //       });
 //   }
 // );
+
 
 
 module.exports = app;

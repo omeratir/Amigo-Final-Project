@@ -3,12 +3,9 @@ const Place = require("../models/place");
 exports.createPlace = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const place = new Place({
-    nameOfPlace: req.body.nameOfPlace,
+    name: req.body.name,
     lat: req.body.lat,
     lng: req.body.lng,
-    averageOfStars: req.body.lng,
-    destinationForSex: req.body.lng,
-    destinationForAges: req.body.lng,
     creator: req.userData.userId
   });
   place.save()
@@ -31,12 +28,9 @@ exports.createPlace = (req, res, next) => {
 exports.updatePlace = (req, res, next) => {
   const place = new Place({
     _id: req.body.id,
-    nameOfPlace: req.body.nameOfPlace,
-    lat: req.body.lng,
-    lng: req.body.lat,
-    averageOfStars: req.body.lng,
-    destinationForSex: req.body.lng,
-    destinationForAges: req.body.lng,
+    name: req.body.name,
+    lat: req.body.lat,
+    lng: req.body.lng,
     creator: req.userData.userId
   });
   Place.updateOne({ _id: req.params.id, creator: req.userData.userId }, place)
@@ -53,28 +47,6 @@ exports.updatePlace = (req, res, next) => {
       });
     });
 };
-
-exports.getAllPlaces = (req, res, next) => {
-  const placeQuery = Place.find();
-  let fetchedPlaces;
-  placeQuery
-    .then(documents => {
-      fetchedPlaces = documents;
-      return Place.count();
-    })
-    .then(count => {
-      res.status(200).json({
-        message: "All Places fetched successfully!",
-        places: fetchedPlaces,
-        maxPlaces: count
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: "Fetching places failed!"
-      });
-    });
-  }
 
 exports.getPlaces = (req, res, next) => {
   const pageSize = +req.query.pagesize;
@@ -135,3 +107,25 @@ exports.deletePlace = (req, res, next) => {
       });
     });
 };
+
+exports.getAllPlaces = (req, res, next) => {
+  const placeQuery = Place.find();
+  let fetchedPlaces;
+  placeQuery
+    .then(documents => {
+      fetchedPlaces = documents;
+      return Place.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "All Places fetched successfully!",
+        places: fetchedPlaces,
+        maxPlaces: count
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching places failed!"
+      });
+    });
+  }

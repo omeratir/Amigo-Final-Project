@@ -7,15 +7,12 @@ const userSchema = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   age: { type: String, required: true },
-  sex: { type: String, required: true },
-  addressOfStart: { type: String, required: false },
-  addressOfEnd: { type: String, required: false },
-  numberOfDays: { type: String, required: true },
-  purposeOfTheTrip: { type: String, required: true },
+  gender: { type: String, required: true },
   hobbies: { type: String, required: true },
 });
 
 userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model("User", userSchema);
+
 

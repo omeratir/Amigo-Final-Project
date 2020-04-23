@@ -36,12 +36,9 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
     this.form = new FormGroup({
-      nameOfPlace: new FormControl(null, {
+      name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      averageDaysOfPlace: new FormControl(null, { validators: [Validators.nullValidator] }),
-      destinationForSex: new FormControl(null, { validators: [Validators.nullValidator] }),
-      destinationForAges: new FormControl(null, { validators: [Validators.nullValidator] }),
       lat: new FormControl(null, { validators: [Validators.required] }),
       lng: new FormControl(null, { validators: [Validators.required] })
     });
@@ -54,21 +51,15 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.place = {
             id: placeData._id,
-            nameOfPlace: placeData.nameOfPlace,
+            name: placeData.name,
             lat: placeData.lat,
             lng: placeData.lng,
-            averageDaysOfPlace: placeData.averageDaysOfPlace,
-            destinationForSex: placeData.destinationForSex,
-            destinationForAges: placeData.destinationForAges,
             creator: placeData.creator
           };
           this.form.setValue({
-            nameOfPlace: this.place.nameOfPlace,
+            name: this.place.name,
             lat: this.place.lat,
-            lng: this.place.lng,
-            averageDaysOfPlace: this.place.averageDaysOfPlace,
-            destinationForSex: this.place.destinationForSex,
-            destinationForAges: this.place.destinationForAges
+            lng: this.place.lng
           });
         });
       } else {
@@ -85,22 +76,16 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (this.mode === 'createplace') {
       this.placesService.addPlace(
-        this.form.value.nameOfPlace,
+        this.form.value.name,
         this.form.value.lat,
         this.form.value.lng
-        // this.form.value.averageDaysOfPlace,
-        // this.form.value.destinationForSex,
-        // this.form.value.destinationForAges,
       );
     } else {
       this.placesService.updatePlace(
         this.placeId,
+        this.form.value.name,
         this.form.value.lat,
-        this.form.value.lng,
-        this.form.value.nameOfPlace,
-        this.form.value.averageDaysOfPlace,
-        this.form.value.destinationForSex,
-        this.form.value.destinationForAges
+        this.form.value.lng
       );
     }
     this.form.reset();

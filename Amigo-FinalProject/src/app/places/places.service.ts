@@ -27,13 +27,10 @@ export class PlacesService {
           return {
             places: placeData.places.map(place => {
               return {
-                id: place._id,
-                nameOfPlace: place.nameOfPlace,
+                name: place.name,
                 lat: place.lat,
                 lng: place.lng,
-                averageDaysOfPlace: place.averageDaysOfPlace,
-                destinationForSex: place.destinationForSex,
-                destinationForAges: place.destinationForAges,
+                id: place._id,
                 creator: place.creator
               };
             }),
@@ -50,6 +47,53 @@ export class PlacesService {
       });
   }
 
+  getPlaceUpdateListener() {
+    return this.placesUpdated.asObservable();
+  }
+
+  getPlace(id: string) {
+    return this.http.get<{
+      _id: string;
+      name: string;
+      lat: string,
+      lng: string;
+      creator: string;
+    }>(BACKEND_URL + id);
+  }
+
+  addPlace(name: string, lat: string, lng: string) {
+    const placeData = new FormData();
+    placeData.append('name', name);
+    placeData.append('lat', lat);
+    placeData.append('lng', lng);
+    this.http
+      .post<{ message: string; place: Place }>(
+        BACKEND_URL,
+        placeData
+      )
+      .subscribe(responseData => {
+        this.router.navigate(['/placelist']);
+      });
+  }
+
+  updatePlace(id: string, name: string, lat: string, lng: string) {
+    let placeData: Place | FormData;
+    placeData = new FormData();
+    placeData.append('name', name);
+    placeData.append('lat', lat);
+    placeData.append('lng', lng);
+
+    this.http
+      .put(BACKEND_URL + id, placeData)
+      .subscribe(response => {
+        this.router.navigate(['/']);
+      });
+  }
+
+  deletePlace(placeId: string) {
+    return this.http.delete(BACKEND_URL + placeId);
+  }
+
   getAllPlacesService() {
     this.http
       .get<{ places: any; maxPlaces: number }>(
@@ -63,59 +107,4 @@ export class PlacesService {
       });
   }
 
-  getPlaceUpdateListener() {
-    return this.placesUpdated.asObservable();
-  }
-
-  getPlace(id: string) {
-    return this.http.get<{
-      _id: string;
-      nameOfPlace: string;
-      lat: string,
-      lng: string;
-      averageDaysOfPlace: number;
-      destinationForSex: number;
-      destinationForAges: number;
-      creator: string;
-    }>(BACKEND_URL + id);
-  }
-
-  addPlace(nameOfPlace: string, lat: string, lng: string ) {
-    const placeData = new FormData();
-    placeData.append('nameOfPlace', nameOfPlace);
-    // placeData.append('averageDaysOfPlace', averageDaysOfPlace);
-    // placeData.append('destinationForSex', destinationForSex);
-    // placeData.append('destinationForAges', destinationForAges);
-    placeData.append('lat', lat);
-    placeData.append('lng', lng);
-    this.http
-      .post<{ message: string; place: Place }>(
-        BACKEND_URL,
-        placeData
-      )
-      .subscribe(responseData => {
-        this.router.navigate(['/']);
-      });
-  }
-
-  // tslint:disable-next-line: max-line-length
-  updatePlace(id: string, nameOfPlace: string, lat: string, lng: string, averageDaysOfPlace: string , destinationForSex: string , destinationForAges: string) {
-    let placeData: Place | FormData;
-    placeData = new FormData();
-    placeData.append('nameOfPlace', nameOfPlace);
-    placeData.append('lat', lat);
-    placeData.append('lng', lng);
-    placeData.append('averageDaysOfPlace', averageDaysOfPlace);
-    placeData.append('destinationForSex', destinationForSex);
-    placeData.append('destinationForAges', destinationForAges);
-    this.http
-      .put(BACKEND_URL + id, placeData)
-      .subscribe(response => {
-        this.router.navigate(['/']);
-      });
-  }
-
-  deletePlace(placeId: string) {
-    return this.http.delete(BACKEND_URL + placeId);
-  }
 }

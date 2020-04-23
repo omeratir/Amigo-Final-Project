@@ -32,18 +32,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput name="sex" ngModel type="sex" placeholder="Gender" #sexInput="ngModel" required>
-      <mat-error *ngIf="sexInput.invalid">Please enter your gender.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="numberOfDays" ngModel type="numberOfDays" placeholder="Number of days of your trip" #numberOfDaysInput="ngModel" required>
-      <mat-error *ngIf="numberOfDaysInput.invalid">Please enter number of days of your trip.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="purposeOfTheTrip" ngModel type="purposeOfTheTrip" placeholder="Your Purpose of the trip" #purposeOfTheTripInput="ngModel" required>
-      <mat-error *ngIf="purposeOfTheTripInput.invalid">Please enter your purpose of the trip.</mat-error>
+      <input matInput name="gender" ngModel type="gender" placeholder="Gender" #genderInput="ngModel" required>
+      <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
     </mat-form-field>
 
     <mat-form-field>

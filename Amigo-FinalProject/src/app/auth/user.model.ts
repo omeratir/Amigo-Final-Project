@@ -4,10 +4,6 @@ export interface User {
   firstName: string;
   lastName: string;
   age: string;
-  sex: string;
-  // addressOfStart: string;
-  // addressOfEnd: string;
-  numberOfDays: string;
-  purposeOfTheTrip: string;
+  gender: string;
   hobbies: string;
 }
