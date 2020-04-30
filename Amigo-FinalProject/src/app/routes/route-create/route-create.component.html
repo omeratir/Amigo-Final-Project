@@ -1,12 +1,12 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="form" (submit)="onSaveRoute()" *ngIf="!isLoading">
+  <form [formGroup]="form" (submit)="onSaveRoute()" *ngIf="!isLoading" >
     <mat-form-field>
       <input matInput type="text" formControlName="name" placeholder="Route name">
       <mat-error *ngIf="form.get('name').invalid">Please enter a route title.</mat-error>
     </mat-form-field>
     <p></p>
-
+<!--
     <p>
     <mat-form-field>
       <mat-label>Select the places of your route</mat-label>
@@ -16,6 +16,34 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+  </p> -->
+
+  <p>
+    <mat-form-field>
+      <mat-label>Select the places of your route</mat-label>
+      <mat-select formControlName="places">
+        <mat-option *ngFor="let place of places" [value]="place.name">
+          {{ place.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <a (click)="onAddPlace()"> Add More Place </a>
+    <!-- <button (onclick)="onAddPlace()"> Add More Place </button> -->
+    <!-- <button mat-raised-button color="accent" type="addplace"> Add More Place</button> -->
+  </p>
+
+  <p *ngIf="ifClickedPlace()">
+    <mat-form-field>
+      <mat-label>Select the places of your route</mat-label>
+      <mat-select formControlName="places">
+        <mat-option *ngFor="let place of places" [value]="place.name">
+          {{ place.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <button (onclick)="onAddPlace()"> Add More Place </button> -->
+    <a (click)="onAddPlace()"> Add More Place </a>
+    <!-- <button mat-raised-button color="accent" type="addplace"> Add More Place</button> -->
   </p>
 
 <p>
@@ -39,6 +67,6 @@
       <mat-error *ngIf="form.get('content').invalid">Please write a litte about the route .</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="accent" type="submit">Save Post</button>
+    <button mat-raised-button color="accent" type="submit">Save Route</button>
   </form>
 </mat-card>

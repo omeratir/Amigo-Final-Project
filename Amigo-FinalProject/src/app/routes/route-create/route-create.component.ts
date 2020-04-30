@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -49,12 +49,15 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
   placesPerPage = 100;
   currentPage = 1;
 
+  clickedAddPlace: boolean;
+
 
   constructor(
     public routesService: RoutesService,
     public route2: ActivatedRoute,
     private authService: AuthService,
-    public placesService: PlacesService
+    public placesService: PlacesService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -63,6 +66,8 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
       .subscribe(authStatus => {
         this.isLoading = false;
       });
+
+    this.clickedAddPlace = false;
 
     this.placesService.getPlaces(this.placesPerPage, this.currentPage);
     this.placesSub = this.placesService
@@ -109,6 +114,20 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
         this.routeId = null;
       }
     });
+  }
+
+  onAddPlace() {
+    console.log('Add Place Function Clicked');
+    this.clickedAddPlace = true;
+  }
+
+  ifClickedPlace() {
+    if (this.clickedAddPlace) {
+      this.clickedAddPlace = false;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   onSaveRoute() {
