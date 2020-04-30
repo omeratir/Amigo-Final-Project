@@ -7,12 +7,14 @@ import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 import { PlaceCreateComponent } from './places/place-create/place-create.component';
 import { PlaceListComponent } from './places/place-list/place-list.component';
+import { RouteCreateComponent } from './routes/route-create/route-create.component';
 
 const routes: Routes = [
   { path: '', component: PostListComponent },
   { path: 'placelist', component: PlaceListComponent },
   { path: 'postcreate', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'placecreate', component: PlaceCreateComponent, canActivate: [AuthGuard] },
+  { path: 'routecreate', component: RouteCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'placeedit/:placeId', component: PlaceCreateComponent, canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},

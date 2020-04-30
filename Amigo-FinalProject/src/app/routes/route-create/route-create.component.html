@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveRoute()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Route name">
+      <mat-error *ngIf="form.get('name').invalid">Please enter a route title.</mat-error>
+    </mat-form-field>
+    <p></p>
+
+    <p>
+    <mat-form-field>
+      <mat-label>Select the places of your route</mat-label>
+      <mat-select formControlName="places">
+        <mat-option *ngFor="let place of places" [value]="place.name">
+          {{ place.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+
+<p>
+    <mat-form-field>
+      <mat-label>Select Your Rate Of the route</mat-label>
+      <mat-select formControlName="rating">
+        <mat-option *ngFor="let rate of rates" [value]="rate.value">
+          {{rate.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+
+    <mat-form-field>
+      <textarea matInput type="text" formControlName="time_of_route" placeholder="Post time_of_route"></textarea>
+      <mat-error *ngIf="form.get('time_of_route').invalid">Please enter the long time of your route.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput rows="4" formControlName="content" placeholder="Post Content"></textarea>
+      <mat-error *ngIf="form.get('content').invalid">Please write a litte about the route .</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit">Save Post</button>
+  </form>
+</mat-card>

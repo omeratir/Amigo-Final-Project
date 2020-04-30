@@ -12,6 +12,8 @@ import { ErrorComponent } from './error/error.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { PostsModule } from './posts/posts.module';
 import { PlacesModule } from './places/places.module';
+import { RoutesModule } from './routes/routes.module';
+
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 
@@ -44,6 +46,7 @@ import { ChartsModule } from 'ng2-charts';
     AngularMaterialModule,
     PostsModule,
     PlacesModule,
+    RoutesModule,
     FormsModule,
     FilterPipeModule,
     Ng2SearchPipeModule,

@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="routes.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let route of routes">
+    <mat-expansion-panel-header>
+      {{ route.title }}
+    </mat-expansion-panel-header>
+    <p>{{ route.places }}</p>
+    <p>{{ route.content }}</p>
+    <p>{{ route.time_of_route }}</p>
+    <p *ngIf="route.rating == '1-Very Bad'">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+    </p>
+    <p *ngIf="route.rating == '2-Bad'">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+    </p>
+    <p *ngIf="route.rating == '3-Nice'">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+    </p>
+    <p *ngIf="route.rating == '4-Very Good'">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star"></span>
+    </p>
+    <p *ngIf="route.rating == '5-Excellent'">
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+      <span class="fa fa-star checked"></span>
+    </p>
+    <mat-action-row *ngIf="userIsAuthenticated && userId === route.creator">
+      <a mat-button color="primary" [routerLink]="['/edit', route.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(route.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-paginator [length]="totalPosts" [pageSize]="routesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+  *ngIf="routes.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="routes.length <= 0 && !isLoading">No routes added yet!</p>
