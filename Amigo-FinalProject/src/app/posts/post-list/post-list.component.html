@@ -43,8 +43,10 @@
       <span class="fa fa-star checked"></span>
       <span class="fa fa-star checked"></span>
     </p>
-    <p>{{ post.place }}</p>
-    <p>{{ post.content }}</p>
+    <p>place : {{ post.place }}</p>
+    <p>content : {{ post.content }}</p>
+    <p>time of place : {{ post.time_of_place }}</p>
+    <p>purpose of place : {{ post.purpose_of_place }}</p>
     <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
       <a mat-button color="primary" [routerLink]="['/edit', post.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>

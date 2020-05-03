@@ -4,6 +4,8 @@ export interface Post {
   place: string;
   rating: string;
   content: string;
+  time_of_place: string;
+  purpose_of_place: string;
   imagePath: string;
   creator: string;
 }

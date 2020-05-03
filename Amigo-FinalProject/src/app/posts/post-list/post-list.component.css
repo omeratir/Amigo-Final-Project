@@ -16,11 +16,11 @@ mat-paginator {
 }
 
 .post-image {
-  width: 100%;
+  width: 50%;
 }
 
 .post-image img {
-  width: 100%;
+  width: 50%;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 

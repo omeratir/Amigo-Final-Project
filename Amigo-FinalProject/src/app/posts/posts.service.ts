@@ -31,6 +31,8 @@ export class PostsService {
                 place: post.place,
                 rating: post.rating,
                 content: post.content,
+                time_of_place: post.time_of_place,
+                purpose_of_place: post.purpose_of_place,
                 id: post._id,
                 imagePath: post.imagePath,
                 creator: post.creator
@@ -60,17 +62,22 @@ export class PostsService {
       place: string,
       rating: string,
       content: string;
+      time_of_place: string,
+      purpose_of_place: string,
       imagePath: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addPost(title: string, place: string, rating: string, content: string, image: File) {
+  // tslint:disable-next-line: variable-name
+  addPost(title: string, place: string, rating: string, content: string, time_of_place: string, purpose_of_place: string, image: File) {
     const postData = new FormData();
     postData.append('title', title);
     postData.append('place', place);
     postData.append('rating', rating);
     postData.append('content', content);
+    postData.append('time_of_place', time_of_place);
+    postData.append('purpose_of_place', purpose_of_place);
     postData.append('image', image, title);
     this.http
       .post<{ message: string; post: Post }>(
@@ -82,7 +89,8 @@ export class PostsService {
       });
   }
 
-  updatePost(id: string, title: string, place: string, rating: string, content: string, image: File | string) {
+  // tslint:disable-next-line: max-line-length   // tslint:disable-next-line: variable-name
+  updatePost(id: string, title: string, place: string, rating: string, content: string, time_of_place: string , purpose_of_place: string, image: File | string) {
     let postData: Post | FormData;
     if (typeof image === 'object') {
       postData = new FormData();
@@ -91,6 +99,8 @@ export class PostsService {
       postData.append('place', place);
       postData.append('rating', rating);
       postData.append('content', content);
+      postData.append('time_of_place', time_of_place);
+      postData.append('purpose_of_place', purpose_of_place);
       postData.append('image', image, title);
     } else {
       postData = {
@@ -99,6 +109,8 @@ export class PostsService {
         place,
         rating,
         content,
+        time_of_place,
+        purpose_of_place,
         imagePath: image,
         creator: null
       };

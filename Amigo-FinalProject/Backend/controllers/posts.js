@@ -7,6 +7,8 @@ exports.createPost = (req, res, next) => {
     place: req.body.place,
     rating: req.body.rating,
     content: req.body.content,
+    time_of_place: req.body.time_of_place,
+    purpose_of_place: req.body.purpose_of_place,
     imagePath: url + "/images/" + req.file.filename,
     creator: req.userData.userId
   });
@@ -40,6 +42,8 @@ exports.updatePost = (req, res, next) => {
     place: req.body.place,
     rating: req.body.rating,
     content: req.body.content,
+    time_of_place: req.body.time_of_place,
+    purpose_of_place: req.body.purpose_of_place,
     imagePath: imagePath,
     creator: req.userData.userId
   });

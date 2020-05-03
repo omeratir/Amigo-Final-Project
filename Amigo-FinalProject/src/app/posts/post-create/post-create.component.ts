@@ -79,6 +79,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       place: new FormControl(null, { validators: [Validators.required] }),
       rating: new FormControl(null, { validators: [Validators.required] }),
       content: new FormControl(null, { validators: [Validators.required] }),
+      purpose_of_place: new FormControl(null, { validators: [Validators.required] }),
+      time_of_place: new FormControl(null, { validators: [Validators.required] }),
       image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
@@ -97,6 +99,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             place: postData.place,
             rating: postData.rating,
             content: postData.content,
+            time_of_place: postData.time_of_place,
+            purpose_of_place: postData.purpose_of_place,
             imagePath: postData.imagePath,
             creator: postData.creator
           };
@@ -105,6 +109,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             place: this.post.place,
             rating: this.post.rating,
             content: this.post.content,
+            time_of_place: this.post.time_of_place,
+            purpose_of_place: this.post.purpose_of_place,
             image: this.post.imagePath
           });
         });
@@ -137,6 +143,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.form.value.place,
         this.form.value.rating,
         this.form.value.content,
+        this.form.value.time_of_place,
+        this.form.value.purpose_of_place,
         this.form.value.image
       );
     } else {
@@ -146,6 +154,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.form.value.place,
         this.form.value.rating,
         this.form.value.content,
+        this.form.value.time_of_place,
+        this.form.value.purpose_of_place,
         this.form.value.image
       );
     }
