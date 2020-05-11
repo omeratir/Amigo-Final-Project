@@ -29,8 +29,7 @@ export class RoutesService {
             routes: routeData.routes.map(route => {
               return {
                 name: route.name,
-                places: route.placess,
-                content: route.content,
+                places: route.places,
                 time_of_route: route.time_of_route,
                 rating: route.rating,
                 id: route._id,
@@ -59,18 +58,16 @@ export class RoutesService {
       _id: string;
       name: string;
       places: string,
-      content: string;
       time_of_route: string;
       rating: string,
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addRoute(name: string, places: string, content: string, timeofroute: string, rating: string) {
+  addRoute(name: string, places: string, timeofroute: string, rating: string) {
     const routeData = new FormData();
     routeData.append('name', name);
     routeData.append('places', places);
-    routeData.append('content', content);
     routeData.append('time_of_route', timeofroute);
     routeData.append('rating', rating);
     this.http
@@ -79,18 +76,17 @@ export class RoutesService {
         routeData
       )
       .subscribe(responseData => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/routelist']);
       });
   }
 
   // tslint:disable-next-line: variable-name
-  updateRoute(id: string, name: string, places: string, content: string, time_of_route: string , rating: string ) {
+  updateRoute(id: string, name: string, places: string, time_of_route: string , rating: string ) {
     let routeData: Route | FormData;
     routeData = {
         id,
         name,
         places,
-        content,
         time_of_route,
         rating,
         creator: null
@@ -98,7 +94,7 @@ export class RoutesService {
     this.http
       .put(BACKEND_URL + id, routeData)
       .subscribe(response => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/routelist']);
       });
   }
 

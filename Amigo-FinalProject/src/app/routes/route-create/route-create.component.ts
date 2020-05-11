@@ -23,7 +23,6 @@ interface Rate {
 
 export class RouteCreateComponent implements OnInit, OnDestroy {
   enteredTitle = '';
-  enteredContent = '';
   route: Route;
   isLoading = false;
   form: FormGroup;
@@ -40,7 +39,7 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
     {value: '5-Excellent', viewValue: '5-Exellent'}
   ];
 
-  places: Place[] = [
+  placesList: Place[] = [
 
   ];
 
@@ -50,6 +49,7 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
   currentPage = 1;
 
   clickedAddPlace: boolean;
+  routeCreateForm;
 
 
   constructor(
@@ -73,18 +73,18 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
     this.placesSub = this.placesService
           .getPlaceUpdateListener()
           .subscribe((placeData: { places: Place[]; placeCount: number }) => {
-            this.places = placeData.places;
+            this.placesList = placeData.places;
           });
 
-    this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(1)]
-      }),
-      places: new FormControl(null, { validators: [Validators.required] }),
-      content: new FormControl(null, { validators: [Validators.required] }),
-      time_of_route: new FormControl(null, { validators: [Validators.required] }),
-      rating: new FormControl(null, { validators: [Validators.required] })
-    });
+    this.routeCreateForm = this.fb.group({
+    name: [null, Validators.required],
+    places: this.fb.array([
+      this.fb.control('')
+    ]),
+    time_of_route: [null, Validators.required],
+    rating: [null, Validators.required]
+  });
+
     this.route2.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('routeId')) {
         this.mode = 'edit';
@@ -96,7 +96,6 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
             id: routeData._id,
             name: routeData.name,
             places: routeData.places,
-            content: routeData.content,
             time_of_route: routeData.time_of_route,
             rating: routeData.rating,
             creator: routeData.creator
@@ -104,7 +103,6 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
           this.form.setValue({
             name: this.route.name,
             places: this.route.places,
-            content: this.route.content,
             time_of_route: this.route.time_of_route,
             rating: this.route.rating,
           });
@@ -116,48 +114,58 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  onAddPlace() {
-    console.log('Add Place Function Clicked');
-    this.clickedAddPlace = true;
-  }
-
-  ifClickedPlace() {
-    if (this.clickedAddPlace) {
-      this.clickedAddPlace = false;
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // tslint:disable-next-line: member-ordering
+  place = '';
+  // tslint:disable-next-line: member-ordering
+  counter: number;
 
   onSaveRoute() {
-    if (this.form.invalid) {
+    console.log('submit clicked ');
+    this.counter = 0;
+    for (const place of this.places.controls) {
+      if (this.counter === 0) {
+        this.place = this.routeCreateForm.get('places' , this.counter ).value;
+      } else {
+        this.place.concat(',');
+        this.place.concat(this.routeCreateForm.get('places' , this.counter ).value);
+      }
+    }
+
+    console.log('Places after append = ' + this.place);
+
+    if (this.routeCreateForm.invalid) {
       return;
     }
     this.isLoading = true;
     if (this.mode === 'routecreate') {
       this.routesService.addRoute(
-        this.form.value.name,
-        this.form.value.places,
-        this.form.value.content,
-        this.form.value.time_of_route,
-        this.form.value.rating
+        this.routeCreateForm.get('name').value,
+        this.place,
+        this.routeCreateForm.get('time_of_route').value,
+        this.routeCreateForm.get('rating').value
       );
     } else {
       this.routesService.updateRoute(
         this.routeId,
-        this.form.value.name,
-        this.form.value.places,
-        this.form.value.content,
-        this.form.value.time_of_route,
-        this.form.value.rating
+        this.routeCreateForm.get('name').value,
+        this.place,
+        this.routeCreateForm.get('time_of_route').value,
+        this.routeCreateForm.get('rating').value
       );
     }
-    this.form.reset();
+    this.routeCreateForm.reset();
   }
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
+  }
+
+  get places() {
+    return this.routeCreateForm.get('places') as FormArray;
+  }
+
+  addNewPlace() {
+    this.places.push(this.fb.control(''));
   }
 
 }

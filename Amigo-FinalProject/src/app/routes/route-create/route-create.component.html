@@ -1,72 +1,44 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="form" (submit)="onSaveRoute()" *ngIf="!isLoading" >
-    <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Route name">
-      <mat-error *ngIf="form.get('name').invalid">Please enter a route title.</mat-error>
-    </mat-form-field>
-    <p></p>
-<!--
-    <p>
-    <mat-form-field>
-      <mat-label>Select the places of your route</mat-label>
-      <mat-select formControlName="places">
-        <mat-option *ngFor="let place of places" [value]="place.name">
-          {{ place.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </p> -->
+<form [formGroup] ="routeCreateForm" (submit)="onSaveRoute()" *ngIf="!isLoading">
 
-  <p>
-    <mat-form-field>
-      <mat-label>Select the places of your route</mat-label>
-      <mat-select formControlName="places">
-        <mat-option *ngFor="let place of places" [value]="place.name">
-          {{ place.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <a (click)="onAddPlace()"> Add More Place </a>
-    <!-- <button (onclick)="onAddPlace()"> Add More Place </button> -->
-    <!-- <button mat-raised-button color="accent" type="addplace"> Add More Place</button> -->
-  </p>
+  <label>Name : </label>
+  <input type="text" formControlName="name" placeholder="Route name">
+  <mat-error *ngIf="routeCreateForm.get('name').invalid">Please enter a route title.</mat-error>
 
-  <p *ngIf="ifClickedPlace()">
-    <mat-form-field>
-      <mat-label>Select the places of your route</mat-label>
-      <mat-select formControlName="places">
-        <mat-option *ngFor="let place of places" [value]="place.name">
-          {{ place.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!-- <button (onclick)="onAddPlace()"> Add More Place </button> -->
-    <a (click)="onAddPlace()"> Add More Place </a>
-    <!-- <button mat-raised-button color="accent" type="addplace"> Add More Place</button> -->
-  </p>
+  <div formArrayName="places">
+    <h1>enter place</h1>
+    <a (click)="addNewPlace()">Add New Place</a>
 
-<p>
-    <mat-form-field>
-      <mat-label>Select Your Rate Of the route</mat-label>
-      <mat-select formControlName="rating">
-        <mat-option *ngFor="let rate of rates" [value]="rate.value">
-          {{rate.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </p>
+  <div *ngFor="let place of places.controls; let i=index">
+    <label>Place {{ i + 1 }} </label>
+    <!-- <input type="text" [formControlName]="i" placeholder="place {{ i + 1 }}"> -->
+    <select [formControlName]="i">
+      <option *ngFor="let place of placesList" [value]="place.name">
+        {{ place.name }}
+      </option>
+    </select>
+  </div>
+  </div>
 
-    <mat-form-field>
-      <textarea matInput type="text" formControlName="time_of_route" placeholder="Post time_of_route"></textarea>
-      <mat-error *ngIf="form.get('time_of_route').invalid">Please enter the long time of your route.</mat-error>
-    </mat-form-field>
+  <!-- <label>Rate : </label>
+  <input type="text" formControlName="rating" placeholder="Route time" >
+  <mat-error *ngIf="routeCreateForm.get('rating').invalid">Please enter a route rate.</mat-error>
+  <br> -->
 
-    <mat-form-field>
-      <textarea matInput rows="4" formControlName="content" placeholder="Post Content"></textarea>
-      <mat-error *ngIf="form.get('content').invalid">Please write a litte about the route .</mat-error>
-    </mat-form-field>
+  <label>Rate : </label>
+  <select formControlName="rating" >
+    <option *ngFor="let rate of rates" [value]="rate.value">
+      {{ rate.viewValue }}
+    </option>
+  </select>
+  <br>
 
-    <button mat-raised-button color="accent" type="submit">Save Route</button>
-  </form>
+  <label>Time of route : </label>
+  <input type="text" formControlName="time_of_route" placeholder="Route time">
+  <mat-error *ngIf="routeCreateForm.get('time_of_route').invalid">Please enter a route time.</mat-error>
+  <br>
+
+  <button type="submit">Save Route</button>
+</form>
 </mat-card>

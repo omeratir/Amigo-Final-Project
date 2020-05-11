@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Route } from '../route.model';
 import { RoutesService } from '../routes.service';
 import { AuthService } from '../../auth/auth.service';
+import { Place } from 'src/app/places/place.model';
 
 @Component({
   selector: 'app-route-list',
@@ -69,6 +70,25 @@ export class RouteListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.routesSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+  }
+
+  // tslint:disable-next-line: member-ordering
+  placesList: Place[] = [
+
+  ];
+
+  // tslint:disable-next-line: member-ordering
+  placesListStringArray: string[] = [
+
+  ];
+
+  routePlaces(routePlacesString: string) {
+    this.placesList = null;
+    this.placesListStringArray = routePlacesString.split(',');
+    // for (const placename of this.placesListStringArray) {
+
+    // }
+    return true;
   }
 
 }

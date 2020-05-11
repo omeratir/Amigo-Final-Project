@@ -3,10 +3,8 @@
 <mat-accordion multi="true" *ngIf="routes.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let route of routes">
     <mat-expansion-panel-header>
-      {{ route.title }}
+      {{ route.name }}
     </mat-expansion-panel-header>
-    <p>{{ route.places }}</p>
-    <p>{{ route.content }}</p>
     <p>{{ route.time_of_route }}</p>
     <p *ngIf="route.rating == '1-Very Bad'">
       <span class="fa fa-star checked"></span>
@@ -43,12 +41,19 @@
       <span class="fa fa-star checked"></span>
       <span class="fa fa-star checked"></span>
     </p>
+    <div *ngIf="routePlaces(route.places)">
+      <p *ngFor="let placeName of placesListStringArray; let i=index">
+        <label>
+          Place {{ i + 1 }} : {{ placeName }}
+        </label>
+      </p>
+    </div>
     <mat-action-row *ngIf="userIsAuthenticated && userId === route.creator">
       <a mat-button color="primary" [routerLink]="['/edit', route.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(route.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-paginator [length]="totalPosts" [pageSize]="routesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+<mat-paginator [length]="totalRoutes" [pageSize]="routesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
   *ngIf="routes.length > 0"></mat-paginator>
 <p class="info-text mat-body-1" *ngIf="routes.length <= 0 && !isLoading">No routes added yet!</p>

@@ -8,10 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { PlaceCreateComponent } from './places/place-create/place-create.component';
 import { PlaceListComponent } from './places/place-list/place-list.component';
 import { RouteCreateComponent } from './routes/route-create/route-create.component';
+import { RouteListComponent } from './routes/route-list/route-list.component';
 
 const routes: Routes = [
   { path: '', component: PostListComponent },
   { path: 'placelist', component: PlaceListComponent },
+  { path: 'routelist', component: RouteListComponent },
   { path: 'postcreate', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'placecreate', component: PlaceCreateComponent, canActivate: [AuthGuard] },
   { path: 'routecreate', component: RouteCreateComponent, canActivate: [AuthGuard] },
