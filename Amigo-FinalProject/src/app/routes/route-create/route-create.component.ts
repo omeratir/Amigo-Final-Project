@@ -27,6 +27,7 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
   isLoading = false;
   form: FormGroup;
   imagePreview: string;
+  placeSaved: string;
   private mode = 'routecreate';
   private routeId: string;
   private authStatusSub: Subscription;
@@ -119,15 +120,20 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: member-ordering
   counter: number;
 
+  // tslint:disable-next-line: member-ordering
+  tempPlace: Place;
+
   onSaveRoute() {
     console.log('submit clicked ');
     this.counter = 0;
     for (const place of this.places.controls) {
       if (this.counter === 0) {
         this.place = this.routeCreateForm.get('places' , this.counter ).value;
+        this.counter ++;
       } else {
         this.place.concat(',');
         this.place.concat(this.routeCreateForm.get('places' , this.counter ).value);
+        this.counter ++;
       }
     }
 
@@ -168,4 +174,13 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
     this.places.push(this.fb.control(''));
   }
 
+  savePlace(place) {
+    this.placeSaved.concat(place.name);
+    this.placeSaved.concat(',');
+    this.placeSaved.concat(place.lat);
+    this.placeSaved.concat(',');
+    this.placeSaved.concat(place.lng);
+    this.placeSaved.concat(',');
+    return this.placeSaved;
+  }
 }

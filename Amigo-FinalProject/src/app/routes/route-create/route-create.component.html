@@ -14,12 +14,15 @@
     <label>Place {{ i + 1 }} </label>
     <!-- <input type="text" [formControlName]="i" placeholder="place {{ i + 1 }}"> -->
     <select [formControlName]="i">
-      <option *ngFor="let place of placesList" [value]="place.name">
+      <option *ngFor="let place of placesList" [value]="'name:' + place.name + ',lat:' + place.lat + ',lng:' + place.lng">
         {{ place.name }}
       </option>
     </select>
   </div>
   </div>
+
+  <!-- <option *ngFor="let place of placesList" [value]="'name,' + place.name + ',lat,' + place.lat + ',lng,' + place.lng"> -->
+
 
   <!-- <label>Rate : </label>
   <input type="text" formControlName="rating" placeholder="Route time" >

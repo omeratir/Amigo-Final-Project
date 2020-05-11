@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="routes.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let route of routes">
     <mat-expansion-panel-header>
       {{ route.name }}
     </mat-expansion-panel-header>
-    <p>{{ route.time_of_route }}</p>
+    <p>Duration of the route : {{ route.time_of_route }} Hours </p>
     <p *ngIf="route.rating == '1-Very Bad'">
       <span class="fa fa-star checked"></span>
       <span class="fa fa-star"></span>
@@ -41,13 +42,31 @@
       <span class="fa fa-star checked"></span>
       <span class="fa fa-star checked"></span>
     </p>
+
     <div *ngIf="routePlaces(route.places)">
-      <p *ngFor="let placeName of placesListStringArray; let i=index">
-        <label>
-          Place {{ i + 1 }} : {{ placeName }}
+      <p *ngFor="let placeData of placesListStringArray">
+        <label *ngIf="ifPlaceName(placeData);">
+          Place {{ countPlaces }} : {{ placeData.substring(5) }}
         </label>
       </p>
     </div>
+
+    <!-- Map -->
+    <div>
+      <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+        <div *ngFor="let marker of places">
+          <agm-marker *ngIf="checkPlace(marker.name)"
+          [latitude]="marker.lat"
+          [longitude]="marker.lng"
+          (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window #infoWindow>
+              {{ marker.name }}
+            </agm-info-window>
+          </agm-marker>
+    </div>
+    </agm-map>
+    </div>
+
     <mat-action-row *ngIf="userIsAuthenticated && userId === route.creator">
       <a mat-button color="primary" [routerLink]="['/edit', route.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(route.id)">DELETE</button>

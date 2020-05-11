@@ -6,6 +6,13 @@ import { Route } from '../route.model';
 import { RoutesService } from '../routes.service';
 import { AuthService } from '../../auth/auth.service';
 import { Place } from 'src/app/places/place.model';
+import { PlacesService } from 'src/app/places/places.service';
+
+interface PlaceValue {
+  name: string;
+  lat: string;
+  lng: string;
+}
 
 @Component({
   selector: 'app-route-list',
@@ -13,7 +20,8 @@ import { Place } from 'src/app/places/place.model';
   styleUrls: ['./route-list.component.css']
 })
 export class RouteListComponent implements OnInit, OnDestroy {
-
+  placesValues: Array<PlaceValue> = new Array();
+  placeValue: PlaceValue;
   routes: Route[] = [];
   isLoading = false;
   totalRoutes = 0;
@@ -23,12 +31,44 @@ export class RouteListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
   userId: string;
+  flagName = false;
+  countPlaces: number;
+  latitude = 52.373169;
+  longitude = 4.890660;
+  zoom = 12;
+  previous;
+  countNumOfPlaces = 0;
+  placesListStringArray: string[] = [
+
+  ];
+  place: Place;
+
+  name = '';
+  lat = '';
+  lng = '';
+
+  ifNameNext = false;
+  ifLatNext = false;
+  ifLngNext = false;
+
+  totalPlaces = 0;
+  placesPerPage = 2000;
+  placeslength = 1;
+
+  places: Place[] = [
+
+  ];
+
+  private placesSub: Subscription;
+
+
   private routesSub: Subscription;
   private authStatusSub: Subscription;
 
   constructor(
     public routesService: RoutesService,
-    private authService: AuthService
+    private authService: AuthService,
+    public placesService: PlacesService
   ) {}
 
   ngOnInit() {
@@ -49,6 +89,12 @@ export class RouteListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+    this.placesService.getPlaces(this.placesPerPage, this.currentPage);
+    this.placesSub = this.placesService
+        .getPlaceUpdateListener()
+        .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+          this.places = placeData.places;
+        });
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -72,23 +118,35 @@ export class RouteListComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 
-  // tslint:disable-next-line: member-ordering
-  placesList: Place[] = [
-
-  ];
-
-  // tslint:disable-next-line: member-ordering
-  placesListStringArray: string[] = [
-
-  ];
-
   routePlaces(routePlacesString: string) {
-    this.placesList = null;
+    this.countPlaces = 0;
+    this.placesListStringArray = [ ];
     this.placesListStringArray = routePlacesString.split(',');
-    // for (const placename of this.placesListStringArray) {
-
-    // }
     return true;
+   }
+
+  ifPlaceName(placeData) {
+    if (placeData.charAt(0) === 'n') {
+      this.name = placeData.substring(5);
+      this.countPlaces ++;
+      return true;
+    }
   }
 
+  checkPlace(name) {
+    for (const placename of this.placesListStringArray) {
+      if (placename.substring(5) === name) {
+        this.countNumOfPlaces++;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  clickedMarker(infoWindow) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infoWindow;
+  }
 }

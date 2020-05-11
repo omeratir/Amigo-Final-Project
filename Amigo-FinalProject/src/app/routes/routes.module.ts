@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { RouteCreateComponent } from './route-create/route-create.component';
 import { RouteListComponent } from './route-list/route-list.component';
 import { AngularMaterialModule } from '../angular-material.module';
+import { AgmCoreModule } from '@agm/core';
 
 import {MatGridListModule} from '@angular/material/grid-list';
 
@@ -18,6 +19,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AngularMaterialModule,
     RouterModule,
     MatGridListModule,
+    AgmCoreModule.forRoot(
+      {
+        // apiKey: '',
+        // libraries: ['places']
+      }
+    )
   ]
 })
 export class RoutesModule {}
