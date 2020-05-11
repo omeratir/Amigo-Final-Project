@@ -19,3 +19,9 @@ input[type="file"] {
 .image-preview img {
   height: 100%;
 }
+
+agm-map
+{
+  height: 500px;
+}
+

@@ -8,6 +8,7 @@ import { PlaceListComponent } from './place-list/place-list.component';
 import { AngularMaterialModule } from '../angular-material.module';
 
 import {MatGridListModule} from '@angular/material/grid-list';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -18,6 +19,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AngularMaterialModule,
     RouterModule,
     MatGridListModule,
+    AgmCoreModule.forRoot(
+      {
+        // apiKey: ''
+      }
+    )
   ]
 })
 export class PlacesModule {}

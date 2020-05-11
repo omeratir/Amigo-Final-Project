@@ -17,6 +17,9 @@
       <mat-error *ngIf="form.get('lng').invalid">Please enter a place Longitude.</mat-error>
     </mat-form-field>
 
+    <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" (mapClick)="placeMarker($event)">
+    </agm-map>
+
     <button mat-raised-button color="accent" type="submit">Save Place</button>
   </form>
 </mat-card>

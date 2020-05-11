@@ -23,6 +23,11 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
   private placeId: string;
   private authStatusSub: Subscription;
 
+  lat = 52.373169;
+  lng = 4.890660;
+  zoom = 12;
+  previous;
+
   constructor(
     public placesService: PlacesService,
     public route: ActivatedRoute,
@@ -89,6 +94,17 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
       );
     }
     this.form.reset();
+  }
+
+  placeMarker($event) {
+    console.log('lat:' + $event.coords.lat);
+    console.log('lng:' + $event.coords.lng);
+
+    this.form.setValue({
+      name: '',
+      lat: $event.coords.lat,
+      lng: $event.coords.lng
+    });
   }
 
   ngOnDestroy() {
