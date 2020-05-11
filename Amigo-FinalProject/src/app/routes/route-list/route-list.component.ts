@@ -51,6 +51,9 @@ export class RouteListComponent implements OnInit, OnDestroy {
   ifLatNext = false;
   ifLngNext = false;
 
+  origin = { lat: 52.33772223953897, lng: 4.920147600841087 };
+  destination = { lat: 52.37837459239954, lng: 4.8420226054977 };
+
   totalPlaces = 0;
   placesPerPage = 2000;
   placeslength = 1;

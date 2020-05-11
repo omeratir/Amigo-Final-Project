@@ -2,14 +2,11 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 <form [formGroup] ="routeCreateForm" (submit)="onSaveRoute()" *ngIf="!isLoading">
 
-  <label>Name : </label>
+  <label>Route Name : </label>
   <input type="text" formControlName="name" placeholder="Route name">
   <mat-error *ngIf="routeCreateForm.get('name').invalid">Please enter a route title.</mat-error>
 
   <div formArrayName="places">
-    <h1>enter place</h1>
-    <a (click)="addNewPlace()">Add New Place</a>
-
   <div *ngFor="let place of places.controls; let i=index">
     <label>Place {{ i + 1 }} </label>
     <!-- <input type="text" [formControlName]="i" placeholder="place {{ i + 1 }}"> -->
@@ -19,7 +16,9 @@
       </option>
     </select>
   </div>
+  <a class="abutton" (click)="addNewPlace()">Add New Place</a>
   </div>
+  <br>
 
   <!-- <option *ngFor="let place of placesList" [value]="'name,' + place.name + ',lat,' + place.lat + ',lng,' + place.lng"> -->
 
@@ -29,7 +28,7 @@
   <mat-error *ngIf="routeCreateForm.get('rating').invalid">Please enter a route rate.</mat-error>
   <br> -->
 
-  <label>Rate : </label>
+  <label>Choose the rate of the route : </label>
   <select formControlName="rating" >
     <option *ngFor="let rate of rates" [value]="rate.value">
       {{ rate.viewValue }}
@@ -37,7 +36,7 @@
   </select>
   <br>
 
-  <label>Time of route : </label>
+  <label>Enter the duration of the route in hours : </label>
   <input type="text" formControlName="time_of_route" placeholder="Route time">
   <mat-error *ngIf="routeCreateForm.get('time_of_route').invalid">Please enter a route time.</mat-error>
   <br>

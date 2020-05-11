@@ -63,12 +63,11 @@
               {{ marker.name }}
             </agm-info-window>
           </agm-marker>
-    </div>
+      </div>
     </agm-map>
     </div>
 
     <mat-action-row *ngIf="userIsAuthenticated && userId === route.creator">
-      <a mat-button color="primary" [routerLink]="['/edit', route.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(route.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>

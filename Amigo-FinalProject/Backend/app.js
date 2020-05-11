@@ -2,6 +2,9 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const mongodb = require("mongodb").MongoClient;
+const fs = require("fs");
+const fastcsv = require("fast-csv");
 
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
@@ -47,16 +50,13 @@ app.use("/api/routes", routesRoutes);
 
 // ********* One time - Import the csv file of places ********** //
 
-// const mongodb = require("mongodb").MongoClient;
+// Amsterdamplaces.csv - 100 items
+// Attraction.csv - 1370 items
+// AttractionRecommends.csv
 
-// const fs = require("fs");
-// const fastcsv = require("fast-csv");
-// // Amsterdamplaces.csv - 100 items
-// // Attraction.csv - 1370 items
-// // Amsterdamplacestemp.csv - 100 items - only name & lat & lng
+// **** Add places csv **** //
 
-
-// let stream = fs.createReadStream("./Backend/csv/Amsterdamplacestemp.csv");
+// let stream = fs.createReadStream("./Backend/csv/Attraction.csv");
 // let csvData = [];
 // let csvStream = fastcsv
 //   .parse()
@@ -64,7 +64,11 @@ app.use("/api/routes", routesRoutes);
 //     csvData.push({
 //       name: data[0],
 //       lat: data[1],
-//       lng: data[2]
+//       lng: data[2],
+//       avg_rate_of_place: data[3],
+//       avg_hours_of_place: data[4],
+//       avg_ages_of_place: data[5],
+//       count_of_post_added_to_place: data[6]
 //     });
 //   })
 //   .on("end", function() {
@@ -86,6 +90,53 @@ app.use("/api/routes", routesRoutes);
 //     client
 //       .db("test")
 //       .collection("places")
+//       .insertMany(csvData, (err, res) => {
+//         if (err) throw err;
+//         console.log(`Inserted: ${res.insertedCount} rows`);
+//         client.close();
+//       });
+//   }
+// );
+
+
+// // **** Add reviews csv **** //
+
+// let stream = fs.createReadStream("./Backend/csv/AttractionRecommends.csv");
+// let csvData = [];
+// let csvStream = fastcsv
+//   .parse()
+//   .on("data", function(data) {
+//     csvData.push({
+//       title: data[0],
+//       place: data[1],
+//       rating: data[2],
+//       content: data[3],
+//       time_of_place: data[4],
+//       purpose_of_place: data[5],
+//       age: data[6],
+//       gender: data[7],
+//       hobbies: data[8]
+//     });
+//   })
+//   .on("end", function() {
+//     // remove the first line: header
+//     csvData.shift();
+
+//     // save to the MongoDB database collection
+//   });
+
+// stream.pipe(csvStream);
+
+// let url = "mongodb+srv://amigoadmindb:" + process.env.MONGO_ATLAS_PW +"@amigofinalproject-yputx.mongodb.net/test?retryWrites=true&w=majority";
+
+// mongodb.connect(
+//   url,
+//   { useNewUrlParser: true, useUnifiedTopology: true },
+//   (err, client) => {
+//     if (err) throw err;
+//     client
+//       .db("test")
+//       .collection("posts")
 //       .insertMany(csvData, (err, res) => {
 //         if (err) throw err;
 //         console.log(`Inserted: ${res.insertedCount} rows`);

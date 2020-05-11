@@ -55,11 +55,22 @@
       <mat-error *ngIf="form.get('time_of_place').invalid">Please enter the time to be in the place.</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput type="text" formControlName="purpose_of_place" placeholder="Enter the purpose of place">
       <mat-error *ngIf="form.get('purpose_of_place').invalid">Please enter purpose of place.</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <button mat-raised-button color="accent" type="submit">Save Post</button>
+    <p>
+      <mat-form-field>
+        <mat-label>Select The Purpose Of The Attraction</mat-label>
+        <mat-select formControlName="purpose_of_place">
+          <mat-option *ngFor="let p of purpose" [value]="p.value">
+            {{p.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <button mat-raised-button color="accent" type="submit">Save Review</button>
   </form>
 </mat-card>

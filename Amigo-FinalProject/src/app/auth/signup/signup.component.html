@@ -36,10 +36,10 @@
       <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput name="hobbies" ngModel type="hobbies" placeholder="Your Hobbies" #hobbiesInput="ngModel" required>
       <mat-error *ngIf="hobbiesInput.invalid">Please enter your hobbies.</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
   </form>

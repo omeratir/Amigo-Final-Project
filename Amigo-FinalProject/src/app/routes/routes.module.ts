@@ -7,6 +7,7 @@ import { RouteCreateComponent } from './route-create/route-create.component';
 import { RouteListComponent } from './route-list/route-list.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { AgmCoreModule } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
 
 import {MatGridListModule} from '@angular/material/grid-list';
 
@@ -19,10 +20,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AngularMaterialModule,
     RouterModule,
     MatGridListModule,
+    AgmDirectionModule,
     AgmCoreModule.forRoot(
       {
-        // apiKey: '',
-        // libraries: ['places']
+        apiKey: 'AIzaSyArW1appEVJcbrwrGS0qtBhdjmfmHNSEWw'
       }
     )
   ]

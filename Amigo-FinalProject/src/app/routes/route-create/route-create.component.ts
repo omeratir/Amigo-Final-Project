@@ -46,7 +46,7 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
 
   private placesSub: Subscription;
 
-  placesPerPage = 100;
+  placesPerPage = 2000;
   currentPage = 1;
 
   clickedAddPlace: boolean;

@@ -10,26 +10,26 @@
       <a mat-button routerLink="/"> REVIEWS </a>
     </li>
     <li>
-      <a mat-button routerLink="/placelist"> PLACES </a>
+      <a mat-button routerLink="/placelist" routerLinkActive="mat-warn"> PLACES </a>
     </li>
     <li>
-      <a mat-button routerLink="/routelist"> ROUTES </a>
+      <a mat-button routerLink="/routelist" routerLinkActive="mat-warn"> ROUTES </a>
     </li>
     <li>
-      <a mat-button routerLink="/map"> MAP </a>
+      <a mat-button routerLink="/map" routerLinkActive="mat-warn"> MAP </a>
     </li>
   </ul>
   </span>
   <span class="spacer"></span>
   <ul>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/postcreate" routerLinkActive="mat-accent">New Post</a>
+      <a mat-button routerLink="/postcreate" routerLinkActive="mat-accent"> Add Review </a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/routecreate" routerLinkActive="mat-accent">New Route</a>
+      <a mat-button routerLink="/routecreate" routerLinkActive="mat-accent"> Add Route </a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/placecreate" routerLinkActive="mat-accent">New Place</a>
+      <a mat-button routerLink="/placecreate" routerLinkActive="mat-accent"> Add Place </a>
     </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>

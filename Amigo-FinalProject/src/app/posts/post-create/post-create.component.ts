@@ -16,6 +16,11 @@ interface Rate {
   viewValue: string;
 }
 
+interface Purpose {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -39,6 +44,15 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     {value: '3-Nice', viewValue: '3-Nice'},
     {value: '4-Very Good', viewValue: '4-Very Good'},
     {value: '5-Excellent', viewValue: '5-Exellent'}
+  ];
+
+  purpose: Purpose[] = [
+    {value: 'Attractions & Leisure', viewValue: 'Attractions & Leisure'},
+    {value: 'Sport & Extreme', viewValue: 'Sport & Extreme'},
+    {value: 'Night Life', viewValue: 'Night Life'},
+    {value: 'Culture &  Historical Places', viewValue: 'Culture &  Historical Places'},
+    {value: 'Rest', viewValue: 'Rest'},
+    {value: 'Shopping', viewValue: 'Shopping'}
   ];
 
   places: Place[] = [
