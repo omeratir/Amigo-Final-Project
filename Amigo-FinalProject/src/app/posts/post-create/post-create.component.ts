@@ -61,7 +61,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   private placesSub: Subscription;
 
-  placesPerPage = 1000;
+  placesPerPage = 2000;
   currentPage = 1;
 
 

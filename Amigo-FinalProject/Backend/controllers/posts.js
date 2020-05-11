@@ -67,21 +67,59 @@ exports.createPost = (req, res, next) => {
             console.log(place.hobbies);
             
             // check the age
-            // console.log("The user age is: " + user.age);
-            // place.sum_place_for_age += user.age; 
-            // console.log( place.sum_place_for_age);
-            // place.avg_ages_of_place = place.sum_place_for_age/place.count_of_post_added_to_place;
-            // console.log("The avg age of the place is: " + place.avg_ages_of_place);
+            console.log("The user age is: " + user.age);
+            place.sum_place_for_age += user.age; 
+            console.log(place.sum_place_for_age);
+            place.avg_ages_of_place = place.sum_place_for_age/place.count_of_post_added_to_place;
+            console.log("The avg age of the place is: " + place.avg_ages_of_place);
+
 
             // purpoes
-            // console.log("1st "+ place.arr_purpose_of_place);
-            //   if(place.count_of_post_added_to_place == 1){
-            //       place.arr_purpose_of_place = [0, 0, 0, 0, 0, 0];
-            //       console.log("ONLY AT FIRST TIME");
-            //   }
-            // place.arr_purpose_of_place[0]++;
-            // place.arr_purpose_of_place[1] =  place.arr_purpose_of_place[1] + 1;  
-            // console.log("2nd "+place.arr_purpose_of_place);
+            if(req.body.purpose_of_place == 'Attractions & Leisure'){
+              place.attractionsAndLeisure++;
+            }
+            if(req.body.purpose_of_place == 'Sport & Extreme'){
+              place.sportsAndExtreme++;
+            }
+            if(req.body.purpose_of_place == 'Night Life'){
+              place.nightLife++;
+            }
+            if(req.body.purpose_of_place == 'Culture &  Historical Places'){
+              place.cultureAndHistoricalPlaces++;
+            }
+            if(req.body.purpose_of_place == 'Rest'){
+              place.rest++;
+            }
+            if(req.body.purpose_of_place == 'Shopping'){
+              place.shopping++;
+            }
+            let maxpurpose = Math.max(place.sportsAndExtreme, place.cultureAndHistoricalPlaces, place.attractionsAndLeisure, place.rest, place.nightLife, place.shopping);
+
+            if(max == place.attractionsAndLeisure){
+              place.purpose_of_place = 1;
+              console.log("The place is attractionsAndLeisure")
+            }
+            if(max == place.sportsAndExtreme){
+              place.purpose_of_place = 2;
+              console.log("The place is sportsAndExtreme")
+            }
+            if(max == place.cultureAndHistoricalPlaces){
+              place.purpose_of_place = 3;
+              console.log("The place is cultureAndHistoricalPlaces")
+            }
+            if(max == place.nightLife){
+              place.purpose_of_place = 4;
+              console.log("The place is nightLife")
+            }
+            if(max == place.rest){
+              place.purpose_of_place = 5;
+              console.log("The place is rest")
+            }
+            if(max == place.shopping){
+              place.purpose_of_place = 6;
+              console.log("The place is shopping")
+            }
+            console.log("The purpse is: " + place.purpose_of_place);
             
             place.save();
           })

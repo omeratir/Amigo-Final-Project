@@ -8,6 +8,8 @@ const placeSchema = mongoose.Schema({
   count_of_post_added_to_place: {type: Number, required: false},
   place_for_gender: {type: Number, required: false },
   sum_place_for_gender: {type: Number, required: false},
+  sum_place_for_age: {type: Number, required: false},
+  sum_place_for_purpose: {type: Number, required: false},
   avg_rate_of_place: {type: Number},
   avg_hours_of_place: {type: Number},
   avg_ages_of_place: {type: Number},
@@ -15,14 +17,14 @@ const placeSchema = mongoose.Schema({
   purpose_of_place: {type: Number},
   
   // purposes
-  // sports: {type: Number, required: false},
-  // extreme: {type: Number, required: false},
-  // attractions: {type: Number, required: false}, 
-  // leisure: {type: Number, required: false},
-  // nightLife: {type: Number, required: false},
-  // BETENGAV: {type: Number, required: false}, // todo rename
+  sportsAndExtreme: {type: Number, required: false},
+  cultureAndHistoricalPlaces: {type: Number, required: false},
+  attractionsAndLeisure: {type: Number, required: false}, 
+  rest: {type: Number, required: false},
+  nightLife: {type: Number, required: false},
+  shopping: {type: Number, required: false}, // todo rename
 
-  arr_purpose_of_place: {type: [Number], require: false},
+  // arr_purpose_of_place: {type: [Number], require: false},
   // hobbies
   sport: {type: Number, required: false},
   culture: {type: Number, required: false},
