@@ -65,10 +65,21 @@ app.use("/api/routes", routesRoutes);
 //       name: data[0],
 //       lat: data[1],
 //       lng: data[2],
-//       avg_rate_of_place: data[3],
-//       avg_hours_of_place: data[4],
-//       avg_ages_of_place: data[5],
-//       count_of_post_added_to_place: data[6]
+//           count_of_post_added_to_place: 0,
+//           place_for_gender: 0,
+//           sum_place_for_gender: 0,
+//           sum_place_for_age: 0,
+//           avg_ages_of_place: 0,
+//           sport: 0,
+//           culture: 0,
+//           food: 0,
+//           hobbies: 0,
+//           sportsAndExtreme: 0,
+//           cultureAndHistoricalPlaces: 0,
+//           attractionsAndLeisure: 0,
+//           rest: 0,
+//           nightLife: 0,
+//           shopping: 0
 //     });
 //   })
 //   .on("end", function() {

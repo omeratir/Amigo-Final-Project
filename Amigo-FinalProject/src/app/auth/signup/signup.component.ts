@@ -4,6 +4,10 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 
+interface Gender {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   templateUrl: './signup.component.html',
@@ -14,6 +18,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   private authStatusSub: Subscription;
   sex: string;
   constructor(public authService: AuthService) {}
+
+  genders: Gender[] = [
+    {value: 'Female', viewValue: 'Female'},
+    {value: 'Male', viewValue: 'Male'}
+  ];
 
   ngOnInit() {
     this.authStatusSub = this.authService.
