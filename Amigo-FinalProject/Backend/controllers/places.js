@@ -6,21 +6,8 @@ exports.createPlace = (req, res, next) => {
     name: req.body.name,
     lat: req.body.lat,
     lng: req.body.lng,
+    goal: req.body.goal,
     count_of_post_added_to_place: 0,
-    place_for_gender: 0,
-    sum_place_for_gender: 0,
-    sum_place_for_age: 0,
-    avg_ages_of_place: 0,
-    sport: 0,
-    culture: 0,
-    food: 0,
-    hobbies: 0,
-    sportsAndExtreme: 0,
-    cultureAndHistoricalPlaces: 0,
-    attractionsAndLeisure: 0,
-    rest: 0,
-    nightLife: 0,
-    shopping: 0,
     creator: req.userData.userId
   });
   place.save()
