@@ -5,16 +5,22 @@ const placeSchema = mongoose.Schema({
   lat: { type: String , required: true },
   lng: { type: String , required: true },
   goal: { type: Number , required: true },
-  percentageSport: { type: Number , required: false },
-  percentageCulture: { type: Number , required: false },
-  percentageFood: { type: Number , required: false },
-  avgAge: { type: Number , required: false },
-  avgGender: { type: Number , required: false },
-  likes: { type: Number , required: false },
+  genbder_avg: { type: Number , required: false },
+  count_of_likes: { type: Number , required: false },
+  avg_age: { type: Number , required: false },
+  count_sport: { type: Number , required: false },
+  count_culture: { type: Number , required: false },
+  count_food: { type: Number , required: false },
+  count_female: { type: Number , required: false },
+  count_male: { type: Number , required: false },
+  avg_sport: { type: Number , required: false },
+  avg_culture: { type: Number , required: false },
+  avg_food: { type: Number , required: false },
+
   count_of_post_added_to_place: {type: Number, required: false},
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
   // NO NEED ANYMORE:
-  
+
   // place_for_gender: {type: Number, required: false },
   // sum_place_for_gender: {type: Number, required: false},
   // sum_place_for_age: {type: Number, required: false},
