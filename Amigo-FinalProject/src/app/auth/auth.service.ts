@@ -40,7 +40,7 @@ export class AuthService {
     const user: User = { email , password , firstName, lastName, age, gender , hobbies };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/auth/login']);
       },
       error => {
         this.authStatusListener.next(false);

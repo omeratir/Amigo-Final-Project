@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h3 class="header">Choose your goals of your trip:</h3>
+<mat-checkbox [checked]="Goal_Attractions_Leisure" (change)="Goal_Attractions_Leisure = !Goal_Attractions_Leisure">
+    Attractions & Leisure
+</mat-checkbox>
+<br>
+<mat-checkbox [checked]="Goal_Culture_And_Historical_Places" (change)="Goal_Culture_And_Historical_Places = !Goal_Culture_And_Historical_Places">
+    Culture & Historical Places
+</mat-checkbox>
+<br>
+<mat-checkbox [checked]="Goal_Shopping" (change)="Goal_Shopping = !Goal_Shopping">
+    Shopping
+</mat-checkbox>
+<br>
+<mat-checkbox [checked]="Goal_Night_Life" (change)="Goal_Night_Life = !Goal_Night_Life">
+    Night Life
+</mat-checkbox>
+<br>
+<mat-checkbox [checked]="Goal_Relaxing" (change)="Goal_Relaxing = !Goal_Relaxing">
+    Relaxing
+</mat-checkbox>
+<br>
+<mat-checkbox [checked]="Goal_Sport_And_Extreme" (change)="Goal_Sport_And_Extreme = !Goal_Sport_And_Extreme">
+    Sport & Extreme
+</mat-checkbox>
+<br>
+
+<button mat-raised-button color="warn" type="button" (click)="onClickFindPlace()"> Find Me Places! </button>
+
+<div *ngIf="placeFindBtnClicked">
+  <br>
+  <br>
+  <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+    <agm-marker
+    [latitude]="lat"
+    [longitude]="lng"
+    (markerClick)="clickedMarker(infoWindow)">
+      <agm-info-window #infoWindow>
+        Place Name:
+        <br>
+        Like:
+        <br>
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]='likeClicked'>
+          <mat-button-toggle value="like"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> Like </mat-button-toggle>
+          <mat-button-toggle value="unlike"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> Unlike </mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <!-- <button mat-raised-button color="primary" (click)="LikeClicked(this)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like Place!</button> -->
+        <!-- <i (click)="LikeClicked(this)" class="fa fa-thumbs-up"></i> -->
+
+        <!-- <br>
+        <br>
+        <p *ngIf="likeClicked">
+          <span class="fa fa-heart liked"></span>
+        </p> -->
+
+      </agm-info-window>
+    </agm-marker>
+  </agm-map>
+</div>
+
+
+

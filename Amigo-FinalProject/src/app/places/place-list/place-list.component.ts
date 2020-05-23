@@ -19,9 +19,13 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   totalPlaces = 0;
-  placesPerPage = 100;
+  placesPerPage = 5;
   placeslength = 1;
   currentPage = 1;
+  previous;
+  latitude = 52.373169;
+  longitude = 4.890660;
+  zoom = 12;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
   userId: string;
@@ -72,5 +76,18 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.placesSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+  }
+
+  clickedMarker(infoWindow) {
+    if (this.previous) {
+        this.previous.close();
+    }
+    this.previous = infoWindow;
+  }
+
+  setMapValues(place: Place) {
+    this.latitude = +place.lat;
+    this.longitude = +place.lng;
+    return true;
   }
 }

@@ -9,6 +9,22 @@
     </mat-expansion-panel-header>
     <p>lat : {{ place.lat }}</p>
     <p>lng : {{ place.lng }}</p>
+
+    <!-- Map -->
+    <div *ngIf="setMapValues(place)">
+      <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+          <agm-marker
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window #infoWindow>
+              {{ place.name }}
+            </agm-info-window>
+          </agm-marker>
+    </agm-map>
+  </div>
+
+
     <mat-action-row *ngIf="userIsAuthenticated && userId === place.creator">
       <a mat-button color="primary" [routerLink]="['/placeedit', place.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(place.id)">DELETE</button>

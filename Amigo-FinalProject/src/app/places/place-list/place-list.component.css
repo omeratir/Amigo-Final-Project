@@ -3,6 +3,11 @@
   margin-top: 1rem;
 }
 
+agm-map
+{
+  height: 500px;
+}
+
 mat-spinner {
   margin: auto;
 }

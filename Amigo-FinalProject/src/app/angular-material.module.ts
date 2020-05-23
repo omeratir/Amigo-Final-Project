@@ -9,7 +9,9 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatSelectModule,
-  MatOptionModule
+  MatOptionModule,
+  MatCheckboxModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 @NgModule({
@@ -17,6 +19,8 @@ import {
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatButtonToggleModule,
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,

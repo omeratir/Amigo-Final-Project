@@ -1,11 +1,6 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-    <!-- <mat-form-field>
-      <input matInput name="name" ngModel type="name" placeholder="Full Name" #nameInput="ngModel" required name="">
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid name.</mat-error>
-    </mat-form-field> -->
-
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
       <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
@@ -31,16 +26,6 @@
       <mat-error *ngIf="ageInput.invalid">Please enter your age.</mat-error>
     </mat-form-field>
 
-    <!-- <mat-form-field>
-      <mat-label>Select Your Gender</mat-label>
-      <mat-select ngModel="gender">
-        <mat-option *ngFor="let gender of genders" [value]="gender.value">
-          {{ gender.viewValue }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
-
-
     <mat-form-field>
       <input matInput name="gender" ngModel type="gender" placeholder="Gender" #genderInput="ngModel" required>
       <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
@@ -51,6 +36,27 @@
       <mat-error *ngIf="hobbiesInput.invalid">Please enter your hobbies.</mat-error>
     </mat-form-field>
 
+    <!-- <span>Select Your Hobbies:</span>
+
+    <br>
+
+    <mat-checkbox [checked]="Hobby_Sport" (change)="Hobby_Sport = !Hobby_Sport">
+      Sport
+    </mat-checkbox>
+
+    <br>
+
+    <mat-checkbox [checked]="Hobby_Culture" (change)="Hobby_Culture = !Hobby_Culture">
+      Culture
+    </mat-checkbox>
+
+    <br>
+
+    <mat-checkbox [checked]="Hobby_Food" (change)="Hobby_Food = !Hobby_Food">
+      Food
+    </mat-checkbox> -->
+
+    <br>
 
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
   </form>

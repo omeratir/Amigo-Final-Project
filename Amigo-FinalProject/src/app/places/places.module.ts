@@ -9,10 +9,11 @@ import { AngularMaterialModule } from '../angular-material.module';
 
 import {MatGridListModule} from '@angular/material/grid-list';
 import { AgmCoreModule } from '@agm/core';
+import { PlaceFindComponent } from './place-find/placefind.component';
 
 
 @NgModule({
-  declarations: [PlaceCreateComponent, PlaceListComponent],
+  declarations: [PlaceCreateComponent, PlaceListComponent, PlaceFindComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

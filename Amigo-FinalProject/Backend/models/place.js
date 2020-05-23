@@ -4,7 +4,7 @@ const placeSchema = mongoose.Schema({
   name: { type: String, required: true },
   lat: { type: String , required: true },
   lng: { type: String , required: true },
-  goal: { type: Number , required: true },
+  goal: { type: Number , required: false },
   genbder_avg: { type: Number , required: false },
   count_of_likes: { type: Number , required: false },
   avg_age: { type: Number , required: false },
@@ -16,7 +16,6 @@ const placeSchema = mongoose.Schema({
   avg_sport: { type: Number , required: false },
   avg_culture: { type: Number , required: false },
   avg_food: { type: Number , required: false },
-
   count_of_post_added_to_place: {type: Number, required: false},
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
   // NO NEED ANYMORE:
