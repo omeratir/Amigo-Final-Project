@@ -35,9 +35,9 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
   createUser(email: string, password: string, firstName: string, lastName: string,
-             age: string, gender: string, hobbies: string) {
+             age: string, gender: string, sport: boolean, culture: boolean, food: boolean) {
     const authData: AuthData = { email, password };
-    const user: User = { email , password , firstName, lastName, age, gender , hobbies };
+    const user: User = { email , password , firstName, lastName, age, gender , sport, culture, food };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
         this.router.navigate(['/auth/login']);

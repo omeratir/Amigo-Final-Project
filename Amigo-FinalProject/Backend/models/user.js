@@ -8,15 +8,16 @@ const userSchema = mongoose.Schema({
   lastName: { type: String, required: true },
   age: { type: Number, required: true },
   gender: { type: String, required: true },
-  hobbies: { type: String, required: true },
 
   liked_places: { type: String, required: false },
   count_of_liked_places: { type: String, required: false },
 
+  hobbies: { type: String, required: false },
+
   //hobbies
-  sport: { type: Number, required: false },
-  culture: { type: Number, required: false },
-  food: { type: Number, required: false },
+  sport: { type: Boolean, required: false },
+  culture: { type: Boolean, required: false },
+  food: { type: Boolean, required: false },
 
   //goals
   sportsAndExtreme: {type: Number, required: false},

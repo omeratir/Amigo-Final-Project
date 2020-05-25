@@ -5,5 +5,7 @@ export interface User {
   lastName: string;
   age: string;
   gender: string;
-  hobbies: string;
+  sport: boolean;
+  culture: boolean;
+  food: boolean;
 }

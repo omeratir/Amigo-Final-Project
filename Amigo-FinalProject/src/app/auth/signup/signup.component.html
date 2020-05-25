@@ -26,17 +26,26 @@
       <mat-error *ngIf="ageInput.invalid">Please enter your age.</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <span>Select Your Gender:</span>
+
+    <br>
+
+    <mat-radio-group>
+      <mat-radio-button value="Male" [checked]="male" (change)="male = !male">Male</mat-radio-button>
+      <br>
+      <mat-radio-button value="Female" [checked]="female" (change)="female = !female">Female</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-error *ngIf="female == male">Please Choose your Gender</mat-error>
+
+    <br>
+
+    <!-- <mat-form-field>
       <input matInput name="gender" ngModel type="gender" placeholder="Gender" #genderInput="ngModel" required>
       <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <mat-form-field>
-      <input matInput name="hobbies" ngModel type="hobbies" placeholder="Your Hobbies" #hobbiesInput="ngModel" required>
-      <mat-error *ngIf="hobbiesInput.invalid">Please enter your hobbies.</mat-error>
-    </mat-form-field>
-
-    <!-- <span>Select Your Hobbies:</span>
+    <span>Select Your Hobbies:</span>
 
     <br>
 
@@ -54,9 +63,13 @@
 
     <mat-checkbox [checked]="Hobby_Food" (change)="Hobby_Food = !Hobby_Food">
       Food
-    </mat-checkbox> -->
+    </mat-checkbox>
 
     <br>
+
+    <mat-error *ngIf="((!Hobby_Food) && (!Hobby_Culture) && (!Hobby_Sport))">Please Choose your hoobies</mat-error>
+
+
 
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
   </form>

@@ -12,7 +12,9 @@ exports.createUser = (req, res, next) => {
       lastName: req.body.lastName,
       age: req.body.age,
       gender: req.body.gender,
-      hobbies: req.body.hobbies
+      sport: req.body.sport,
+      culture: req.body.culture,
+      food: req.body.food
     });
     user.save()
       .then(result => {

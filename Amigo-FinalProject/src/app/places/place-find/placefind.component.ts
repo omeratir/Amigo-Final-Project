@@ -32,6 +32,9 @@ export class PlaceFindComponent implements OnInit {
   zoom = 12;
   previous;
 
+  like: boolean;
+  unlike: boolean;
+
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
@@ -58,6 +61,8 @@ export class PlaceFindComponent implements OnInit {
     this.Goal_Shopping = false;
     this.Goal_Sport_And_Extreme = false;
     this.likeClicked = false;
+    this.like = false;
+    this.unlike = false;
   }
 
   onChangeCheckBox() {
@@ -84,11 +89,14 @@ export class PlaceFindComponent implements OnInit {
     this.previous = infoWindow;
   }
 
-  LikeClicked(x) {
-    console.log('Like Clicked!');
-    this.likeClicked = true;
-    x.classList.toggle('fa-thumbs-down');
+  LikeClicked() {
+    console.log('Like Clicked');
   }
+
+  UnLikeClicked() {
+    console.log('UnLike Clicked');
+  }
+
 
 
 }
