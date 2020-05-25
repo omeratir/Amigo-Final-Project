@@ -39,3 +39,8 @@ mat-button-toggle-group {
 .unlike {
   color: black;
 }
+
+.select {
+  font-weight: bold;
+  color: red;
+}

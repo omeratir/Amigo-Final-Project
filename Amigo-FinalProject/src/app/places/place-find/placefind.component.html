@@ -26,6 +26,8 @@
 <br>
 
 <button mat-raised-button color="warn" type="button" (click)="onClickFindPlace()"> Find Me Places! </button>
+<br>
+<span class="select" *ngIf="!placeFindBtnClicked">Please select at least one goal</span>
 
 <div *ngIf="placeFindBtnClicked">
   <br>

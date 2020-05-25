@@ -72,14 +72,19 @@ export class PlaceFindComponent implements OnInit {
 
   onClickFindPlace() {
     console.log('Clicked on find place');
-    this.placeFindBtnClicked = true;
-    console.log('Goal_Attractions_Leisure = ' + this.Goal_Attractions_Leisure);
-    console.log('Goal_Culture_And_Historical_Places = ' + this.Goal_Culture_And_Historical_Places);
-    console.log('Goal_Night_Life = ' + this.Goal_Night_Life);
-    console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
-    console.log('Goal_Shopping = ' + this.Goal_Shopping);
-    console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
 
+    if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
+    && (!this.Goal_Relaxing) && (!this.Goal_Shopping) && (!this.Goal_Sport_And_Extreme)) {
+      this.placeFindBtnClicked = false;
+    } else {
+      this.placeFindBtnClicked = true;
+      console.log('Goal_Attractions_Leisure = ' + this.Goal_Attractions_Leisure);
+      console.log('Goal_Culture_And_Historical_Places = ' + this.Goal_Culture_And_Historical_Places);
+      console.log('Goal_Night_Life = ' + this.Goal_Night_Life);
+      console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
+      console.log('Goal_Shopping = ' + this.Goal_Shopping);
+      console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
+    }
   }
 
   clickedMarker(infoWindow) {
