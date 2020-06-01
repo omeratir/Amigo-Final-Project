@@ -56,30 +56,15 @@ app.use("/api/routes", routesRoutes);
 
 // **** Add places csv **** //
 
-// let stream = fs.createReadStream("./Backend/csv/Attraction.csv");
+// let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
 // let csvData = [];
-// let csvStream = fastcsv
+// let csvStream = fastcsvו
 //   .parse()
 //   .on("data", function(data) {
 //     csvData.push({
 //       name: data[0],
 //       lat: data[1],
-//       lng: data[2],
-//           count_of_post_added_to_place: 0,
-//           place_for_gender: 0,
-//           sum_place_for_gender: 0,
-//           sum_place_for_age: 0,
-//           avg_ages_of_place: 0,
-//           sport: 0,
-//           culture: 0,
-//           food: 0,
-//           hobbies: 0,
-//           sportsAndExtreme: 0,
-//           cultureAndHistoricalPlaces: 0,
-//           attractionsAndLeisure: 0,
-//           rest: 0,
-//           nightLife: 0,
-//           shopping: 0
+//       lng: data[2]
 //     });
 //   })
 //   .on("end", function() {

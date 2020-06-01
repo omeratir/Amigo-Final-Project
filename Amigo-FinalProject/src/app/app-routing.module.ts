@@ -10,6 +10,7 @@ import { PlaceListComponent } from './places/place-list/place-list.component';
 import { RouteCreateComponent } from './routes/route-create/route-create.component';
 import { RouteListComponent } from './routes/route-list/route-list.component';
 import { PlaceFindComponent } from './places/place-find/placefind.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   { path: '', component: PostListComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'placeedit/:placeId', component: PlaceCreateComponent, canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
+  { path: 'myaccount', component: AccountComponent},
   { path: 'map', component: MapComponent},
   { path: 'home', component: HomeComponent}
 

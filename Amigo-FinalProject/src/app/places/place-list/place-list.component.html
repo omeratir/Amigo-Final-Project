@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
+
 <mat-accordion multi="true" *ngIf="places.length > 0 && !isLoading">
 
   <mat-expansion-panel *ngFor="let place of places">
@@ -10,7 +11,6 @@
     <p>lat : {{ place.lat }}</p>
     <p>lng : {{ place.lng }}</p>
 
-    <!-- Map -->
     <div *ngIf="setMapValues(place)">
       <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
           <agm-marker
@@ -23,7 +23,6 @@
           </agm-marker>
     </agm-map>
   </div>
-
 
     <mat-action-row *ngIf="userIsAuthenticated && userId === place.creator">
       <a mat-button color="primary" [routerLink]="['/placeedit', place.id]">EDIT</a>

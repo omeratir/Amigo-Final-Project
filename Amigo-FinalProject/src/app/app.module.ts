@@ -27,6 +27,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ChartsModule } from 'ng2-charts';
     HeaderComponent,
     ErrorComponent,
     MapComponent,
-    HomeComponent
+    HomeComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
