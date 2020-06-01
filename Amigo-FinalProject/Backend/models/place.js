@@ -4,7 +4,7 @@ const placeSchema = mongoose.Schema({
   name: { type: String, required: true },
   lat: { type: String , required: true },
   lng: { type: String , required: true },
-  goal: { type: Number , required: false },
+  goal: { type: String , required: false },
   genbder_avg: { type: Number , required: false },
   count_of_likes: { type: Number , required: false },
   avg_age: { type: Number , required: false },

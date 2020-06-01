@@ -3,6 +3,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { bufferTime } from 'rxjs/operators';
+import { PlacesService } from '../places.service';
+import { Place } from '../place.model';
 
 @Component({
   templateUrl: './placefind.component.html',
@@ -32,6 +34,17 @@ export class PlaceFindComponent implements OnInit {
   zoom = 12;
   previous;
 
+  totalPlaces = 0;
+  placesPerPage = 2000;
+  placeslength = 1;
+  currentPage = 1;
+
+  places: Place[] = [
+
+  ];
+
+  private placesSub: Subscription;
+
   like: boolean;
   unlike: boolean;
 
@@ -40,7 +53,8 @@ export class PlaceFindComponent implements OnInit {
   private authStatusSub: Subscription;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public placesService: PlacesService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +66,13 @@ export class PlaceFindComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+
+    this.placesService.getPlaces(this.placesPerPage, this.currentPage);
+    this.placesSub = this.placesService
+        .getPlaceUpdateListener()
+        .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+          this.places = placeData.places;
+        });
 
     this.placeFindBtnClicked = false;
     this.Goal_Attractions_Leisure = false;
@@ -94,8 +115,9 @@ export class PlaceFindComponent implements OnInit {
     this.previous = infoWindow;
   }
 
-  LikeClicked() {
+  LikeClicked(place) {
     console.log('Like Clicked');
+    this.placesService.onLikeClicked(place.id, this.userId);
   }
 
   UnLikeClicked() {

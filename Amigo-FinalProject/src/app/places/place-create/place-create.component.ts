@@ -16,6 +16,7 @@ import { AuthService } from '../../auth/auth.service';
 export class PlaceCreateComponent implements OnInit, OnDestroy {
   enteredTitle = '';
   enteredContent = '';
+  placename;
   place: Place;
   isLoading = false;
   form: FormGroup;
@@ -101,7 +102,7 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     console.log('lng:' + $event.coords.lng);
 
     this.form.setValue({
-      name: '',
+      name: this.form.value.name,
       lat: $event.coords.lat,
       lng: $event.coords.lng
     });

@@ -32,18 +32,21 @@
 <div *ngIf="placeFindBtnClicked">
   <br>
   <br>
+
+
   <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-    <agm-marker
-    [latitude]="lat"
-    [longitude]="lng"
-    (markerClick)="clickedMarker(infoWindow)">
-      <agm-info-window #infoWindow>
-        Place Name:
+    <agm-marker *ngFor="let place of places;"
+    [latitude]="place.lat"
+    [longitude]="place.lng"
+    (markerClick)="clickedMarker(infoWindow)"
+    >
+    <agm-info-window #infoWindow>
+        Place Name: {{place.name}}
         <br>
         Like:
         <br>
 
-        <a class="abutton" (click)="LikeClicked()"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+        <a class="abutton" (click)="LikeClicked(place)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
         <a class="abutton" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
 
 

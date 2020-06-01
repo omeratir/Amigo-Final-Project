@@ -107,4 +107,9 @@ export class PlacesService {
       });
   }
 
+  onLikeClicked(placeId: string, userId: string) {
+    console.log('onLikeClicked placesService userId = ' + userId);
+    console.log('onLikeClicked placesService placeId = ' + placeId);
+  }
+
 }
