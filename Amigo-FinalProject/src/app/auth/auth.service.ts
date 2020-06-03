@@ -35,9 +35,10 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
   createUser(email: string, password: string, firstName: string, lastName: string,
-             age: string, gender: string, sport: boolean, culture: boolean, food: boolean) {
+             // tslint:disable-next-line: variable-name
+             age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string) {
     const authData: AuthData = { email, password };
-    const user: User = { email , password , firstName, lastName, age, gender , sport, culture, food };
+    const user: User = { email , password , firstName, lastName, age, gender , sport, culture, food , liked_place  };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
         this.router.navigate(['/auth/login']);
@@ -91,6 +92,7 @@ export class AuthService {
         sport: boolean;
         culture: boolean;
         food: boolean;
+        liked_place: string;
       }>(BACKEND_URL + id);
   }
 

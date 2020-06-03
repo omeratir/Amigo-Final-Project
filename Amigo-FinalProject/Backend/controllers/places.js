@@ -7,6 +7,17 @@ exports.createPlace = (req, res, next) => {
     lat: req.body.lat,
     lng: req.body.lng,
     goal: req.body.goal,
+    genbder_avg: 0,
+    count_of_likes: 0,
+    avg_age: 0,
+    count_sport: 0,
+    count_culture: 0,
+    count_food: 0,
+    count_female: 0,
+    count_male: 0,
+    avg_sport: 0,
+    avg_culture: 0,
+    avg_food: 0,
     count_of_post_added_to_place: 0,
     creator: req.userData.userId
   });
@@ -130,4 +141,8 @@ exports.getAllPlaces = (req, res, next) => {
         message: "Fetching places failed!"
       });
     });
+  }
+
+  exports.onLikedPlace = (req, res, next) => {
+    console.log('server user id get = ' + req.body.userId);
   }

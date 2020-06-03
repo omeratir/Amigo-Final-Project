@@ -14,7 +14,25 @@ exports.createUser = (req, res, next) => {
       gender: req.body.gender,
       sport: req.body.sport,
       culture: req.body.culture,
-      food: req.body.food
+      food: req.body.food,
+
+      liked_places: null,
+      count_of_liked_places: 0,
+
+      //goals
+      sportsAndExtreme: 0,
+      cultureAndHistoricalPlaces: 0,
+      attractionsAndLeisure: 0,
+      rest: 0,
+      nightLife: 0,
+      shopping: 0,
+
+      //avg
+      avg_age_place: 0,
+      avg_gender_place: 0,
+      avg_sport_place: 0,
+      avg_culture_place: 0,
+      avg_food_place: 0,
     });
     user.save()
       .then(result => {

@@ -8,4 +8,5 @@ export interface User {
   sport: boolean;
   culture: boolean;
   food: boolean;
+  liked_place: string;
 }

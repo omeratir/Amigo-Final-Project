@@ -64,7 +64,21 @@ app.use("/api/routes", routesRoutes);
 //     csvData.push({
 //       name: data[0],
 //       lat: data[1],
-//       lng: data[2]
+//       lng: data[2],
+//       goal: req.body.goal,
+//       genbder_avg: 0,
+//       count_of_likes: 0,
+//       avg_age: 0,
+//       count_sport: 0,
+//       count_culture: 0,
+//       count_food: 0,
+//       count_female: 0,
+//       count_male: 0,
+//       avg_sport: 0,
+//       avg_culture: 0,
+//       avg_food: 0,
+//       count_of_post_added_to_place: 0,
+//       creator: null
 //     });
 //   })
 //   .on("end", function() {

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { bufferTime } from 'rxjs/operators';
 import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
   templateUrl: './placefind.component.html',
@@ -43,10 +44,14 @@ export class PlaceFindComponent implements OnInit {
 
   ];
 
+  user: User;
+
   private placesSub: Subscription;
 
   like: boolean;
   unlike: boolean;
+
+  ifLikePlace: boolean;
 
   userIsAuthenticated = false;
   userId: string;
@@ -73,6 +78,21 @@ export class PlaceFindComponent implements OnInit {
         .subscribe((placeData: { places: Place[]; placeCount: number }) => {
           this.places = placeData.places;
         });
+
+    this.authService.getUserData(this.userId).subscribe(userData => {
+          this.user = {
+            email: userData.email,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            age: userData.age,
+            gender: userData.gender,
+            sport: userData.sport,
+            culture: userData.culture,
+            food: userData.food,
+            liked_place: userData.liked_place
+          };
+      });
 
     this.placeFindBtnClicked = false;
     this.Goal_Attractions_Leisure = false;
@@ -122,6 +142,29 @@ export class PlaceFindComponent implements OnInit {
 
   UnLikeClicked() {
     console.log('UnLike Clicked');
+  }
+
+  // tslint:disable-next-line: member-ordering
+  splitArray: string[] = [
+
+  ];
+
+  checkIfUserLikeThePlace(placeid: string) {
+    console.log('user places = ' + this.user.liked_place);
+    if (this.user.liked_place === 'null') {
+      return false;
+    }
+
+    this.splitArray = this.user.liked_place.split(',');
+    this.ifLikePlace = false;
+
+    for (const place of this.splitArray) {
+      if (place === placeid) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 

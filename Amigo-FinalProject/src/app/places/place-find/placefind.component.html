@@ -50,6 +50,13 @@
         <a class="abutton" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
 
 
+        <!-- <div *ngIf="!checkIfUserLikeThePlace(place.id)">
+        <a class="abutton" (click)="LikeClicked(place)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+        </div>
+        <div *ngIf="checkIfUserLikeThePlace(place.id)">
+        <a class="abutton" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+        </div> -->
+
         <!-- <mat-radio-group>
           <mat-radio-button value="like" [checked]="like" (change)="like = !like"><i class="fa fa-thumbs-up like" aria-hidden="true"></i></mat-radio-button>
           <mat-radio-button value="unlike" [checked]="unlike" (change)="unlike = !unlike"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></mat-radio-button>

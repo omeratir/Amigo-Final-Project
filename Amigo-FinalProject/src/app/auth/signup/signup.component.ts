@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     form.value.gender = this.gender;
 
     // tslint:disable-next-line: max-line-length
-    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food );
+    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , 'null' );
   }
 
   ngOnDestroy() {

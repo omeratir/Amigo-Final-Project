@@ -35,7 +35,8 @@ export class AccountComponent implements OnInit {
           gender: userData.gender,
           sport: userData.sport,
           culture: userData.culture,
-          food: userData.food
+          food: userData.food,
+          liked_place: userData.liked_place
         };
     });
 }
