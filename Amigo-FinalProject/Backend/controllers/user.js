@@ -16,7 +16,7 @@ exports.createUser = (req, res, next) => {
       culture: req.body.culture,
       food: req.body.food,
 
-      liked_places: null,
+      liked_place: 'EMPTY',
       count_of_liked_places: 0,
 
       //goals

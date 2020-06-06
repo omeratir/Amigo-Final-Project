@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   age: { type: Number, required: true },
   gender: { type: String, required: true },
 
-  liked_places: { type: String, required: false },
+  liked_place: { type: String, required: false },
   count_of_liked_places: { type: String, required: false },
 
   hobbies: { type: String, required: false },

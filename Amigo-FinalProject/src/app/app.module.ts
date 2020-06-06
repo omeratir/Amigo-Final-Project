@@ -26,7 +26,6 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { CommonModule } from '@angular/common';
-import { ChartsModule } from 'ng2-charts';
 import { AccountComponent } from './account/account.component';
 
 @NgModule({
@@ -44,7 +43,6 @@ import { AccountComponent } from './account/account.component';
     AngularImageViewerModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ChartsModule,
     AngularMaterialModule,
     PostsModule,
     PlacesModule,

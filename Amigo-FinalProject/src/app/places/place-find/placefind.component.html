@@ -38,41 +38,17 @@
     <agm-marker *ngFor="let place of places;"
     [latitude]="place.lat"
     [longitude]="place.lng"
-    (markerClick)="clickedMarker(infoWindow)"
-    >
+    (markerClick)="clickedMarker(infoWindow)">
+
     <agm-info-window #infoWindow>
         Place Name: {{place.name}}
         <br>
-        Like:
+        PlaceId : {{place.id}}
         <br>
-
-        <a class="abutton" (click)="LikeClicked(place)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-        <a class="abutton" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-
-
-        <!-- <div *ngIf="!checkIfUserLikeThePlace(place.id)">
-        <a class="abutton" (click)="LikeClicked(place)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-        </div>
-        <div *ngIf="checkIfUserLikeThePlace(place.id)">
-        <a class="abutton" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-        </div> -->
-
-        <!-- <mat-radio-group>
-          <mat-radio-button value="like" [checked]="like" (change)="like = !like"><i class="fa fa-thumbs-up like" aria-hidden="true"></i></mat-radio-button>
-          <mat-radio-button value="unlike" [checked]="unlike" (change)="unlike = !unlike"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></mat-radio-button>
-        </mat-radio-group> -->
-
-        <!-- <mat-radio-group>
-          <mat-radio-button value="like" [checked]="like" (change)="like = !like"><i class="fa fa-thumbs-up like" aria-hidden="true"></i></mat-radio-button>
-          <mat-radio-button value="unlike" [checked]="unlike" (change)="unlike = !unlike"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></mat-radio-button>
-        </mat-radio-group> -->
-
-        <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value='likeClicked'>
-          <mat-button-toggle value="like"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> Like </mat-button-toggle>
-          <mat-button-toggle value="unlike"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> Unlike </mat-button-toggle>
-        </mat-button-toggle-group> -->
-
+        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked()"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
       </agm-info-window>
+
     </agm-marker>
   </agm-map>
 </div>

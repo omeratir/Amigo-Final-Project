@@ -111,9 +111,6 @@ export class PlacesService {
     console.log('onLikeClicked placesService userId = ' + userId);
     console.log('onLikeClicked placesService placeId = ' + placeId);
 
-    placeId.concat(',');
-    placeId.concat(userId);
-
     this.http.put(BACKEND_URL + placeId , userId )
     .subscribe(response => {
 

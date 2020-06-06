@@ -22,6 +22,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: variable-name
   Hobby_Food: boolean;
 
+  // tslint:disable-next-line: variable-name
+  liked_places: string;
+
   male: boolean;
   female: boolean;
 
@@ -32,6 +35,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
   private authStatusSub: Subscription;
   sex: string;
+  // tslint:disable-next-line: variable-name
+  liked_place: string;
   constructor(public authService: AuthService) {}
 
   genders: Gender[] = [
@@ -69,10 +74,14 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.gender = 'Female';
     }
 
+    this.liked_place = 'EMPTY';
+
+    form.value.liked_place = 'EMPTY';
+
     form.value.gender = this.gender;
 
     // tslint:disable-next-line: max-line-length
-    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , 'null' );
+    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , form.value.liked_place );
   }
 
   ngOnDestroy() {

@@ -16,6 +16,7 @@ export class AuthService {
   private tokenTimer: any;
   private userId: string;
   private authStatusListener = new Subject<boolean>();
+  private user: User;
 
   constructor(private http: HttpClient, private router: Router) {}
 

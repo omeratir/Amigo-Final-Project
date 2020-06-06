@@ -137,7 +137,7 @@ export class PlaceFindComponent implements OnInit {
 
   LikeClicked(place) {
     console.log('Like Clicked');
-    this.placesService.onLikeClicked(place.id, this.userId);
+    // this.placesService.onLikeClicked(place.id, this.userId);
   }
 
   UnLikeClicked() {
@@ -149,9 +149,9 @@ export class PlaceFindComponent implements OnInit {
 
   ];
 
-  checkIfUserLikeThePlace(placeid: string) {
+  checkIfUserLikeThePlace(placeid) {
     console.log('user places = ' + this.user.liked_place);
-    if (this.user.liked_place === 'null') {
+    if (this.user.liked_place === 'EMPTY') {
       return false;
     }
 
