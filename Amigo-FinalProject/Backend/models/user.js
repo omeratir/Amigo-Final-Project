@@ -28,6 +28,11 @@ const userSchema = mongoose.Schema({
   shopping: {type: Number, required: false},
 
   //avg
+  avg_age20: { type: Number, required: false },
+  avg_age35: { type: Number, required: false },
+  avg_age50: { type: Number, required: false },
+  avg_age_120: { type: Number, required: false },
+
   avg_age_place: { type: Number, required: false },
   avg_gender_place: { type: Number, required: false },
   avg_sport_place: { type: Number, required: false },

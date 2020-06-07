@@ -15,7 +15,10 @@ exports.createUser = (req, res, next) => {
       sport: req.body.sport,
       culture: req.body.culture,
       food: req.body.food,
-
+      avg20: 0,
+      avg35: 0,
+      avg50: 0,
+      avg120: 0,
       liked_place: 'EMPTY',
       count_of_liked_places: 0,
 
