@@ -62,6 +62,8 @@ exports.updatePlace = (req, res, next) => {
   var avg_sport = 0;
   var avg_culture = 0;
 
+  var avg_gender = 0;
+
   User.findById(req.body.users_array)
   .then(user => {
     if (user) {
@@ -83,24 +85,22 @@ exports.updatePlace = (req, res, next) => {
 
       if (user.age < 21) {
         count_age20 = 1;
-      } else {
-        if (user.age > 20 && user.age < 36) {
+      }
+      if (user.age > 20 && user.age < 36) {
           count_age35 = 1;
         }
-        else {
-          if (user.age > 35 && user.age < 51) {
+      if (user.age > 35 && user.age < 51) {
             count_age50 = 1;
-          } else {
-            count_age120 = 1;
           }
-        }
+      if (user.age > 50 ) {
+            count_age120 = 1;
       }
 
       Place.findById(req.body.id)
       .then(place => {
         if (place) {
 
-          count_of_likes = count_of_likes + place.count_of_likes;
+          count_of_likes = place.count_of_likes + 1;
 
           count_sport = count_sport + place.count_sport;
           count_food = count_food + place.count_food;
@@ -117,6 +117,8 @@ exports.updatePlace = (req, res, next) => {
           avg_sport = count_sport / count_of_likes;
           avg_culture = count_culture / count_of_likes;
           avg_food = count_food / count_of_likes;
+
+          avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
 
           const placeData = new Place({
             _id: req.body.id,
@@ -141,6 +143,8 @@ exports.updatePlace = (req, res, next) => {
             avg_culture: avg_culture,
             avg_sport: avg_sport,
             avg_food: avg_food,
+
+            avg_gender: avg_gender,
 
             users_array: req.body.users_array
 
