@@ -36,6 +36,7 @@ exports.createUser = (req, res, next) => {
       avg_culture_place: 0, //avg hobby of liked places
       avg_food_place: 0, //avg hobby of likes places
     });
+
     user.save()
       .then(result => {
         res.status(201).json({
@@ -104,10 +105,11 @@ exports.getUser = (req, res, next) => {
 };
 
 exports.updateUser = (req, res, next) => {
-    user = User.findById(req.body.userId);
+  console.log('updae user - server side');
+    const userdata = User.findById(req.body.userId);
 
     // increase likes + 1
-    var userlikes = user.count_of_liked_places;
+    var userlikes = userdata.count_of_liked_places;
     userlikes = userlikes + 1;
     // vars
     var age20 =0;
@@ -126,16 +128,19 @@ exports.updateUser = (req, res, next) => {
     var avg_Shopping = 0;
     var tempLikePlace = new Array();
     var indexOfChar = 0;
-    for (var i=0; i<userlikes; i++){
 
-      tempLikePlace[i] = user.liked_place.substring(indexOfChar,user.liked_place.indexOf((','),indexOfChar));
-       indexOfChar = user.liked_place.indexOf(',',indexOfChar);
-       indexOfChar++;
-       console.log(tempLikePlace[i]);
-       console.log(tempLikePlace);
-    }
-    for(var i = 0 ; i < userlikes; i++) {
-      var placeData = Place.findById(tempLikePlace[i]);
+    tempLikePlace = userdata.liked_place.split(',');
+    // for (var i=0; i<userlikes; i++){
+
+    //   tempLikePlace[i] = user.liked_place.substring(indexOfChar,user.liked_place.indexOf((','),indexOfChar));
+    //    indexOfChar = user.liked_place.indexOf(',',indexOfChar);
+    //    indexOfChar++;
+    //    console.log(tempLikePlace[i]);
+    //    console.log(tempLikePlace);
+    // }
+
+   for(var i = 0 ; i < userlikes; i++) {
+     const placeData = Place.findById(tempLikePlace[i]);
 
       // get the place from DB
 
@@ -149,22 +154,22 @@ exports.updateUser = (req, res, next) => {
       age50 +=placeData[i].count_age50;
       age120 +=placeData[i].count_age120;
       switch(placeData[i].goal){//the goal from the place in the DB) {
-        case "Attractions & Leisure":
+        case "attractionsAndLeisure":
           avg_AttractionsLeisure +=1;
         break;
-        case "Sport & Extreme":
+        case "sportsAndExtreme":
           avg_SportExtreme +=1;
         break;
-        case "Night Life":
+        case "nightLife":
           avg_NightLife +=1;
         break;
-        case "Culture &  Historical Places":
+        case "cultureAndHistoricalPlaces":
           avg_CultureHistorical +=1;
         break;
-        case "Rest":
+        case "rest":
           avg_Rest +=1;
         break;
-        case "Shopping":
+        case "shopping":
           avg_Shopping +=1;
         break;
       }
@@ -189,7 +194,7 @@ exports.updateUser = (req, res, next) => {
 
 
   const user = new User({
-    _id: req.body.id,
+   //_id: req.body.id,
     email: req.body.email,
     password: req.body.password,
     firstName: req.body.firstName,
@@ -218,9 +223,9 @@ exports.updateUser = (req, res, next) => {
     avg_sport_place: avg_sport_place,
     avg_culture_place:avg_cultue_place,
     avg_food_place: avg_food_place,
-    creator: req.userData.userId
+    //creator: req.userData.userId
   });
-  User.updateOne({ _id: req.params.id, creator: req.userData.userId }, user)
+  User.updateOne({ _id: req.params.id}, user)
 .then(result => {
   if (result.n > 0) {
     res.status(200).json({ message: "Update successful!" });

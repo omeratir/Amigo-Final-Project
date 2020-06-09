@@ -35,6 +35,7 @@ export class AuthService {
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
+
   createUser(email: string, password: string, firstName: string, lastName: string,
              // tslint:disable-next-line: variable-name
              age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string) {
@@ -84,6 +85,7 @@ export class AuthService {
 
   getUserData(id: string) {
       return this.http.get<{
+       // _id: string,
         email: string;
         password: string;
         firstName: string;
@@ -156,22 +158,34 @@ export class AuthService {
     };
   }
 
-updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string, gender: string, sport: string, culture: string, food: string, liked_place: string) {
+  updateUser(email: string, password: string, firstName: string, lastName: string, age: string, gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string) {
   let userData: User | FormData;
-  userData = new FormData();
-  userData.append('email', email);
-  userData.append('password', password);
-  userData.append('firstName', firstName);
-  userData.append('lastName', lastName);
-  userData.append('age', age);
-  userData.append('gender', gender);
-  userData.append('sport', sport);
-  userData.append('culture', culture);
-  userData.append('food', food);
-  userData.append('liked_place', liked_place);
+  userData = {
+    email,
+    password,
+    firstName,
+    lastName,
+    age,
+    gender,
+    sport,
+    culture,
+    food,
+    liked_place
+  };
+  // userData = new FormData();
+  // userData.append('email', email);
+  // userData.append('password', password);
+  // userData.append('firstName', firstName);
+  // userData.append('lastName', lastName);
+  // userData.append('age', age);
+  // userData.append('gender', gender);
+  // userData.append('sport', sport);
+  // userData.append('culture', culture);
+  // userData.append('food', food);
+  // userData.append('liked_place', liked_place);
 
   this.http
-    .put(BACKEND_URL + id, userData)
+    .put(BACKEND_URL + this.getUserId(), userData)
     .subscribe(response => {
       this.router.navigate(['/']);
     });

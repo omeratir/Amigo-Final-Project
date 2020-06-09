@@ -79,9 +79,17 @@ export class PlacesService {
   updatePlace(id: string, name: string, lat: string, lng: string) {
     let placeData: Place | FormData;
     placeData = new FormData();
-    placeData.append('name', name);
-    placeData.append('lat', lat);
-    placeData.append('lng', lng);
+    // placeData.append('name', name);
+    // placeData.append('lat', lat);
+    // placeData.append('lng', lng);
+
+    placeData = {
+      id,
+      name,
+      lat,
+      lng,
+      creator: null
+    };
 
     this.http
       .put(BACKEND_URL + id, placeData)
@@ -89,6 +97,19 @@ export class PlacesService {
         this.router.navigate(['/']);
       });
   }
+  // updatePlace(id: string, name: string, lat: string, lng: string) {
+  //   let placeData: Place | FormData;
+  //   placeData = new FormData();
+  //   placeData.append('name', name);
+  //   placeData.append('lat', lat);
+  //   placeData.append('lng', lng);
+
+  //   this.http
+  //     .put(BACKEND_URL + id, placeData)
+  //     .subscribe(response => {
+  //       this.router.navigate(['/']);
+  //     });
+  // }
 
   deletePlace(placeId: string) {
     return this.http.delete(BACKEND_URL + placeId);

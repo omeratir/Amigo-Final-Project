@@ -81,6 +81,7 @@ export class PlaceFindComponent implements OnInit {
 
     this.authService.getUserData(this.userId).subscribe(userData => {
           this.user = {
+            //id: userData.email,
             email: userData.email,
             password: userData.password,
             firstName: userData.firstName,
@@ -147,9 +148,11 @@ export class PlaceFindComponent implements OnInit {
       this.user.liked_place.concat(place.id);
     }
 
-    this.authService.updateUser(this.userId, this.user.email, this.user.password , this.user.firstName, this.user.lastName
-      , this.user.age, this.user.gender, String(this.user.sport), String(this.user.culture), String(this.user.food) , this.user.liked_place);
+    this.authService.updateUser(this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
     // this.placesService.onLikeClicked(place.id, this.userId);
+
+    // this.placesService.updatePlace(place.id , 'TEST' , place.lat, place.lng);
   }
 
   UnLikeClicked() {
