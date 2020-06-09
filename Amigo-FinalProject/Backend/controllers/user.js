@@ -15,10 +15,10 @@ exports.createUser = (req, res, next) => {
       sport: req.body.sport,
       culture: req.body.culture,
       food: req.body.food,
-      avg20: 0,
-      avg35: 0,
-      avg50: 0,
-      avg120: 0,
+      avg20: 0,  // avg age of liked places
+      avg35: 0, //avg age of liked places
+      avg50: 0, //avg age of liked places
+      avg120: 0, //avg age of liked places
       liked_place: 'EMPTY',
       count_of_liked_places: 0,
 
@@ -31,11 +31,10 @@ exports.createUser = (req, res, next) => {
       shopping: 0,
 
       //avg
-      avg_age_place: 0,
       avg_gender_place: 0,
-      avg_sport_place: 0,
-      avg_culture_place: 0,
-      avg_food_place: 0,
+      avg_sport_place: 0, //avg hobby of liked places
+      avg_culture_place: 0, //avg hobby of liked places
+      avg_food_place: 0, //avg hobby of likes places
     });
     user.save()
       .then(result => {
@@ -103,4 +102,138 @@ exports.getUser = (req, res, next) => {
       });
     });
 };
+
+exports.updateUser = (req, res, next) => {
+    user = User.findById(req.body.userId);
+
+    // increase likes + 1
+    var userlikes = user.count_of_liked_places;
+    userlikes = userlikes + 1;
+    // vars
+    var age20 =0;
+    var age35 =0;
+    var age50 =0;
+    var age120 =0;
+    var avg_gender = 0;
+    var avg_cultue_place = 0;
+    var avg_food_place = 0;
+    var avg_sport_place =0;
+    var avg_AttractionsLeisure = 0;
+    var avg_SportExtreme = 0;
+    var avg_NightLife = 0;
+    var avg_CultureHistorical = 0;
+    var avg_Rest = 0;
+    var avg_Shopping = 0;
+    var tempLikePlace = new Array();
+    var indexOfChar = 0;
+    for (var i=0; i<userlikes; i++){
+
+      tempLikePlace[i] = user.liked_place.substring(indexOfChar,user.liked_place.indexOf((','),indexOfChar));
+       indexOfChar = user.liked_place.indexOf(',',indexOfChar);
+       indexOfChar++;
+       console.log(tempLikePlace[i]);
+       console.log(tempLikePlace);
+    }
+    for(var i = 0 ; i < userlikes; i++) {
+      var placeData = Place.findById(tempLikePlace[i]);
+
+      // get the place from DB
+
+      // const temp_place = Place.findById(split[i]);
+      avg_gender += placeData[i].genbder_avg;// the avg_gender of each place
+      avg_cultrue_place +=placeData[i].avg_culture; //the avg_cultue of each place
+      avg_sport_place +=placeData[i].avg_sport; //the avg_sport of each place
+      avg_food_place +=placeData[i].avg_food; //the avg_food of each place
+      age20 +=placeData[i].count_age20; //השם של העמודה בדאטה בייס
+      age35 +=placeData[i].count_age35;
+      age50 +=placeData[i].count_age50;
+      age120 +=placeData[i].count_age120;
+      switch(placeData[i].goal){//the goal from the place in the DB) {
+        case "Attractions & Leisure":
+          avg_AttractionsLeisure +=1;
+        break;
+        case "Sport & Extreme":
+          avg_SportExtreme +=1;
+        break;
+        case "Night Life":
+          avg_NightLife +=1;
+        break;
+        case "Culture &  Historical Places":
+          avg_CultureHistorical +=1;
+        break;
+        case "Rest":
+          avg_Rest +=1;
+        break;
+        case "Shopping":
+          avg_Shopping +=1;
+        break;
+      }
+    }
+
+
+
+     avg_AttractionsLeisure= avg_AttractionsLeisure/countlikes;
+     avg_SportExtreme= avg_SportExtreme/countlikes;
+     avg_NightLife= avg_NightLife/countlikes;
+     avg_CultureHistorical= avg_CultureHistorical/countlikes;
+     avg_Rest=avg_Rest/countlikes;
+     avg_Shopping= avg_Shopping/countlikes;
+     avg_gender= avg_gender/countlikes;
+     avg_cultue_place= avg_cultue_place/countlikes;
+     avg_sport_place=  avg_sport_place/countlikes;
+     avg_food_place= avg_food_place/countlikes;
+     age20= age20/countlikes;
+     age35=  age35/countlikes;
+     age50= age50/countlikes;
+     age120=  age120/countlikes;
+
+
+  const user = new User({
+    _id: req.body.id,
+    email: req.body.email,
+    password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    age: req.body.age,
+    gneder: req.body.gender,
+    sport: req.body.sport,
+    culture: req.body.culture,
+    food: req.body.food,
+    liked_place: req.body.liked_place,
+    count_of_liked_places: userlikes,
+    sportsAndExtreme: avg_SportExtreme,
+    cultureAndHistoricalPlaces:avg_CultureHistorical,
+    attractionsAndLeisure:avg_AttractionsLeisure,
+    rest: avg_Rest,
+    nightLife:avg_NightLife,
+    shopping:avg_Shopping,
+
+    //avg
+    avg_age20:age20,
+    avg_age35:age35,
+    avg_age50:age50,
+    avg_age_120:age120,
+
+    avg_gender_place:avg_gender,
+    avg_sport_place: avg_sport_place,
+    avg_culture_place:avg_cultue_place,
+    avg_food_place: avg_food_place,
+    creator: req.userData.userId
+  });
+  User.updateOne({ _id: req.params.id, creator: req.userData.userId }, user)
+.then(result => {
+  if (result.n > 0) {
+    res.status(200).json({ message: "Update successful!" });
+  } else {
+    res.status(401).json({ message: "Not authorized!" });
+  }
+})
+.catch(error => {
+  res.status(500).json({
+    message: "Couldn't udpate user!"
+  });
+});
+};
+
+
 

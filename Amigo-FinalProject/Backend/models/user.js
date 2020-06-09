@@ -8,16 +8,13 @@ const userSchema = mongoose.Schema({
   lastName: { type: String, required: true },
   age: { type: Number, required: true },
   gender: { type: String, required: true },
-
-  liked_place: { type: String, required: false },
-  count_of_liked_places: { type: String, required: false },
-
-  hobbies: { type: String, required: false },
-
   //hobbies
   sport: { type: Boolean, required: false },
   culture: { type: Boolean, required: false },
   food: { type: Boolean, required: false },
+
+  liked_place: { type: String, required: false },
+  count_of_liked_places: { type: String, required: false },
 
   //goals
   sportsAndExtreme: {type: Number, required: false},
@@ -33,7 +30,6 @@ const userSchema = mongoose.Schema({
   avg_age50: { type: Number, required: false },
   avg_age_120: { type: Number, required: false },
 
-  avg_age_place: { type: Number, required: false },
   avg_gender_place: { type: Number, required: false },
   avg_sport_place: { type: Number, required: false },
   avg_culture_place: { type: Number, required: false },

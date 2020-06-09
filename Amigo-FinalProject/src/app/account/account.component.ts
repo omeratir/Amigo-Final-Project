@@ -27,6 +27,7 @@ export class AccountComponent implements OnInit {
 
     this.authService.getUserData(this.userId).subscribe(userData => {
         this.user = {
+
           email: userData.email,
           password: userData.password,
           firstName: userData.firstName,

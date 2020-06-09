@@ -137,6 +137,18 @@ export class PlaceFindComponent implements OnInit {
 
   LikeClicked(place) {
     console.log('Like Clicked');
+
+    // add the placeid to the list.
+
+    if (this.user.liked_place === 'EMPTY') {
+      this.user.liked_place = place.id;
+    } else {
+      this.user.liked_place.concat(',');
+      this.user.liked_place.concat(place.id);
+    }
+
+    this.authService.updateUser(this.userId, this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      , this.user.age, this.user.gender, String(this.user.sport), String(this.user.culture), String(this.user.food) , this.user.liked_place);
     // this.placesService.onLikeClicked(place.id, this.userId);
   }
 

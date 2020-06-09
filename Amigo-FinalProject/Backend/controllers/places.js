@@ -9,15 +9,18 @@ exports.createPlace = (req, res, next) => {
     goal: req.body.goal,
     genbder_avg: 0,
     count_of_likes: 0,
-    avg_age: 0,
+    count_age20: 0,
+    count_age35: 0,
+    count_age50: 0,
+    count_age120: 0,
     count_sport: 0,
     count_culture: 0,
     count_food: 0,
     count_female: 0,
     count_male: 0,
-    avg_sport: 0,
-    avg_culture: 0,
-    avg_food: 0,
+    avg_sport: 0, //avg hobby of users
+    avg_culture: 0, //avg hobby of users
+    avg_food: 0, //avg hobby of users
     count_of_post_added_to_place: 0,
     creator: req.userData.userId
   });
@@ -64,7 +67,7 @@ exports.updatePlace = (req, res, next) => {
 exports.getPlaces = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const placeQuery = Place.find();
+  const placeQuery = Place.find(); //bring all data from db
   let fetchedPlaces;
   if (pageSize && currentPage) {
     placeQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);

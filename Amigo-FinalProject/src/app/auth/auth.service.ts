@@ -39,7 +39,7 @@ export class AuthService {
              // tslint:disable-next-line: variable-name
              age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string) {
     const authData: AuthData = { email, password };
-    const user: User = { email , password , firstName, lastName, age, gender , sport, culture, food , liked_place  };
+    const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place  };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
         this.router.navigate(['/auth/login']);
@@ -155,4 +155,25 @@ export class AuthService {
       userId
     };
   }
+
+updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string, gender: string, sport: string, culture: string, food: string, liked_place: string) {
+  let userData: User | FormData;
+  userData = new FormData();
+  userData.append('email', email);
+  userData.append('password', password);
+  userData.append('firstName', firstName);
+  userData.append('lastName', lastName);
+  userData.append('age', age);
+  userData.append('gender', gender);
+  userData.append('sport', sport);
+  userData.append('culture', culture);
+  userData.append('food', food);
+  userData.append('liked_place', liked_place);
+
+  this.http
+    .put(BACKEND_URL + id, userData)
+    .subscribe(response => {
+      this.router.navigate(['/']);
+    });
+}
 }

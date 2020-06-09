@@ -7,7 +7,6 @@ const placeSchema = mongoose.Schema({
   goal: { type: String , required: false },
   genbder_avg: { type: Number , required: false },
   count_of_likes: { type: Number , required: false },
-  avg: { type: Number , required: false },
   count_sport: { type: Number , required: false },
   count_culture: { type: Number , required: false },
   count_food: { type: Number , required: false },
@@ -17,12 +16,12 @@ const placeSchema = mongoose.Schema({
   avg_culture: { type: Number , required: false },
   avg_food: { type: Number , required: false },
   count_of_post_added_to_place: {type: Number, required: false},
-    //avg
-    avg_age20: { type: Number, required: false },
-    avg_age35: { type: Number, required: false },
-    avg_age50: { type: Number, required: false },
-    avg_age_120: { type: Number, required: false },
-  
+  //age
+  count_age20: { type: Number, required: false },
+  count_age35: { type: Number, required: false },
+  count_age50: { type: Number, required: false },
+  count_age120: { type: Number, required: false },
+
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
   // NO NEED ANYMORE:
 
