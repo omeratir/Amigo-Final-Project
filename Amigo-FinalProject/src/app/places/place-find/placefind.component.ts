@@ -57,6 +57,8 @@ export class PlaceFindComponent implements OnInit {
   userId: string;
   private authStatusSub: Subscription;
 
+  placelist: string;
+
   constructor(
     private authService: AuthService,
     public placesService: PlacesService
@@ -144,16 +146,45 @@ export class PlaceFindComponent implements OnInit {
     if (this.user.liked_place === 'EMPTY') {
       this.user.liked_place = place.id;
     } else {
-      this.user.liked_place.concat(',');
-      this.user.liked_place.concat(place.id);
+      // this.user.liked_place.concat(',');
+      // this.user.liked_place.concat(place.id);
+
+      console.log('LikeClicked else before concat = ' + this.user.liked_place);
+      this.placelist = this.user.liked_place;
+     // this.placelist.concat(',');
+      this.placelist = this.placelist.concat(",",place.id);
+      console.log('LikeClicked after concat = ' + this.placelist);
+      this.user.liked_place = this.placelist;
+      // this.user.liked_place.concat(',');
+      // this.user.liked_place.concat(place.id);
+      console.log('LikeClicked after concat = ' + this.user.liked_place);
+      console.log('LikeClicked placeid = ' + place.id);
     }
 
-    this.authService.updateUser(this.user.email, this.user.password , this.user.firstName, this.user.lastName
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
-    // this.placesService.onLikeClicked(place.id, this.userId);
 
     // this.placesService.updatePlace(place.id , 'TEST' , place.lat, place.lng);
   }
+
+  // LikeClicked(place) {
+  //   console.log('Like Clicked');
+
+  //   // add the placeid to the list.
+
+  //   if (this.user.liked_place === 'EMPTY') {
+  //     this.user.liked_place = place.id;
+  //   } else {
+  //     this.user.liked_place.concat(',');
+  //     this.user.liked_place.concat(place.id);
+  //   }
+
+  //   this.authService.updateUser(this.user.email, this.user.password , this.user.firstName, this.user.lastName
+  //     , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
+  //   // this.placesService.onLikeClicked(place.id, this.userId);
+
+  //   // this.placesService.updatePlace(place.id , 'TEST' , place.lat, place.lng);
+  // }
 
   UnLikeClicked() {
     console.log('UnLike Clicked');
