@@ -11,8 +11,6 @@ router.post("/", checkAuth, extractFile, PlaceController.createPlace);
 
 router.put("/:id", checkAuth, extractFile, PlaceController.updatePlace);
 
-router.put("/like:id" , PlaceController.onLikedPlace);
-
 router.get("", PlaceController.getPlaces);
 
 router.get("/:id", PlaceController.getPlace);

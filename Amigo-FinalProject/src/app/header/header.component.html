@@ -9,7 +9,7 @@
     <!-- <li>
       <a mat-button routerLink="/"> REVIEWS </a>
     </li> -->
-    <li>
+    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/placelist" routerLinkActive="mat-warn"> PLACES </a>
     </li>
     <li *ngIf="userIsAuthenticated">

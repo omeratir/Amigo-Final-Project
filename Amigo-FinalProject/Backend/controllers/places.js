@@ -1,4 +1,5 @@
 const Place = require("../models/place");
+const User = require("../models/user");
 
 exports.createPlace = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
@@ -6,8 +7,9 @@ exports.createPlace = (req, res, next) => {
     name: req.body.name,
     lat: req.body.lat,
     lng: req.body.lng,
-    goal: req.body.goal,
-    genbder_avg: 0,
+    goal: 'GOAL',
+    users_array: 'EMPTY',
+    gender_avg: 0,
     count_of_likes: 0,
     count_age20: 0,
     count_age35: 0,
@@ -42,26 +44,140 @@ exports.createPlace = (req, res, next) => {
 };
 
 exports.updatePlace = (req, res, next) => {
-  const place = new Place({
-    _id: req.body.id,
-    name: req.body.name,
-    lat: req.body.lat,
-    lng: req.body.lng,
-    creator: req.userData.userId
-  });
-  Place.updateOne({ _id: req.params.id, creator: req.userData.userId }, place)
-    .then(result => {
-      if (result.n > 0) {
-        res.status(200).json({ message: "Update successful!" });
+  var count_of_likes = 0;
+
+  var count_sport = 0;
+  var count_culture = 0;
+  var count_food = 0;
+
+  var count_female = 0;
+  var count_male = 0;
+
+  var count_age20 = 0;
+  var count_age35 = 0;
+  var count_age50 = 0;
+  var count_age120 = 0;
+
+  var avg_food = 0;
+  var avg_sport = 0;
+  var avg_culture = 0;
+
+  User.findById(req.body.users_array)
+  .then(user => {
+    if (user) {
+      if (user.gender === 'Female') {
+        count_female = 1;
       } else {
-        res.status(401).json({ message: "Not authorized!" });
+        count_male = 1;
       }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: "Couldn't udpate place!"
+
+      if (user.sport === true ) {
+        count_sport = 1;
+      }
+      if (user.culture === true) {
+        count_culture = 1;
+      }
+      if (user.food === true) {
+        count_food = 1;
+      }
+
+      if (user.age < 21) {
+        count_age20 = 1;
+      } else {
+        if (user.age > 20 && user.age < 36) {
+          count_age35 = 1;
+        }
+        else {
+          if (user.age > 35 && user.age < 51) {
+            count_age50 = 1;
+          } else {
+            count_age120 = 1;
+          }
+        }
+      }
+
+      Place.findById(req.body.id)
+      .then(place => {
+        if (place) {
+
+          count_of_likes = count_of_likes + place.count_of_likes;
+
+          count_sport = count_sport + place.count_sport;
+          count_food = count_food + place.count_food;
+          count_culture = count_culture + place.count_culture;
+
+          count_female = count_female + place.count_female;
+          count_male = count_male + place.count_male;
+
+          count_age20 = count_age20 + place.count_age20;
+          count_age35 = count_age35 + place.count_age35;
+          count_age50 = count_age50 + place.count_age50;
+          count_age120 = count_age120 + place.count_age120;
+
+          avg_sport = count_sport / count_of_likes;
+          avg_culture = count_culture / count_of_likes;
+          avg_food = count_food / count_of_likes;
+
+          const placeData = new Place({
+            _id: req.body.id,
+            name: req.body.name,
+            lat: req.body.lat,
+            lng: req.body.lng,
+
+            count_of_likes: count_of_likes,
+
+            count_sport: count_sport,
+            count_culture: count_culture,
+            count_food: count_food,
+
+            count_female: count_female,
+            count_male: count_male,
+
+            count_age20: count_age20,
+            count_age35: count_age35,
+            count_age50: count_age50,
+            count_age120: count_age120,
+
+            avg_culture: avg_culture,
+            avg_sport: avg_sport,
+            avg_food: avg_food,
+
+            users_array: req.body.users_array
+
+            // creator: req.userData.userId
+          });
+
+          Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
+            .then(result => {
+              if (result.n > 0) {
+                res.status(200).json({ message: "Update successful!" });
+              } else {
+                res.status(401).json({ message: "Not authorized!" });
+              }
+            })
+            .catch(error => {
+              res.status(500).json({
+                message: "Couldn't udpate place!"
+              });
+            });
+        } else {
+          res.status(404).json({ message: "Place not found!" });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Fetching place failed!"
+        });
       });
+    } else {
+      res.status(404).json({ message: "User not found!" });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Fetching user failed!"
     });
+  });
 };
 
 exports.getPlaces = (req, res, next) => {

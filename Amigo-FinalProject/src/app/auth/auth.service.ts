@@ -160,7 +160,8 @@ export class AuthService {
   }
 
   updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string,
-    gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string) {
+             // tslint:disable-next-line: variable-name
+             gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string) {
   let userData: UserData | FormData;
   userData = new FormData();
 
@@ -192,39 +193,8 @@ export class AuthService {
   this.http
     .put(BACKEND_URL + id, userData)
     .subscribe(response => {
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     });
 }
-//   updateUser(email: string, password: string, firstName: string, lastName: string, age: string, gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string) {
-//   let userData: User | FormData;
-//   userData = {
-//     email,
-//     password,
-//     firstName,
-//     lastName,
-//     age,
-//     gender,
-//     sport,
-//     culture,
-//     food,
-//     liked_place
-//   };
-//   // userData = new FormData();
-//   // userData.append('email', email);
-//   // userData.append('password', password);
-//   // userData.append('firstName', firstName);
-//   // userData.append('lastName', lastName);
-//   // userData.append('age', age);
-//   // userData.append('gender', gender);
-//   // userData.append('sport', sport);
-//   // userData.append('culture', culture);
-//   // userData.append('food', food);
-//   // userData.append('liked_place', liked_place);
 
-//   this.http
-//     .put(BACKEND_URL + this.getUserId(), userData)
-//     .subscribe(response => {
-//       this.router.navigate(['/']);
-//     });
-// }
 }

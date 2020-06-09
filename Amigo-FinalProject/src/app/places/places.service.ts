@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 import { Place } from './place.model';
+import { PlaceData } from './placeData.model';
 
 const BACKEND_URL = environment.apiUrl + '/places/';
 
@@ -72,13 +73,15 @@ export class PlacesService {
         placeData
       )
       .subscribe(responseData => {
-        this.router.navigate(['/placelist']);
+        // this.router.navigate(['/placelist']);
       });
   }
 
-  updatePlace(id: string, name: string, lat: string, lng: string) {
-    let placeData: Place | FormData;
+  // tslint:disable-next-line: variable-name
+  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string) {
+    let placeData: PlaceData | FormData;
     placeData = new FormData();
+
     // placeData.append('name', name);
     // placeData.append('lat', lat);
     // placeData.append('lng', lng);
@@ -88,28 +91,16 @@ export class PlacesService {
       name,
       lat,
       lng,
+      users_array,
       creator: null
     };
 
     this.http
       .put(BACKEND_URL + id, placeData)
       .subscribe(response => {
-        this.router.navigate(['/']);
+        // this.router.navigate(['/placelist']);
       });
   }
-  // updatePlace(id: string, name: string, lat: string, lng: string) {
-  //   let placeData: Place | FormData;
-  //   placeData = new FormData();
-  //   placeData.append('name', name);
-  //   placeData.append('lat', lat);
-  //   placeData.append('lng', lng);
-
-  //   this.http
-  //     .put(BACKEND_URL + id, placeData)
-  //     .subscribe(response => {
-  //       this.router.navigate(['/']);
-  //     });
-  // }
 
   deletePlace(placeId: string) {
     return this.http.delete(BACKEND_URL + placeId);

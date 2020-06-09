@@ -91,7 +91,8 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
         this.placeId,
         this.form.value.name,
         this.form.value.lat,
-        this.form.value.lng
+        this.form.value.lng,
+        'EMPTY'
       );
     }
     this.form.reset();

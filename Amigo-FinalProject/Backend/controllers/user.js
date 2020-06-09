@@ -145,7 +145,7 @@ exports.getUser = (req, res, next) => {
 //       // get the place from DB
 
 //       // const temp_place = Place.findById(split[i]);
-//       avg_gender += placeData[i].genbder_avg;// the avg_gender of each place
+//       avg_gender += placeData[i].gender_avg;// the avg_gender of each place
 //       avg_cultrue_place +=placeData[i].avg_culture; //the avg_cultue of each place
 //       avg_sport_place +=placeData[i].avg_sport; //the avg_sport of each place
 //       avg_food_place +=placeData[i].avg_food; //the avg_food of each place
@@ -281,7 +281,7 @@ exports.updateUser = (req, res, next) => {
   //     // get the place from DB
 
   //     // const temp_place = Place.findById(split[i]);
-  //     avg_gender += placeData[i].genbder_avg;// the avg_gender of each place
+  //     avg_gender += placeData[i].gender_avg;// the avg_gender of each place
   //     avg_cultrue_place +=placeData[i].avg_culture; //the avg_cultue of each place
   //     avg_sport_place +=placeData[i].avg_sport; //the avg_sport of each place
   //     avg_food_place +=placeData[i].avg_food; //the avg_food of each place

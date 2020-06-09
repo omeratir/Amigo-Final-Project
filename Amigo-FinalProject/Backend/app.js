@@ -53,22 +53,27 @@ app.use("/api/routes", routesRoutes);
 // Amsterdamplaces.csv - 100 items
 // Attraction.csv - 1370 items
 // AttractionRecommends.csv
+// AttractionTemp.csv
 
 // **** Add places csv **** //
 
-// let stream = fs.createReadStream("./Backend/csv/Amsterdamplaces.csv");
+// let stream = fs.createReadStream("./Backend/csv/AttractionTemp.csv");
 // let csvData = [];
-// let csvStream = fastcsvו
+// let csvStream = fastcsv
 //   .parse()
 //   .on("data", function(data) {
 //     csvData.push({
 //       name: data[0],
 //       lat: data[1],
 //       lng: data[2],
-//       goal: req.body.goal,
-//       genbder_avg: 0,
+//       goal: data[3],
+//       users_array: 'EMPTY',
+//       gender_avg: 0,
 //       count_of_likes: 0,
-//       avg_age: 0,
+//       count_age20: 0,
+//       count_age35: 0,
+//       count_age50: 0,
+//       count_age120: 0,
 //       count_sport: 0,
 //       count_culture: 0,
 //       count_food: 0,
