@@ -20,3 +20,20 @@
 <br>
 <span>liked_place: {{ user.liked_place }}</span>
 
+    <!-- Map -->
+    <!-- <div *ngIf="splitArray(user.liked_place)">
+      <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+        <div *ngFor="let marker of userPlacesArray">
+          <agm-marker *ngIf="checkPlace(marker)"
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window #infoWindow>
+              {{ place.name }}
+            </agm-info-window>
+          </agm-marker>
+      </div>
+    </agm-map>
+    </div> -->
+
+
