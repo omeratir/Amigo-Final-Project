@@ -154,7 +154,7 @@ export class PlaceFindComponent implements OnInit {
       this.user.liked_place = this.placelist;
     }
 
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
@@ -164,21 +164,25 @@ export class PlaceFindComponent implements OnInit {
   UnLikeClicked(place) {
     console.log('UnLike Clicked');
 
-    // // remove the placeid to the list.
-    // this.splitArray = this.user.liked_place.split(',');
-    // this.user.liked_place = 'EMPTY';
+    // remove the placeid to the list.
+    this.splitArray = this.user.liked_place.split(',');
+    this.user.liked_place = 'EMPTY';
 
-    // for (const placeid of this.splitArray) {
-    //   if (placeid !== place.id) {
-    //     if (this.user.liked_place === 'EMPTY') {
-    //       this.user.liked_place = place.id;
-    //     } else {
-    //       this.placelist = this.user.liked_place;
-    //       this.placelist = this.placelist.concat(',', placeid);
-    //       this.user.liked_place = this.placelist;
-    //     }
-    //   }
-    // }
+    for (const placeid of this.splitArray) {
+      if (placeid !== place.id) {
+        if (this.user.liked_place === 'EMPTY') {
+          this.user.liked_place = place.id;
+        } else {
+          this.placelist = this.user.liked_place;
+          this.placelist = this.placelist.concat(',', placeid);
+          this.user.liked_place = this.placelist;
+        }
+      }
+    }
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false);
+
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
   }
 
   checkIfUserLikeThePlace(placeid) {

@@ -78,7 +78,7 @@ export class PlacesService {
   }
 
   // tslint:disable-next-line: variable-name
-  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string) {
+  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean) {
     let placeData: PlaceData | FormData;
     placeData = new FormData();
 
@@ -92,6 +92,7 @@ export class PlacesService {
       lat,
       lng,
       users_array,
+      flagLike,
       creator: null
     };
 

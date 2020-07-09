@@ -4,6 +4,7 @@ export interface PlaceData {
   lat: string;
   lng: string;
   users_array: string;
+  flagLike: boolean;
   creator: string;
 }
 
