@@ -103,6 +103,26 @@ export class PlacesService {
       });
   }
 
+
+  kmeans(id: string) {
+    this.http
+      .put(BACKEND_URL + 'kmeans', id )
+      .subscribe(response => {
+        // this.router.navigate(['/placelist']);
+      });
+
+
+  // kmeans(userId: string) {
+  //   console.log('placeservice1');
+  //   this.http.put(BACKEND_URL + userId).subscribe(response => {
+  //   });
+}
+    // this.http
+    // .get(BACKEND_URL + userId)
+    // .subscribe(response => {
+    // });
+
+
   deletePlace(placeId: string) {
     return this.http.delete(BACKEND_URL + placeId);
   }
@@ -123,11 +143,26 @@ export class PlacesService {
   onLikeClicked(placeId: string, userId: string) {
     console.log('onLikeClicked placesService userId = ' + userId);
     console.log('onLikeClicked placesService placeId = ' + placeId);
-
     this.http.put(BACKEND_URL + placeId , userId )
     .subscribe(response => {
 
     });
   }
+
+  // kmeans(userId: string) {
+  //   console.log('aviad azliach kmeans?');
+  //   this.http
+  //   .get(
+  //     BACKEND_URL + userId).subscribe(response => {
+  //       console.log('aviad azliach kmeans?222');
+  //     });
+
+
+  //   // this.http.get(BACKEND_URL + userId ).subscribe(response => {
+
+  //   // });
+  // }
+
+
 
 }

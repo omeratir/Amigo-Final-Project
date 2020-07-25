@@ -45,7 +45,7 @@ exports.createPlace = (req, res, next) => {
 
 exports.updatePlace = (req, res, next) => {
   var count_of_likes = 0;
-  
+
   var count_sport = 0;
   var count_culture = 0;
   var count_food = 0;
@@ -72,7 +72,7 @@ exports.updatePlace = (req, res, next) => {
       } else {
         count_male = 1;
       }
-      
+
       if (user.sport === true ) {
         count_sport = 1;
       }
@@ -95,13 +95,13 @@ exports.updatePlace = (req, res, next) => {
       if (user.age > 50 ) {
             count_age120 = 1;
       }
-      
+
       Place.findById(req.body.id)
       .then(place => {
         if (place) {
           if(place.flagLike == true){
           count_of_likes = place.count_of_likes + 1;
-          
+
           count_sport = count_sport + place.count_sport;
           count_food = count_food + place.count_food;
           count_culture = count_culture + place.count_culture;
@@ -122,23 +122,23 @@ exports.updatePlace = (req, res, next) => {
           }
           if(place.flagLike == false){
             count_of_likes = place.count_of_likes - 1;
-          
+
             count_sport = count_sport + place.count_sport;
             count_food = count_food + place.count_food;
             count_culture = count_culture + place.count_culture;
-  
+
             count_female = count_female + place.count_female;
             count_male = count_male + place.count_male;
-  
+
             count_age20 = count_age20 + place.count_age20;
             count_age35 = count_age35 + place.count_age35;
             count_age50 = count_age50 + place.count_age50;
             count_age120 = count_age120 + place.count_age120;
-  
+
             avg_sport = count_sport / count_of_likes;
             avg_culture = count_culture / count_of_likes;
             avg_food = count_food / count_of_likes;
-  
+
             avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
           }
           const placeData = new Place({
@@ -265,6 +265,10 @@ exports.deletePlace = (req, res, next) => {
     });
 };
 
+exports.kmeans = (req, res, next) => {
+  console.log('kmeans work?');
+};
+
 exports.getAllPlaces = (req, res, next) => {
   const placeQuery = Place.find();
   let fetchedPlaces;
@@ -290,3 +294,5 @@ exports.getAllPlaces = (req, res, next) => {
   exports.onLikedPlace = (req, res, next) => {
     console.log('server user id get = ' + req.body.userId);
   }
+
+

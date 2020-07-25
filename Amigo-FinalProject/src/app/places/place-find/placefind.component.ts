@@ -117,7 +117,7 @@ export class PlaceFindComponent implements OnInit {
     this.Goal_Attractions_Leisure = !this.Goal_Attractions_Leisure;
   }
 
-  onClickFindPlace() {
+  onClickFindPlace(user) {
     console.log('Clicked on find place');
 
     if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
@@ -131,6 +131,9 @@ export class PlaceFindComponent implements OnInit {
       console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
       console.log('Goal_Shopping = ' + this.Goal_Shopping);
       console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
+      this.placesService.kmeans(user.id);
+
+
     }
   }
 
@@ -158,7 +161,7 @@ export class PlaceFindComponent implements OnInit {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
-  }
+    }
 
 
   UnLikeClicked(place) {
@@ -201,6 +204,12 @@ export class PlaceFindComponent implements OnInit {
     return false;
   }
 
+
+
+  // kmeans(place) {
+  //   console.log('kmeans Go');
+  //   this.placesService.kmeans(place.id);
+  // }
 
 
 }

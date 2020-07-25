@@ -15,6 +15,9 @@ router.get("", RouteController.getRoutes);
 
 router.get("/:id", RouteController.getRoute);
 
+//router.post("iduser", checkAuth, extractFile, RouteController.getRoute);
+
 router.delete("/:id", checkAuth, RouteController.deleteRoute);
 
 module.exports = router;
+
