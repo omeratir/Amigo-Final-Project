@@ -1,5 +1,8 @@
 const Place = require("../models/place");
 const User = require("../models/user");
+const KmeansLib = require('kmeans-same-size');
+const KNearestNeighbors = require('k-nearest-neighbors');
+
 
 exports.createPlace = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
@@ -269,6 +272,53 @@ exports.kmeans = (req, res, next) => {
   console.log(req.body.goal_Attractions_Leisure);
   console.log(req.body.goal_Relaxing);
 
+
+
+  var kmeans = new KmeansLib();
+  const k = 7; // Groups Number
+  const size = 3 // Group size
+
+  var id =0;
+  var vectors = [];
+  for(var i=0;i<20;i++){
+  vectors[i] = { x: i, y: i,s:i,m:i,d:i }
+  vectors[i].id = 'a'+i;
+  }
+  //kmeans.init({})
+  kmeans.init({k: k,runs: size,normalize: false });
+  // kmeans.init({k: k,normalize: false });
+  const sum = kmeans.calc(vectors);
+  //The vector is mutated
+  console.log(vectors);
+  console.log('aviad');
+  const machine = new KNearestNeighbors(
+    vectors,
+  [
+    'x',
+    'y',
+    's',
+    'm',
+    'd',
+  ])
+  var placeInKnn = machine.classify({
+    x: 5,
+    y: 5,
+    s: 5,
+    m: 1,
+    d:5,
+    q:'q493'
+  }, 1, 'k');
+  console.log(vectors);
+  console.log('the palce' + placeInKnn)
+  //var newVec = new Array();
+  for(var x=0;x<20;x++){
+    if(vectors[x].k ==placeInKnn){
+    console.log("yay");
+  //newVec[0]= vectors[x].id;
+    console.log(vectors[x].id);
+    console.log(vectors.includes('a3'));
+    }
+  }
 };
 
 exports.getAllPlaces = (req, res, next) => {
