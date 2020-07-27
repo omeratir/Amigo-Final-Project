@@ -6,6 +6,7 @@ import { bufferTime } from 'rxjs/operators';
 import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
 import { User } from 'src/app/auth/user.model';
+import { Kmeans } from '../kmeans.model';
 
 @Component({
   templateUrl: './placefind.component.html',
@@ -25,6 +26,8 @@ export class PlaceFindComponent implements OnInit {
   Goal_Relaxing: boolean;
   // tslint:disable-next-line: variable-name
   Goal_Culture_And_Historical_Places: boolean;
+  // tslint:disable-next-line: variable-name
+  kmean_model: Kmeans;
 
   placeFindBtnClicked: boolean;
   checked: boolean;
@@ -131,9 +134,17 @@ export class PlaceFindComponent implements OnInit {
       console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
       console.log('Goal_Shopping = ' + this.Goal_Shopping);
       console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
-      this.placesService.kmeans(user.id);
 
-
+      this.kmean_model = {
+        userid: this.userId,
+        goal_Sport_And_Extreme: this.Goal_Sport_And_Extreme,
+        goal_Shopping: this.Goal_Shopping,
+        goal_Attractions_Leisure: this.Goal_Attractions_Leisure,
+        goal_Night_Life: this.Goal_Night_Life,
+        goal_Relaxing: this.Goal_Relaxing,
+        goal_Culture_And_Historical_Places: this.Goal_Culture_And_Historical_Places
+      }
+      this.placesService.kmeans(this.kmean_model);
     }
   }
 

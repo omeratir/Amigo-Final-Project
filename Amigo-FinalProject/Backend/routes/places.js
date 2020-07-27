@@ -14,9 +14,7 @@ router.get("", PlaceController.getPlaces);
 
 router.get("/:id", PlaceController.getPlace);
 
-router.put("/kmeans",checkAuth,  PlaceController.kmeans);
-
-//router.post("/:id", PlaceController.kmeans);
+router.put("/kmeans/:id",checkAuth,  PlaceController.kmeans);
 
 router.delete("/:id", checkAuth, PlaceController.deletePlace);
 

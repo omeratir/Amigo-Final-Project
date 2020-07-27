@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Place } from './place.model';
 import { PlaceData } from './placeData.model';
+import { Kmeans } from './kmeans.model';
 
 const BACKEND_URL = environment.apiUrl + '/places/';
 
@@ -104,12 +105,12 @@ export class PlacesService {
   }
 
 
-  kmeans(id: string) {
+  kmeans(kmeans: Kmeans) {
     this.http
-      .put(BACKEND_URL + 'kmeans', id )
+      .put(BACKEND_URL + 'kmeans/' + kmeans.userid , kmeans )
       .subscribe(response => {
         // this.router.navigate(['/placelist']);
-      });
+    });
 
 
   // kmeans(userId: string) {
@@ -143,6 +144,7 @@ export class PlacesService {
   onLikeClicked(placeId: string, userId: string) {
     console.log('onLikeClicked placesService userId = ' + userId);
     console.log('onLikeClicked placesService placeId = ' + placeId);
+
     this.http.put(BACKEND_URL + placeId , userId )
     .subscribe(response => {
 

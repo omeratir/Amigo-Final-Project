@@ -266,7 +266,9 @@ exports.deletePlace = (req, res, next) => {
 };
 
 exports.kmeans = (req, res, next) => {
-  console.log('kmeans work?');
+  console.log(req.body.goal_Attractions_Leisure);
+  console.log(req.body.goal_Relaxing);
+
 };
 
 exports.getAllPlaces = (req, res, next) => {
