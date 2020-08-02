@@ -114,9 +114,9 @@ exports.updateUser = (req, res, next) => {
     var age50 =0;
     var age120 =0;
     var avg_gender = 0;
-    var avg_culture_place = 0;
-    var avg_food_place = 0;
-    var avg_sport_place =0;
+    var avg_culture_places = 0;
+    var avg_food_places = 0;
+    var avg_sport_places =0;
     var avg_AttractionsLeisure = 0;
     var avg_SportExtreme = 0;
     var avg_NightLife = 0;
@@ -133,9 +133,9 @@ exports.updateUser = (req, res, next) => {
           countlikes = countlikes + 1;
 
           avg_gender += place.gender_avg;// the avg_gender of each place
-          avg_culture_place +=place.avg_culture; //the avg_cultue of each place
-          avg_sport_place +=place.avg_sport; //the avg_sport of each place
-          avg_food_place +=place.avg_food; //the avg_food of each place
+          avg_culture_places +=place.avg_culture; //the avg_cultue of each place
+          avg_sport_places +=place.avg_sport; //the avg_sport of each place
+          avg_food_places +=place.avg_food; //the avg_food of each place
 
           age20 +=place.count_age20; //השם של העמודה בדאטה בייס
           age35 +=place.count_age35;
@@ -174,9 +174,9 @@ exports.updateUser = (req, res, next) => {
                 avg_Rest=avg_Rest/countlikes;
                 avg_Shopping= avg_Shopping/countlikes;
                 avg_gender= avg_gender/countlikes;
-                avg_culture_place= avg_culture_place/countlikes;
-                avg_sport_place=  avg_sport_place/countlikes;
-                avg_food_place= avg_food_place/countlikes;
+                avg_culture_places= avg_culture_places/countlikes;
+                avg_sport_places=  avg_sport_places/countlikes;
+                avg_food_places= avg_food_places/countlikes;
                 age20= age20/countlikes;
                 age35=  age35/countlikes;
                 age50= age50/countlikes;
@@ -210,9 +210,9 @@ exports.updateUser = (req, res, next) => {
                    avg_age_120:age120,
 
                    avg_gender_place:avg_gender,
-                   avg_sport_place: avg_sport_place,
-                   avg_culture_place:avg_culture_place,
-                   avg_food_place: avg_food_place
+                   avg_sport_place: avg_sport_places,
+                   avg_culture_place:avg_culture_places,
+                   avg_food_place: avg_food_places
                  });
 
                  User.updateOne({ _id: req.params.id}, userData)

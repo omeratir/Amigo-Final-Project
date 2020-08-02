@@ -209,7 +209,7 @@ exports.updatePlace = (req, res, next) => {
   var avg_culture = 0;
 
   var avg_gender = 0;
-
+  var count_hobbies =0;
   User.findById(req.body.users_array)
   .then(user => {
     if (user) {
@@ -260,10 +260,10 @@ exports.updatePlace = (req, res, next) => {
           count_age35 = count_age35 + place.count_age35;
           count_age50 = count_age50 + place.count_age50;
           count_age120 = count_age120 + place.count_age120;
-
-          avg_sport = count_sport / count_of_likes;
-          avg_culture = count_culture / count_of_likes;
-          avg_food = count_food / count_of_likes;
+            count_hobbies = count_sport + count_food + count_culture ;
+          avg_sport = count_sport / count_hobbies;
+          avg_culture = count_culture / count_hobbies;
+          avg_food = count_food / count_hobbies;
 
           avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
           }
@@ -274,18 +274,18 @@ exports.updatePlace = (req, res, next) => {
             count_food = place.count_food - count_food;
             count_culture = place.count_culture - count_culture;
 
-            count_female = count_female - place.count_female;
-            count_male = count_male - place.count_male;
+            count_female =  place.count_female - count_female;
+            count_male = place.count_male - count_male;
 
-            count_age20 = count_age20 - place.count_age20;
-            count_age35 = count_age35 - place.count_age35;
-            count_age50 = count_age50 - place.count_age50;
-            count_age120 = count_age120 - place.count_age120;
-
+            count_age20 = place.count_age20 - count_age20;
+            count_age35 = place.count_age35 - count_age35;
+            count_age50 = place.count_age50 - count_age50;
+            count_age120 = place.count_age120 - count_age120;
+            count_hobbies = count_sport + count_food + count_culture ;
             if (count_of_likes > 0) {
-              avg_sport = count_sport / count_of_likes;
-              avg_culture = count_culture / count_of_likes;
-              avg_food = count_food / count_of_likes;
+              avg_sport = count_sport / count_hobbies;
+              avg_culture = count_culture / count_hobbies;
+              avg_food = count_food / count_hobbies;
 
               avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
 
@@ -315,7 +315,7 @@ exports.updatePlace = (req, res, next) => {
             avg_sport: avg_sport,
             avg_food: avg_food,
 
-            avg_gender: avg_gender,
+            gender_avg: avg_gender,
 
             users_array: req.body.users_array
             // creator: req.userData.userId
@@ -446,7 +446,7 @@ exports.kmeans = (req, res, next) => {
          }
          vectors2[i] = {
           // x: userMap[user._id].age,
-          x: userMap[user._id].age,
+          x: 1,
            y: userMap[user._id].avg_age20,
            s:userMap[user._id].avg_age35,
            m:userMap[user._id].avg_age50,
