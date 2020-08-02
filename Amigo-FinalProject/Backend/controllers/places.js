@@ -3,6 +3,8 @@ const User = require("../models/user");
 const KmeansLib = require('kmeans-same-size');
 const KNearestNeighbors = require('k-nearest-neighbors');
 
+// omer omer omer good version
+
 exports.createPlace = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const place = new Place({

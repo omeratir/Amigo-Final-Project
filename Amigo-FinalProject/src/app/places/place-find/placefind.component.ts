@@ -143,7 +143,7 @@ export class PlaceFindComponent implements OnInit {
         goal_Night_Life: this.Goal_Night_Life,
         goal_Relaxing: this.Goal_Relaxing,
         goal_Culture_And_Historical_Places: this.Goal_Culture_And_Historical_Places
-      }
+      };
       this.placesService.kmeans(this.kmean_model);
     }
   }
