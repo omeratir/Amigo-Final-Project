@@ -126,13 +126,10 @@ exports.updateUser = (req, res, next) => {
     var tempLikePlace = new Array();
     tempLikePlace = req.body.liked_place.split(',');
 
-    console.log('temp length = ' + tempLikePlace.length);
-
     for(let placeid of tempLikePlace) {
       Place.findById(placeid)
       .then(place => {
         if (place) {
-          console.log('yolo');
           countlikes = countlikes + 1;
 
           avg_gender += place.gender_avg;// the avg_gender of each place
@@ -170,9 +167,6 @@ exports.updateUser = (req, res, next) => {
             User.findById(req.body.id)
             .then(user => {
               if (user) {
-                console.log('yolo2');
-                console.log('countlikes = ' + countlikes);
-
                 avg_AttractionsLeisure= avg_AttractionsLeisure/countlikes;
                 avg_SportExtreme= avg_SportExtreme/countlikes;
                 avg_NightLife= avg_NightLife/countlikes;
