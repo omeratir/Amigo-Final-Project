@@ -1,3 +1,5 @@
+<div *ngIf="sortPlaces()">
+</div>
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
@@ -68,8 +70,6 @@
     <br>
 
     <mat-error *ngIf="((!Hobby_Food) && (!Hobby_Culture) && (!Hobby_Sport))">Please Choose your hoobies</mat-error>
-
-
 
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
   </form>

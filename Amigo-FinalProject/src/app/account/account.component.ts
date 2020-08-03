@@ -96,6 +96,8 @@ export class AccountComponent implements OnInit {
         name: placeData.name,
         lat: placeData.lat,
         lng: placeData.lng,
+        goal: placeData.goal,
+        count_of_likes: placeData.count_of_likes,
         creator: placeData.creator
       };
     });

@@ -3,6 +3,9 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
+import { PlacesService } from 'src/app/places/places.service';
+import { PlaceLikeData } from 'src/app/places/PlaceLikeData.model';
+import { Place } from 'src/app/places/place.model';
 
 interface Gender {
   value: string;
@@ -34,10 +37,21 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   private authStatusSub: Subscription;
+  private placesSub: Subscription;
+
+  totalPlaces = 0;
+  placesPerPage = 2000;
+  placeslength = 1;
+  currentPage = 1;
+
+  places: Place[] = [
+
+  ];
   sex: string;
   // tslint:disable-next-line: variable-name
   liked_place: string;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService , public placesService: PlacesService
+    ) {}
 
   genders: Gender[] = [
     {value: 'Female', viewValue: 'Female'},
@@ -54,12 +68,24 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.hoobies = '';
 
+    this.placesService.getPlaces(this.placesPerPage, this.currentPage);
+    this.placesSub = this.placesService
+        .getPlaceUpdateListener()
+        .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+          this.places = placeData.places;
+        });
+
     this.authStatusSub = this.authService.
     getAuthStatusListener().
     subscribe(authStatus => {
         this.isLoading = false;
       });
 
+  }
+
+  sortPlaces() {
+    this.places = this.placesService.sortPlacesByLikes(this.places);
+    return true;
   }
 
   onSignup(form: NgForm) {

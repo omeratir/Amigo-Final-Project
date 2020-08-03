@@ -88,6 +88,20 @@ export class PlaceFindComponent implements OnInit {
           this.places = placeData.places;
         });
 
+    // this.placesService.getAllPlacesService();
+    // this.placesSub = this.placesService
+    //     .getPlaceUpdateListener()
+    //     .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+    //       this.places = placeData.places;
+    //     });
+
+    // this.placesService.getAllPlaces();
+    // this.placesSub = this.placesService
+    //     .getPlaceUpdateListener()
+    //     .subscribe((placeData: { places: Place[]; placeCount: number }) => {
+    //       this.places = placeData.places;
+    //     });
+
     this.authService.getUserData(this.userId).subscribe(userData => {
           this.user = {
             email: userData.email,
@@ -155,9 +169,8 @@ export class PlaceFindComponent implements OnInit {
     this.previous = infoWindow;
   }
 
-  LikeClicked(place) {
+  LikeClicked(place, infoWindow) {
     console.log('Like Clicked');
-
     // add the placeid to the list.
 
     if (this.user.liked_place === 'EMPTY') {
@@ -172,12 +185,12 @@ export class PlaceFindComponent implements OnInit {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
+
     }
 
 
-  UnLikeClicked(place) {
+  UnLikeClicked(place, infoWindow) {
     console.log('UnLike Clicked');
-
     // remove the placeid to the list.
     this.splitArray = this.user.liked_place.split(',');
     this.user.liked_place = 'EMPTY';
