@@ -99,11 +99,11 @@ exports.updatePlace = (req, res, next) => {
       if (user.age > 50 ) {
             count_age120 = 1;
       }
-
+      if(user.count_of_liked_places != 1 && req.body.flagLike == false){
       Place.findById(req.body.id)
       .then(place => {
         if (place) {
-          if(req.body.flagLike === true){
+          if(req.body.flagLike == true){
           console.log(place.count_of_likes);
           count_of_likes = place.count_of_likes + 1;
           console.log(count_of_likes);
@@ -141,12 +141,12 @@ exports.updatePlace = (req, res, next) => {
             count_age120 = place.count_age120 - count_age120;
             count_hobbies = count_sport + count_food + count_culture ;
             if (count_of_likes > 0) {
-              avg_sport = count_sport / count_hobbies;
-              avg_culture = count_culture / count_hobbies;
-              avg_food = count_food / count_hobbies;
+              avg_sport = count_sport/count_hobbies;
+              avg_culture = count_culture/count_hobbies;
+              avg_food = count_food/count_hobbies;
 
               avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
-
+              console.log('avu3');
             }
           }
           const placeData = new Place({
@@ -177,6 +177,7 @@ exports.updatePlace = (req, res, next) => {
 
             users_array: req.body.users_array
             // creator: req.userData.userId
+
           });
 
           Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
@@ -201,13 +202,17 @@ exports.updatePlace = (req, res, next) => {
           message: "Fetching place failed!"
         });
       });
-    } else {
+      }
+    }
+     else {
       res.status(404).json({ message: "User not found!" });
     }
+
   })
+
   .catch(error => {
     res.status(500).json({
-      message: "Fetching user failed!"
+      message: "Fetching user failed3!"
     });
   });
 };

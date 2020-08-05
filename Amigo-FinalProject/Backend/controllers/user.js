@@ -237,7 +237,7 @@ exports.updateUser = (req, res, next) => {
             })
             .catch(error => {
               res.status(500).json({
-                message: "Fetching user failed!"
+                message: "Fetching user failed2!"
               });
             });
           }
@@ -247,7 +247,7 @@ exports.updateUser = (req, res, next) => {
       })
       .catch(error => {
         res.status(500).json({
-          message: "Fetching place failed!"
+          message: "Fetching place failed2!"
         });
       });
   }

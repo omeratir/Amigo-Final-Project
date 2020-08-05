@@ -190,7 +190,7 @@ export class PlaceFindComponent implements OnInit {
   LikeClicked(place, infoWindow) {
     console.log('Like Clicked');
     // add the placeid to the list.
-
+    console.log(this.user.liked_place);
     if (this.user.liked_place === 'EMPTY') {
       this.user.liked_place = place.id;
     } else {
@@ -198,7 +198,7 @@ export class PlaceFindComponent implements OnInit {
       this.placelist = this.placelist.concat(',', place.id);
       this.user.liked_place = this.placelist;
     }
-
+    console.log(this.user.liked_place);
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
@@ -212,19 +212,20 @@ export class PlaceFindComponent implements OnInit {
     console.log('UnLike Clicked');
     // remove the placeid to the list.
     this.splitArray = this.user.liked_place.split(',');
+
     this.user.liked_place = 'EMPTY';
 
     for (const placeid of this.splitArray) {
       if (placeid !== place.id) {
         if (this.user.liked_place === 'EMPTY') {
-          this.user.liked_place = place.id;
+          this.user.liked_place = placeid;
         } else {
           this.placelist = this.user.liked_place;
           this.placelist = this.placelist.concat(',', placeid);
           this.user.liked_place = this.placelist;
         }
       }
-    }
+  }
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
@@ -236,17 +237,20 @@ export class PlaceFindComponent implements OnInit {
     if (this.user.liked_place === 'EMPTY') {
       return false;
     }
-
-    this.splitArray = this.user.liked_place.split(',');
-
-    for (const place of this.splitArray) {
-      if (place === placeid) {
-        return true;
-      }
+    if (this.user.liked_place.includes(placeid)) {
+      return true;
     }
+    // this.splitArray = this.user.liked_place.split(',');
+
+    // for (const place of this.splitArray) {
+    //   if (place === placeid) {
+    //     return true;
+    //   }
+    // }
 
     return false;
   }
+
 
 
 
