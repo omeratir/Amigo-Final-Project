@@ -21,6 +21,7 @@ exports.createUser = (req, res, next) => {
       avg50: 0, //avg age of liked places
       avg120: 0, //avg age of liked places
       liked_place: 'EMPTY',
+      kmeans_array: 'EMPTY',
       count_of_liked_places: 0,
 
       //goals
@@ -194,6 +195,7 @@ exports.updateUser = (req, res, next) => {
                    culture: req.body.culture,
                    food: req.body.food,
                    liked_place: req.body.liked_place,
+                   kmeans_array: req.body.kmeans_array,
 
                    count_of_liked_places: countlikes,
                    sportsAndExtreme: avg_SportExtreme,

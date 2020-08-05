@@ -113,7 +113,8 @@ export class PlaceFindComponent implements OnInit {
             sport: userData.sport,
             culture: userData.culture,
             food: userData.food,
-            liked_place: userData.liked_place
+            liked_place: userData.liked_place,
+            kmeans_array: userData.kmeans_array
           };
       });
 
@@ -158,7 +159,24 @@ export class PlaceFindComponent implements OnInit {
         goal_Relaxing: this.Goal_Relaxing,
         goal_Culture_And_Historical_Places: this.Goal_Culture_And_Historical_Places
       };
+
       this.placesService.kmeans(this.kmean_model);
+
+      this.authService.getUserData(this.userId).subscribe(userData => {
+        this.user = {
+          email: userData.email,
+          password: userData.password,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          age: userData.age,
+          gender: userData.gender,
+          sport: userData.sport,
+          culture: userData.culture,
+          food: userData.food,
+          liked_place: userData.liked_place,
+          kmeans_array: userData.kmeans_array
+        };
+      });
     }
   }
 
@@ -184,7 +202,8 @@ export class PlaceFindComponent implements OnInit {
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array );
 
     }
 
@@ -209,7 +228,8 @@ export class PlaceFindComponent implements OnInit {
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place);
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array);
   }
 
   checkIfUserLikeThePlace(placeid) {

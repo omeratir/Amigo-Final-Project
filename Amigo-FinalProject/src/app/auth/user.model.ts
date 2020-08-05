@@ -1,5 +1,4 @@
 export interface User {
-  //id: string;
   email: string;
   password: string;
   firstName: string;
@@ -10,4 +9,5 @@ export interface User {
   culture: boolean;
   food: boolean;
   liked_place: string;
+  kmeans_array: string;
 }

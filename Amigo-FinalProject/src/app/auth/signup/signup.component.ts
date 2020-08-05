@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line: variable-name
   liked_places: string;
+  // tslint:disable-next-line: variable-name
+  kmeans_array: string;
 
   male: boolean;
   female: boolean;
@@ -103,11 +105,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.liked_place = 'EMPTY';
 
     form.value.liked_place = 'EMPTY';
+    form.value.kmeans_array = 'EMPTY';
 
     form.value.gender = this.gender;
 
     // tslint:disable-next-line: max-line-length
-    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , form.value.liked_place );
+    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , form.value.liked_place , form.value.kmeans_array );
   }
 
   ngOnDestroy() {

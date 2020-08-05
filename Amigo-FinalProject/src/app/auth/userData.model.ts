@@ -10,4 +10,5 @@ export interface UserData {
   culture: boolean;
   food: boolean;
   liked_place: string;
+  kmeans_array: string;
 }

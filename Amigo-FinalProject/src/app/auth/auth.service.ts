@@ -39,9 +39,9 @@ export class AuthService {
 
   createUser(email: string, password: string, firstName: string, lastName: string,
              // tslint:disable-next-line: variable-name
-             age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string) {
+             age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string , kmeans_array: string) {
     const authData: AuthData = { email, password };
-    const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place  };
+    const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place , kmeans_array  };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
         this.router.navigate(['/auth/login']);
@@ -97,6 +97,7 @@ export class AuthService {
         culture: boolean;
         food: boolean;
         liked_place: string;
+        kmeans_array: string;
       }>(BACKEND_URL + id);
   }
 
@@ -161,7 +162,7 @@ export class AuthService {
 
   updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string,
              // tslint:disable-next-line: variable-name
-             gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string) {
+             gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , kmeans_array: string) {
   let userData: UserData | FormData;
   userData = new FormData();
 
@@ -176,7 +177,8 @@ export class AuthService {
     sport,
     culture,
     food,
-    liked_place
+    liked_place,
+    kmeans_array
   };
   // userData = new FormData();
   // userData.append('email', email);

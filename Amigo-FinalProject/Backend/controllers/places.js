@@ -431,6 +431,7 @@ exports.deletePlace = (req, res, next) => {
 // };
 
 exports.kmeans = (req, res, next) => {
+  var userid = req.params.id;
   var id =0;
   var vectors = [];
   var vectors2 = [];
@@ -438,7 +439,7 @@ exports.kmeans = (req, res, next) => {
   var currentUserVector2 = {};
   var count =0;
   var i =0;
-    User.find({}, function(err, users) {
+  User.find({}, function(err, users) {
       var userMap = {};
 
       users.forEach(function(user) {
@@ -585,8 +586,50 @@ var vectors3=[];
       }
     }
     console.log('The place list is:' + lengthStringPlaces);
+    console.log(userid);
+    User.findById(userid)
+    .then(user => {
+      if (user) {
+        const userData = new User({
+           _id: user.id,
+           email: user.email,
+           password: user.password,
+           firstName: user.firstName,
+           lastName: user.lastName,
+           age: user.age,
+           gneder: user.gender,
+           sport: user.sport,
+           culture: user.culture,
+           food: user.food,
+           liked_place: user.liked_place,
+           kmeans_array: lengthStringPlaces
+         });
+
+         User.updateOne({ _id: req.params.id}, userData)
+         .then(result => {
+             if (result.n > 0) {
+               res.status(200).json({ message: "Update successful!" });
+             } else {
+               res.status(401).json({ message: "Not authorized!" });
+             }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Couldn't udpate user!"
+        });
+      });
+
+      } else {
+        res.status(404).json({ message: "User not found!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching user failed!"
+      });
+    });
+
   });
-    //console.log(lengthStringPlaces);
 };
 
 exports.getAllPlaces = (req, res, next) => {
