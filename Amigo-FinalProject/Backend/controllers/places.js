@@ -272,9 +272,165 @@ exports.deletePlace = (req, res, next) => {
     });
 };
 
+// exports.kmeans = (req, res, next) => {
+//   console.log(req.body.goal_Attractions_Leisure);
+//   console.log(req.body.goal_Relaxing);
+//   var id =0;
+//   var vectors = [];
+//   var vectors2 = [];
+//   var currentUserVector = {};
+//   var currentUserVector2 = {};
+//   var count =0;
+//   var i =0;
+//     console.log('aviad try3');
+//     console.log(req.body.userid);
+//     User.find({}, function(err, users) {
+//       var userMap = {};
+
+//       users.forEach(function(user) {
+//         userMap[user._id] = user;
+//         count++;
+//         if(userMap[user._id].id != req.body.userid){
+//           console.log('aviad tryX');
+//         vectors[i] = {
+//          // x: userMap[user._id].age,
+//          x: 1,
+//           y: userMap[user._id].sportsAndExtreme,
+//           s:userMap[user._id].cultureAndHistoricalPlaces,
+//           m:userMap[user._id].attractionsAndLeisure,
+//           d:userMap[user._id].rest,
+//           a: userMap[user._id].nightLife,
+//           b: userMap[user._id].shopping
+//          }
+//          vectors2[i] = {
+//           // x: userMap[user._id].age,
+//           x: 1,
+//            y: userMap[user._id].avg_age20,
+//            s:userMap[user._id].avg_age35,
+//            m:userMap[user._id].avg_age50,
+//            d:userMap[user._id].avg_age_120,
+//            a: userMap[user._id].avg_gender_place,
+//            b: userMap[user._id].age
+//           }
+//         vectors[i].id = (userMap[user._id].id);
+//         vectors2[i].id = (userMap[user._id].id);
+//         console.log(userMap[user._id].email);
+//         i++;
+//         }
+//         else{
+//           currentUserVector = {
+//           //  x: userMap[user._id].age,
+//           x: 1,
+//           y: userMap[user._id].sportsAndExtreme,
+//           s:userMap[user._id].cultureAndHistoricalPlaces,
+//           m:userMap[user._id].attractionsAndLeisure,
+//           d:userMap[user._id].rest,
+//           a: userMap[user._id].nightLife,
+//           b: userMap[user._id].shopping
+//          }
+//            // q: userMap[user._id].id }
+//             currentUserVector.id = (userMap[user._id].id);
+
+//             currentUserVector2 = {
+//               //  x: userMap[user._id].age,
+//               x: userMap[user._id].age,
+//               y: userMap[user._id].avg_age20,
+//               s:userMap[user._id].avg_age35,
+//               m:userMap[user._id].avg_age50,
+//               d:userMap[user._id].avg_age_120,
+//               a: userMap[user._id].avg_gender_place,
+//               b: userMap[user._id].age}
+//                // q: userMap[user._id].id }
+//                 currentUserVector2.id = (userMap[user._id].id);
+
+//         }
+
+//       });
+//       console.log('currentUser');
+//       console.log(currentUserVector);
+//       console.log('currentUser2');
+//       console.log(currentUserVector2);
+//       console.log('end currentUser2');
+
+//       var kmeans = new KmeansLib();
+//       const k = vectors.length/5; // Groups Number
+//       const size = 2 // Group size
+
+//       var id =0;
+//       //var vectors = [];
+//       // for(var i=0;i<20;i++){
+//       // vectors[i] = { x: i, y: i,s:i,m:i,d:i }
+//       // vectors[i].id = 'a'+i;
+//       // }
+//       //kmeans.init({})
+
+//       kmeans.init({k: k,runs: size,normalize: false });
+//       // kmeans.init({k: k,normalize: false });
+//       var sum = kmeans.calc(vectors);
+//       //The vector is mutated
+//       console.log('vectors:');
+//       console.log(vectors);
+//       console.log('end vectors');
+//       const machine = new KNearestNeighbors(
+//         vectors,
+//       [
+//         'x',
+//         'y',
+//         's',
+//         'm',
+//         'd',
+//         'a',
+//         'b',
+//       ]);
+//       var placeInKnn = machine.classify(
+//         currentUserVector
+//       , 1, 'k');
+//      // console.log(vectors);
+//       console.log('the palce is: ' + placeInKnn)
+// var m=0;
+// var vectors3=[];
+// //try the second kmeans
+//     for(var z=0;z< vectors.length;z++){
+//   if(vectors[z].k==placeInKnn){
+//     vectors3[m]=vectors2[z];
+//     m++;
+//   }
+// }
+//       var kmeans2 = new KmeansLib();
+//       const k2 = vectors2.length/5; // Groups Number
+//       console.log(k2);
+//       console.log('k2');
+//       const size2 = 2 // Group size
+
+//       var id2 =0;
+
+//       kmeans2.init({k: k2,runs: size2,normalize: false });
+//       // kmeans.init({k: k,normalize: false });
+//       var sum2 = kmeans2.calc(vectors3);
+//       //The vector is mutated
+//       console.log(vectors3);
+//       console.log('aviad2');
+//       const machine2 = new KNearestNeighbors(
+//         vectors3,
+//       [
+//         'x',
+//         'y',
+//         's',
+//         'm',
+//         'd',
+//         'a',
+//         'b',
+//       ]);
+//       var placeInKnn2 = machine2.classify(
+//         currentUserVector2
+//       , 1, 'k');
+//      // console.log(vectors);
+//       console.log('the palce is: ' + placeInKnn2)
+//     });
+
+// };
+
 exports.kmeans = (req, res, next) => {
-  console.log(req.body.goal_Attractions_Leisure);
-  console.log(req.body.goal_Relaxing);
   var id =0;
   var vectors = [];
   var vectors2 = [];
@@ -282,8 +438,6 @@ exports.kmeans = (req, res, next) => {
   var currentUserVector2 = {};
   var count =0;
   var i =0;
-    console.log('aviad try3');
-    console.log(req.body.userid);
     User.find({}, function(err, users) {
       var userMap = {};
 
@@ -291,12 +445,11 @@ exports.kmeans = (req, res, next) => {
         userMap[user._id] = user;
         count++;
         if(userMap[user._id].id != req.body.userid){
-          console.log('aviad tryX');
         vectors[i] = {
          // x: userMap[user._id].age,
-         x: 1,
-          y: userMap[user._id].sportsAndExtreme,
-          s:userMap[user._id].cultureAndHistoricalPlaces,
+        // x: 1,
+          x: userMap[user._id].sportsAndExtreme,
+          y:userMap[user._id].cultureAndHistoricalPlaces,
           m:userMap[user._id].attractionsAndLeisure,
           d:userMap[user._id].rest,
           a: userMap[user._id].nightLife,
@@ -304,9 +457,9 @@ exports.kmeans = (req, res, next) => {
          }
          vectors2[i] = {
           // x: userMap[user._id].age,
-          x: 1,
-           y: userMap[user._id].avg_age20,
-           s:userMap[user._id].avg_age35,
+         // x: 1,
+           x: userMap[user._id].avg_age20,
+           y:userMap[user._id].avg_age35,
            m:userMap[user._id].avg_age50,
            d:userMap[user._id].avg_age_120,
            a: userMap[user._id].avg_gender_place,
@@ -314,15 +467,14 @@ exports.kmeans = (req, res, next) => {
           }
         vectors[i].id = (userMap[user._id].id);
         vectors2[i].id = (userMap[user._id].id);
-        console.log(userMap[user._id].email);
         i++;
         }
         else{
           currentUserVector = {
           //  x: userMap[user._id].age,
-          x: 1,
-          y: userMap[user._id].sportsAndExtreme,
-          s:userMap[user._id].cultureAndHistoricalPlaces,
+          //x: 1,
+          x: userMap[user._id].sportsAndExtreme,
+          y:userMap[user._id].cultureAndHistoricalPlaces,
           m:userMap[user._id].attractionsAndLeisure,
           d:userMap[user._id].rest,
           a: userMap[user._id].nightLife,
@@ -333,9 +485,9 @@ exports.kmeans = (req, res, next) => {
 
             currentUserVector2 = {
               //  x: userMap[user._id].age,
-              x: userMap[user._id].age,
-              y: userMap[user._id].avg_age20,
-              s:userMap[user._id].avg_age35,
+             // x: userMap[user._id].age,
+              x: userMap[user._id].avg_age20,
+              y:userMap[user._id].avg_age35,
               m:userMap[user._id].avg_age50,
               d:userMap[user._id].avg_age_120,
               a: userMap[user._id].avg_gender_place,
@@ -348,9 +500,7 @@ exports.kmeans = (req, res, next) => {
       });
       console.log('currentUser');
       console.log(currentUserVector);
-      console.log('currentUser2');
-      console.log(currentUserVector2);
-      console.log('end currentUser2');
+
 
       var kmeans = new KmeansLib();
       const k = vectors.length/5; // Groups Number
@@ -376,7 +526,6 @@ exports.kmeans = (req, res, next) => {
       [
         'x',
         'y',
-        's',
         'm',
         'd',
         'a',
@@ -408,6 +557,9 @@ var vectors3=[];
       // kmeans.init({k: k,normalize: false });
       var sum2 = kmeans2.calc(vectors3);
       //The vector is mutated
+      console.log('currentUser2');
+      console.log(currentUserVector2);
+      console.log('end currentUser2');
       console.log(vectors3);
       console.log('aviad2');
       const machine2 = new KNearestNeighbors(
@@ -415,7 +567,6 @@ var vectors3=[];
       [
         'x',
         'y',
-        's',
         'm',
         'd',
         'a',
@@ -426,9 +577,18 @@ var vectors3=[];
       , 1, 'k');
      // console.log(vectors);
       console.log('the palce is: ' + placeInKnn2)
-    });
 
+    var lengthStringPlaces = '';
+    for(var index =0; index<vectors3.length;index++){
+      if(vectors3[index].k == placeInKnn2){
+        lengthStringPlaces = lengthStringPlaces.concat(vectors3[index].id,',');
+      }
+    }
+    console.log('The place list is:' + lengthStringPlaces);
+  });
+    //console.log(lengthStringPlaces);
 };
+
 exports.getAllPlaces = (req, res, next) => {
   const placeQuery = Place.find(); //bring all data from db
   let fetchedPlaces;
