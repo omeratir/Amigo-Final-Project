@@ -125,8 +125,62 @@ exports.updateUser = (req, res, next) => {
     var avg_Rest = 0;
     var avg_Shopping = 0;
     var tempLikePlace = new Array();
-    tempLikePlace = req.body.liked_place.split(',');
+  console.log('aviad check:' + req.body.liked_place);
+    if(req.body.liked_place == 'EMPTY'){
+      console.log('aviad check2');
+      const userData = new User({
+        _id: req.body.id,
+        email: req.body.email,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        age: req.body.age,
+        gneder: req.body.gender,
+        sport: req.body.sport,
+        culture: req.body.culture,
+        food: req.body.food,
+        liked_place: req.body.liked_place,
+        kmeans_array: 'EMPTY',
+        //req.body.kmeans_array,
 
+        count_of_liked_places: countlikes,
+        sportsAndExtreme: avg_SportExtreme,
+        cultureAndHistoricalPlaces:avg_CultureHistorical,
+        attractionsAndLeisure:avg_AttractionsLeisure,
+        rest: avg_Rest,
+        nightLife:avg_NightLife,
+        shopping:avg_Shopping,
+
+        //avg
+        avg_age20:age20,
+        avg_age35:age35,
+        avg_age50:age50,
+        avg_age_120:age120,
+
+        avg_gender_place:avg_gender,
+        avg_sport_place: avg_sport_places,
+        avg_culture_place:avg_culture_places,
+        avg_food_place: avg_food_places
+      });
+
+      User.updateOne({ _id: req.params.id}, userData)
+      .then(result => {
+          if (result.n > 0) {
+            res.status(200).json({ message: "Update successful!" });
+          } else {
+            res.status(401).json({ message: "Not authorized!" });
+          }
+   })
+   .catch(error => {
+     res.status(500).json({
+       message: "Couldn't udpate user!"
+     });
+   });
+
+    }
+else{
+    tempLikePlace = req.body.liked_place.split(',');
+    console.log('aviad check23');
     for(let placeid of tempLikePlace) {
       Place.findById(placeid)
       .then(place => {
@@ -251,6 +305,6 @@ exports.updateUser = (req, res, next) => {
         });
       });
   }
-
+}
 
 };

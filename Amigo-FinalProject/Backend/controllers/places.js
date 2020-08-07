@@ -591,7 +591,6 @@ var vectors3=[];
       }
     }
     console.log('The place list is:' + lengthStringPlaces);
-    console.log(userid);
     User.findById(userid)
     .then(user => {
       if (user) {
