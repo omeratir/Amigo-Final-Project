@@ -1,0 +1,21 @@
+<div>
+<agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
+  <agm-marker *ngFor="let place of places;"
+  [latitude]="place.lat"
+  [longitude]="place.lng"
+  (markerClick)="clickedMarker(infoWindow)">
+
+  <agm-info-window #infoWindow>
+      Place Name: {{place.name}}
+      <br>
+      Place Goal: {{place.goal}}
+  </agm-info-window>
+
+  </agm-marker>
+</agm-map>
+</div>
+
+<br>
+
+<button mat-raised-button color="accent" *ngIf="!isLoading" (click)="SignUp()">Sign Up</button>
+

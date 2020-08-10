@@ -44,7 +44,7 @@ export class AuthService {
     const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place , kmeans_array  };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/auth/recommend']);
       },
       error => {
         this.authStatusListener.next(false);
@@ -82,6 +82,10 @@ export class AuthService {
           this.authStatusListener.next(false);
         }
       );
+  }
+
+  onSignUpAfterChosePlace() {
+    this.router.navigate(['/auth/recommend']);
   }
 
   getUserData(id: string) {
