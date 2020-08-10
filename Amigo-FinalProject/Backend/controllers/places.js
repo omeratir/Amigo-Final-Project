@@ -552,7 +552,7 @@ var vectors3=[];
   }
 }
       var kmeans2 = new KmeansLib();
-      const k2 = vectors2.length/5; // Groups Number
+      const k2 = vectors2.length/10; // Groups Number
       console.log(k2);
       console.log('k2');
       const size2 = 2 // Group size
@@ -584,44 +584,68 @@ var vectors3=[];
      // console.log(vectors);
       console.log('the palce is: ' + placeInKnn2)
 
-    var lengthStringPlaces = '';
-    for(var index =0; index<vectors3.length;index++){
-      if(vectors3[index].k == placeInKnn2){
-        lengthStringPlaces = lengthStringPlaces.concat(vectors3[index].id,',');
+      var lengthStringUsers = '';
+      for(var index =0; index<vectors3.length;index++){
+        if(vectors3[index].k == placeInKnn2){
+          lengthStringUsers = lengthStringUsers.concat(vectors3[index].id,',');
+        }
       }
-    }
-    console.log('The place list is:' + lengthStringPlaces);
-    User.findById(userid)
-    .then(user => {
+      console.log('The place list is:' + lengthStringUsers);
+      var splitArray =[];
+      var splitArray2 =[];
+      splitArray = lengthStringUsers.split(',');
+     // console.log('splituser: ' + splitArray[0]);
+      var lengthStringPlaces = '';
+    //  console.log('length: ' + splitArray.length);
+      for (var index = 0; index<(splitArray.length-1);index++) {
+       // console.log('which user: ' + splitArray[index]);
+      User.findById(splitArray[index])
+      .then(user => {
       if (user) {
-        const userData = new User({
-           _id: user.id,
-           email: user.email,
-           password: user.password,
-           firstName: user.firstName,
-           lastName: user.lastName,
-           age: user.age,
-           gneder: user.gender,
-           sport: user.sport,
-           culture: user.culture,
-           food: user.food,
-           liked_place: user.liked_place,
-           kmeans_array: lengthStringPlaces
-         });
+        splitArray2 = user.liked_place.split(',');
+       // console.log('all the split2 in user: ' + splitArray2);
+       if(splitArray2.length>10){
+         var lengthPlaces = 10;
+       }
+       else{
+        var lengthPlaces = splitArray2.length;
 
-         User.updateOne({ _id: req.params.id}, userData)
-         .then(result => {
-             if (result.n > 0) {
-               res.status(200).json({ message: "Update successful!" });
-             } else {
-               res.status(401).json({ message: "Not authorized!" });
-             }
-      })
-      .catch(error => {
-        res.status(500).json({
-          message: "Couldn't udpate user!"
-        });
-      });
+       }
+        for(var index2=0; index2<lengthPlaces;index2++){
+         // console.log('which index in split2 : ' + splitArray2[index2]);
+        if(!lengthStringPlaces.includes(splitArray2[index2])){
+        lengthStringPlaces = lengthStringPlaces.concat(splitArray2[index2],',');
+        console.log('the string of user is: ' + lengthStringPlaces);
+        }
+      }
+      //   const userData = new User({
+      //      _id: user.id,
+      //      email: user.email,
+      //      password: user.password,
+      //      firstName: user.firstName,
+      //      lastName: user.lastName,
+      //      age: user.age,
+      //      gneder: user.gender,
+      //      sport: user.sport,
+      //      culture: user.culture,
+      //      food: user.food,
+      //      liked_place: user.liked_place,
+      //      kmeans_array: lengthStringPlaces
+      //    });
+
+      //    User.updateOne({ _id: req.params.id}, userData)
+      //    .then(result => {
+      //        if (result.n > 0) {
+      //          res.status(200).json({ message: "Update successful!" });
+      //        } else {
+      //          res.status(401).json({ message: "Not authorized!" });
+      //        }
+      // })
+      // .catch(error => {
+      //   res.status(500).json({
+      //     message: "Couldn't udpate user!"
+      //   });
+      // });
 
       } else {
         res.status(404).json({ message: "User not found!" });
@@ -632,6 +656,8 @@ var vectors3=[];
         message: "Fetching user failed!"
       });
     });
+
+  }
 
   });
 };
