@@ -100,12 +100,12 @@ exports.updatePlace = (req, res, next) => {
       if (user.age > 50 ) {
             count_age120 = 1;
       }
-      if(user.count_of_liked_places != 1 && req.body.flagLike == false){
+   //   if(user.count_of_liked_places < 1 && req.body.flagLike == false){
       Place.findById(req.body.id)
       .then(place => {
         if (place) {
           if(req.body.flagLike == true){
-          console.log(place.count_of_likes);
+          console.log('how much likes' + place.count_of_likes);
           count_of_likes = place.count_of_likes + 1;
           console.log(count_of_likes);
           count_sport = count_sport + place.count_sport;
@@ -127,6 +127,7 @@ exports.updatePlace = (req, res, next) => {
           avg_gender = (1 * count_male + 2 * count_female) / count_of_likes;
           }
           if(req.body.flagLike == false){
+            console.log('how much unlikes' + place.count_of_likes);
             count_of_likes = place.count_of_likes - 1;
 
             count_sport = place.count_sport - count_sport;
@@ -203,7 +204,7 @@ exports.updatePlace = (req, res, next) => {
           message: "Fetching place failed!"
         });
       });
-      }
+     // }
     }
      else {
       res.status(404).json({ message: "User not found!" });
@@ -305,14 +306,18 @@ exports.kmeans = (req, res, next) => {
           b: userMap[user._id].shopping
          }
          vectors2[i] = {
-          // x: userMap[user._id].age,
-         // x: 1,
-           x: userMap[user._id].avg_age20,
-           y:userMap[user._id].avg_age35,
-           m:userMap[user._id].avg_age50,
-           d:userMap[user._id].avg_age_120,
-           a: userMap[user._id].avg_gender_place,
-           b: userMap[user._id].age
+          //  x: userMap[user._id].avg_age20,
+          //  y:userMap[user._id].avg_age35,
+          //  m:userMap[user._id].avg_age50,
+          //  d:userMap[user._id].avg_age_120,
+          //  a: userMap[user._id].avg_gender_place,
+          //  b: userMap[user._id].age
+          x: userMap[user._id].sportsAndExtreme,
+          y:userMap[user._id].cultureAndHistoricalPlaces,
+          m:userMap[user._id].attractionsAndLeisure,
+          d:userMap[user._id].rest,
+          a: userMap[user._id].nightLife,
+          b: userMap[user._id].shopping
           }
         vectors[i].id = (userMap[user._id].id);
         vectors2[i].id = (userMap[user._id].id);
@@ -322,7 +327,7 @@ exports.kmeans = (req, res, next) => {
           currentUserVector = {
           //  x: userMap[user._id].age,
           //x: 1,
-          x: userMap[user._id].sportsAndExtreme,
+          x: 1,
           y:userMap[user._id].cultureAndHistoricalPlaces,
           m:userMap[user._id].attractionsAndLeisure,
           d:userMap[user._id].rest,
@@ -333,14 +338,19 @@ exports.kmeans = (req, res, next) => {
             currentUserVector.id = (userMap[user._id].id);
 
             currentUserVector2 = {
-              //  x: userMap[user._id].age,
-             // x: userMap[user._id].age,
-              x: userMap[user._id].avg_age20,
-              y:userMap[user._id].avg_age35,
-              m:userMap[user._id].avg_age50,
-              d:userMap[user._id].avg_age_120,
-              a: userMap[user._id].avg_gender_place,
-              b: userMap[user._id].age}
+              // x: userMap[user._id].avg_age20,
+              // y:userMap[user._id].avg_age35,
+              // m:userMap[user._id].avg_age50,
+              // d:userMap[user._id].avg_age_120,
+              // a: userMap[user._id].avg_gender_place,
+              // b: userMap[user._id].age
+              x: userMap[user._id].sportsAndExtreme,
+              y:userMap[user._id].cultureAndHistoricalPlaces,
+              m:userMap[user._id].attractionsAndLeisure,
+              d:userMap[user._id].rest,
+              a: userMap[user._id].nightLife,
+              b: userMap[user._id].shopping
+            }
                // q: userMap[user._id].id }
                 currentUserVector2.id = (userMap[user._id].id);
 
@@ -394,6 +404,7 @@ var vectors3=[];
     m++;
   }
 }
+console.log(vectors3);
       var kmeans2 = new KmeansLib();
       const k2 = vectors2.length/10; // Groups Number
       console.log(k2);
@@ -493,7 +504,7 @@ var vectors3=[];
           for(var index2=0; index2<lengthPlaces;index2++)
           {
           // console.log('which index in split2 : ' + splitArray2[index2]);
-            if(!lengthStringPlaces.includes(splitArray2[index2])){
+            if((!lengthStringPlaces.includes(splitArray2[index2])) && (!splitArray2[index2].includes('EMPTY'))){
             lengthStringPlaces = lengthStringPlaces.concat(splitArray2[index2],',');
             console.log('the string of user is: ' + lengthStringPlaces);
             }
