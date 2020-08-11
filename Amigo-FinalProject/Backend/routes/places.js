@@ -10,6 +10,8 @@ router.post("/", checkAuth, extractFile, PlaceController.createPlace);
 
 router.put("/:id", checkAuth, extractFile, PlaceController.updatePlace);
 
+router.put("/updateuser/:id", checkAuth, extractFile, PlaceController.updateUser);
+
 router.get("", PlaceController.getPlaces);
 
 router.get("/:id", PlaceController.getPlace);

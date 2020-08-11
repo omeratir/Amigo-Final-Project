@@ -34,7 +34,7 @@
   <br>
 
   <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-    <agm-marker *ngFor="let place of places;"
+    <agm-marker *ngFor="let place of placesKMEANS;"
     [latitude]="place.lat"
     [longitude]="place.lng"
     (markerClick)="clickedMarker(infoWindow)">

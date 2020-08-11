@@ -29,6 +29,8 @@ export class PlaceFindComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   kmean_model: Kmeans;
 
+  place: Place;
+
   placeFindBtnClicked: boolean;
   checked: boolean;
   likeClicked: boolean;
@@ -44,6 +46,14 @@ export class PlaceFindComponent implements OnInit {
   currentPage = 1;
 
   places: Place[] = [
+
+  ];
+
+  placesKMEANS: Place[] = [
+
+  ];
+
+  tempstringplaces: string[] = [
 
   ];
 
@@ -88,20 +98,6 @@ export class PlaceFindComponent implements OnInit {
           this.places = placeData.places;
         });
 
-    // this.placesService.getAllPlacesService();
-    // this.placesSub = this.placesService
-    //     .getPlaceUpdateListener()
-    //     .subscribe((placeData: { places: Place[]; placeCount: number }) => {
-    //       this.places = placeData.places;
-    //     });
-
-    // this.placesService.getAllPlaces();
-    // this.placesSub = this.placesService
-    //     .getPlaceUpdateListener()
-    //     .subscribe((placeData: { places: Place[]; placeCount: number }) => {
-    //       this.places = placeData.places;
-    //     });
-
     this.authService.getUserData(this.userId).subscribe(userData => {
           this.user = {
             email: userData.email,
@@ -137,6 +133,10 @@ export class PlaceFindComponent implements OnInit {
 
   onClickFindPlace(user) {
     console.log('Clicked on find place');
+
+    // if (this.placeFindBtnClicked) {
+    //   return true;
+    // }
 
     if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
     && (!this.Goal_Relaxing) && (!this.Goal_Shopping) && (!this.Goal_Sport_And_Extreme)) {
@@ -176,6 +176,29 @@ export class PlaceFindComponent implements OnInit {
           liked_place: userData.liked_place,
           kmeans_array: userData.kmeans_array
         };
+
+        console.log(this.user.kmeans_array);
+        this.tempstringplaces = this.user.kmeans_array.split(',');
+
+        for (const place of this.tempstringplaces) {
+          if (place) {
+          this.placesService.getPlace(place).subscribe(placeData => {
+            this.place = {
+              id: placeData._id,
+              name: placeData.name,
+              lat: placeData.lat,
+              lng: placeData.lng,
+              goal: placeData.goal,
+              count_of_likes: placeData.count_of_likes,
+              creator: placeData.creator
+            };
+            console.log('place id =' + place);
+            console.log('place id 2 =' + this.place.id);
+            this.placesKMEANS.push(this.place);
+            console.log(this.placesKMEANS);
+          });
+        }
+      }
       });
     }
   }
