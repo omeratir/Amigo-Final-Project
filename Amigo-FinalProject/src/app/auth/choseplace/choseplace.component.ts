@@ -5,19 +5,25 @@ import { AuthService } from '../auth.service';
 import { PlacesService } from 'src/app/places/places.service';
 import { Place } from 'src/app/places/place.model';
 import { Router } from '@angular/router';
+import { UserData } from '../userData.model';
 
 @Component({
   templateUrl: './choseplace.component.html',
   styleUrls: ['./choseplace.component.css']
 })
-export class ChoseplaceComponent implements OnInit, OnDestroy {
+export class ChoseplaceComponent implements OnInit {
 
   isLoading = false;
   private authStatusSub: Subscription;
   private placesSub: Subscription;
 
+  placeLiked: string;
+  splitArray: string[] = [
+
+  ];
+
   totalPlaces = 0;
-  placesPerPage = 2000;
+  placesPerPage = 1000;
   placeslength = 1;
   currentPage = 1;
 
@@ -27,7 +33,7 @@ export class ChoseplaceComponent implements OnInit, OnDestroy {
   previous;
 
   userId: string;
-
+  user: UserData;
 
   places: Place[] = [
 
@@ -37,13 +43,8 @@ export class ChoseplaceComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-    this.userId = this.authService.getUserId();
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userId = this.authService.getUserId();
-      });
-
+    this.placeLiked = 'EMPTY';
+    this.splitArray = [' '];
 
     this.placesService.getPlaces(this.placesPerPage, this.currentPage);
     this.placesSub = this.placesService
@@ -60,11 +61,9 @@ export class ChoseplaceComponent implements OnInit, OnDestroy {
   }
 
   SignUp() {
+    console.log(this.placeLiked);
+    this.authService.onSignUpAfterChosePlace(this.placeLiked);
     this.router.navigate(['/auth/login']);
-  }
-
-  ngOnDestroy() {
-    this.authStatusSub.unsubscribe();
   }
 
   clickedMarker(infoWindow) {
@@ -73,4 +72,47 @@ export class ChoseplaceComponent implements OnInit, OnDestroy {
     }
     this.previous = infoWindow;
   }
+
+  LikeClicked(placeid) {
+    console.log('Like Clicked');
+    console.log(placeid);
+    if (this.placeLiked === 'EMPTY') {
+      this.placeLiked = placeid;
+    } else {
+      this.placeLiked = this.placeLiked.concat(',');
+      this.placeLiked = this.placeLiked.concat(placeid);
+    }
+  }
+
+
+  UnLikeClicked(placeid) {
+    console.log('UnLike Clicked');
+
+    this.splitArray = this.placeLiked.split(',');
+    this.placeLiked = 'EMPTY';
+
+    for (const temp of this.splitArray) {
+      if (temp !== placeid) {
+        if (this.placeLiked === 'EMPTY') {
+          this.placeLiked = temp;
+        } else {
+          this.placeLiked = this.placeLiked.concat(',');
+          this.placeLiked = this.placeLiked.concat(temp);
+        }
+      }
+    }
+  }
+
+  checkIfUserLikeThePlace(placeid) {
+    if (this.placeLiked === 'EMPTY') {
+      return false;
+    }
+
+    if (this.placeLiked.includes(placeid)) {
+      return true;
+    }
+
+    return false;
+}
+
 }

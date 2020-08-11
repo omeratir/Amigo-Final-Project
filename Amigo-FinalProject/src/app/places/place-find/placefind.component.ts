@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { bufferTime } from 'rxjs/operators';
 import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
 import { User } from 'src/app/auth/user.model';
@@ -177,8 +175,11 @@ export class PlaceFindComponent implements OnInit {
           kmeans_array: userData.kmeans_array
         };
 
-        console.log(this.user.kmeans_array);
-        this.tempstringplaces = this.user.kmeans_array.split(',');
+        console.log(userData);
+
+        console.log(this.userId);
+        console.log('KMEANS ARRAY 1 = ' + userData.kmeans_array);
+        this.tempstringplaces = userData.kmeans_array.split(',');
 
         for (const place of this.tempstringplaces) {
           if (place) {

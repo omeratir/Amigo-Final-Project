@@ -7,6 +7,21 @@
         {
             "type": "aws-sam",
             "request": "direct-invoke",
+            "name": "Amigo-FinalProject:controllers/user.getUser (nodejs10.x)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "Backend",
+                "lambdaHandler": "controllers/user.getUser"
+            },
+            "lambda": {
+                "runtime": "nodejs10.x",
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
             "name": "Amigo-FinalProject:controllers/places.getAllThePlaces (nodejs10.x)",
             "invokeTarget": {
                 "target": "code",

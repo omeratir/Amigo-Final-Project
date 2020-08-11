@@ -308,3 +308,85 @@ else{
 }
 
 };
+
+
+exports.updateUserAfterRecommend = (req, res, next) => {
+    const userData = new User({
+      _id: req.body.id,
+      email: req.body.email,
+      password: req.body.password,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      age: req.body.age,
+      gneder: req.body.gender,
+      sport: req.body.sport,
+      culture: req.body.culture,
+      food: req.body.food,
+      liked_place: req.body.liked_place,
+      kmeans_array: 'EMPTY',
+    });
+
+    User.updateOne({ _id: req.params.id}, userData)
+    .then(result => {
+        if (result.n > 0) {
+          res.status(200).json({ message: "Update successful!" });
+        } else {
+          res.status(401).json({ message: "Not authorized!" });
+        }
+ })
+ .catch(error => {
+   res.status(500).json({
+     message: "Couldn't udpate user!"
+   });
+ });
+
+};
+
+exports.UpdateUserByEmail = (req, res, next) => {
+  console.log('email = ' + req.params.email);
+  console.log('array = ' + req.body.liked_place);
+
+  User.findOne({ email : req.params.email})
+  .then(user => {
+    if (user) {
+      const userData = new User({
+         _id: user.id,
+         email: user.email,
+         password: user.password,
+         firstName: user.firstName,
+         lastName: user.lastName,
+         age: user.age,
+         gneder: user.gender,
+         sport: user.sport,
+         culture: user.culture,
+         food: user.food,
+         liked_place: req.body.liked_place,
+         kmeans_array: user.kmeans_array,
+       });
+
+       User.updateOne({ email: req.params.email}, userData)
+       .then(result => {
+           if (result.n > 0) {
+             res.status(200).json({ message: "Update successful!" });
+           } else {
+             res.status(401).json({ message: "Not authorized!" });
+           }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Couldn't udpate user!"
+      });
+    });
+
+    } else {
+      res.status(404).json({ message: "User not found!" });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "Fetching user failed2!"
+    });
+  }
+  );
+};
+

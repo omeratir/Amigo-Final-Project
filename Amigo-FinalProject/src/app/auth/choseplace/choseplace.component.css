@@ -1,4 +1,47 @@
+.header {
+  font-family: cursive;
+  font-weight: bold;
+}
+
 agm-map
 {
   height: 500px;
 }
+
+.liked {
+  color: red;
+  font-size: 24px;
+  position: center;
+}
+
+.redHeart {
+  color: red;
+}
+
+.fa {
+  font-size: 50px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fa:hover {
+  color: darkblue;
+}
+
+mat-button-toggle-group {
+  margin-left: 12px;
+}
+
+.like {
+  color: red;
+}
+
+.unlike {
+  color: black;
+}
+
+.select {
+  font-weight: bold;
+  color: red;
+}
+

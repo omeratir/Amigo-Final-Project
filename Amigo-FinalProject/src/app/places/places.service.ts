@@ -221,7 +221,6 @@ export class PlacesService {
   temp1 = 0;
 
   sortPlacesByLikes(places: Place[]) {
-    console.log('Sort By Likes');
     places.sort((a , b) => b.count_of_likes - a.count_of_likes);
 
     for (this.i = 0 ; this.i < 6 ; this.i ++) {

@@ -18,6 +18,7 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>();
   private user: User;
+  private email: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -41,6 +42,7 @@ export class AuthService {
              // tslint:disable-next-line: variable-name
              age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string , kmeans_array: string) {
     const authData: AuthData = { email, password };
+    localStorage.setItem('email', email);
     const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place , kmeans_array  };
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
@@ -84,8 +86,31 @@ export class AuthService {
       );
   }
 
-  onSignUpAfterChosePlace() {
-    this.router.navigate(['/auth/recommend']);
+  onSignUpAfterChosePlace(places: string) {
+    this.email = localStorage.getItem('email');
+    console.log('email = ' + this.email);
+
+    let userData: User;
+
+    userData = {
+      email: this.email,
+      password: 'null',
+      firstName: 'null',
+      lastName: 'null',
+      age: 'null',
+      gender: 'null',
+      sport: true,
+      culture: true,
+      food: true,
+      liked_place: places,
+      kmeans_array: 'null'
+    };
+
+    this.http
+    .put(BACKEND_URL + 'update/' + this.email , userData)
+    .subscribe(response => {
+      // this.router.navigate(['/']);
+    });
   }
 
   getUserData(id: string) {
@@ -184,17 +209,6 @@ export class AuthService {
     liked_place,
     kmeans_array
   };
-  // userData = new FormData();
-  // userData.append('email', email);
-  // userData.append('password', password);
-  // userData.append('firstName', firstName);
-  // userData.append('lastName', lastName);
-  // userData.append('age', age);
-  // userData.append('gender', gender);
-  // userData.append('sport', sport);
-  // userData.append('culture', culture);
-  // userData.append('food', food);
-  // userData.append('liked_place', liked_place);
 
   this.http
     .put(BACKEND_URL + id, userData)
