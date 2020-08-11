@@ -360,7 +360,7 @@ exports.UpdateUserByEmail = (req, res, next) => {
          sport: user.sport,
          culture: user.culture,
          food: user.food,
-         liked_place: req.body.liked_place,
+         liked_place: user.liked_place,
          kmeans_array: user.kmeans_array,
        });
 
