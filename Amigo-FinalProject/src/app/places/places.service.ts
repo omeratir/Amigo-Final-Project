@@ -19,7 +19,12 @@ export class PlacesService {
   private likeplaces: PlaceLikeData[] = [];
   private placesUpdated = new Subject<{ places: Place[]; placeCount: number }>();
   private placesLikedUpdated = new Subject<{ like_places: PlaceLikeData[]; placeCount: number }>();
-
+private flagAttractions = true;
+private flagCulture = true;
+private flagNightLife = true;
+private flagRelaxing = true;
+private flagShopping = true;
+private flagSportExtrim = true;
   constructor(private http: HttpClient, private router: Router) {}
 
   getPlaces(placesPerPage: number, currentPage: number) {
@@ -219,14 +224,55 @@ export class PlacesService {
   i: number;
   // tslint:disable-next-line: member-ordering
   temp1 = 0;
-
   sortPlacesByLikes(places: Place[]) {
+
     places.sort((a , b) => b.count_of_likes - a.count_of_likes);
-
-    for (this.i = 0 ; this.i < 6 ; this.i ++) {
-      this.temp.push(places[this.i]);
-    }
-
+    // this.temp2[0] = places[0].goal;
+    // this.temp2[1] = 1;
+    for (this.i = 0 ; this.i < places.length ; this.i ++) {
+      if (places[this.i].goal === 'Attractions & Leisure' && this.flagAttractions === true){
+        this.flagAttractions = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      if (places[this.i].goal === 'Culture & Historical Places' && this.flagCulture === true){
+        this.flagCulture = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      if (places[this.i].goal === 'Night Life' && this.flagNightLife === true){
+        this.flagNightLife = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      if (places[this.i].goal === 'Relaxing' && this.flagRelaxing === true){
+        this.flagRelaxing = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      if (places[this.i].goal === 'Shopping' && this.flagShopping === true){
+        this.flagShopping = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      if (places[this.i].goal === 'Sport & Extreme' && this.flagSportExtrim === true){
+        this.flagSportExtrim = false;
+        this.temp.push(places[this.i]);
+        console.log('goal: ' + places[this.i].goal);
+        console.log('count: ' + places[this.i].count_of_likes);
+      }
+      // tslint:disable-next-line: max-line-length
+      if (this.flagAttractions === false && this.flagCulture === false && this.flagNightLife === false && this.flagRelaxing === false && this.flagShopping === false && this.flagSportExtrim === false) {
+        console.log('count_lenth: ' + places.length);
+        console.log('index_final: ' + this.i);
+        break;
+      }
+  }
     return this.temp;
   }
 
