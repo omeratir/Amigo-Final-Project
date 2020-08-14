@@ -19,6 +19,8 @@ export class PlacesService {
   private likeplaces: PlaceLikeData[] = [];
   private placesUpdated = new Subject<{ places: Place[]; placeCount: number }>();
   private placesLikedUpdated = new Subject<{ like_places: PlaceLikeData[]; placeCount: number }>();
+  private mostLikePlaces = '';
+  private index = 0;
 private flagAttractions = true;
 private flagCulture = true;
 private flagNightLife = true;
@@ -161,6 +163,33 @@ private flagSportExtrim = true;
     });
   }
 
+
+  kmeans2(kmeans: Kmeans) {
+
+    return this.http.get<{
+      // _id: string,
+       email: string;
+       password: string;
+       firstName: string;
+       lastName: string;
+       age: string;
+       gender: string;
+       sport: boolean;
+       culture: boolean;
+       food: boolean;
+       liked_place: string;
+       kmeans_array: string;
+     }>(BACKEND_URL + 'kmeans2/' + kmeans.userid);
+
+
+
+    // this.http
+    //   .get(BACKEND_URL + 'kmeans2/' + kmeans.userid)
+    //   .subscribe(response => {
+    //     // this.router.navigate(['/placelist']);
+    // });
+  }
+
   deletePlace(placeId: string) {
     return this.http.delete(BACKEND_URL + placeId);
   }
@@ -229,49 +258,63 @@ private flagSportExtrim = true;
     places.sort((a , b) => b.count_of_likes - a.count_of_likes);
     // this.temp2[0] = places[0].goal;
     // this.temp2[1] = 1;
-    for (this.i = 0 ; this.i < places.length ; this.i ++) {
-      if (places[this.i].goal === 'Attractions & Leisure' && this.flagAttractions === true){
-        this.flagAttractions = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      if (places[this.i].goal === 'Culture & Historical Places' && this.flagCulture === true){
-        this.flagCulture = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      if (places[this.i].goal === 'Night Life' && this.flagNightLife === true){
-        this.flagNightLife = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      if (places[this.i].goal === 'Relaxing' && this.flagRelaxing === true){
-        this.flagRelaxing = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      if (places[this.i].goal === 'Shopping' && this.flagShopping === true){
-        this.flagShopping = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      if (places[this.i].goal === 'Sport & Extreme' && this.flagSportExtrim === true){
-        this.flagSportExtrim = false;
-        this.temp.push(places[this.i]);
-        console.log('goal: ' + places[this.i].goal);
-        console.log('count: ' + places[this.i].count_of_likes);
-      }
-      // tslint:disable-next-line: max-line-length
-      if (this.flagAttractions === false && this.flagCulture === false && this.flagNightLife === false && this.flagRelaxing === false && this.flagShopping === false && this.flagSportExtrim === false) {
-        console.log('count_lenth: ' + places.length);
-        console.log('index_final: ' + this.i);
+    this.mostLikePlaces = places[0].goal;
+    this.temp.push(places[0]);
+    for (this.i = 1 ; this.i < places.length ; this.i++) {
+      if (this.index === 5) {
         break;
       }
+      if (!(this.mostLikePlaces.includes(places[this.i].goal))) {
+        console.log(places[this.i].goal);
+        this.index++;
+        this.mostLikePlaces = this.mostLikePlaces.concat(places[this.i].goal , ',');
+        console.log(this.mostLikePlaces);
+        this.temp.push(places[this.i]);
+      //   // console.log('goal: ' + places[this.i].goal);
+      //   // console.log('count: ' + places[this.i].count_of_likes);
+       }
+
+      // if (places[this.i].goal === 'Attractions & Leisure' && this.flagAttractions === true){
+      //   this.flagAttractions = false;
+      //   this.temp.push(places[this.i]);
+
+      // }
+      // if (places[this.i].goal === 'Culture & Historical Places' && this.flagCulture === true){
+      //   this.flagCulture = false;
+      //   this.temp.push(places[this.i]);
+      //   console.log('goal: ' + places[this.i].goal);
+      //   console.log('count: ' + places[this.i].count_of_likes);
+      // }
+      // if (places[this.i].goal === 'Night Life' && this.flagNightLife === true){
+      //   this.flagNightLife = false;
+      //   this.temp.push(places[this.i]);
+      //   console.log('goal: ' + places[this.i].goal);
+      //   console.log('count: ' + places[this.i].count_of_likes);
+      // }
+      // if (places[this.i].goal === 'Relaxing' && this.flagRelaxing === true){
+      //   this.flagRelaxing = false;
+      //   this.temp.push(places[this.i]);
+      //   console.log('goal: ' + places[this.i].goal);
+      //   console.log('count: ' + places[this.i].count_of_likes);
+      // }
+      // if (places[this.i].goal === 'Shopping' && this.flagShopping === true){
+      //   this.flagShopping = false;
+      //   this.temp.push(places[this.i]);
+      //   console.log('goal: ' + places[this.i].goal);
+      //   console.log('count: ' + places[this.i].count_of_likes);
+      // }
+      // if (places[this.i].goal === 'Sport & Extreme' && this.flagSportExtrim === true){
+      //   this.flagSportExtrim = false;
+      //   this.temp.push(places[this.i]);
+      //   console.log('goal: ' + places[this.i].goal);
+      //   console.log('count: ' + places[this.i].count_of_likes);
+      // }
+      // tslint:disable-next-line: max-line-length
+      // if (this.flagAttractions === false && this.flagCulture === false && this.flagNightLife === false && this.flagRelaxing === false && this.flagShopping === false && this.flagSportExtrim === false) {
+      //   console.log('count_lenth: ' + places.length);
+      //   console.log('index_final: ' + this.i);
+      //   break;
+      // }
   }
     return this.temp;
   }

@@ -18,6 +18,8 @@ router.get("/:id", PlaceController.getPlace);
 
 router.put("/kmeans/:id",checkAuth,  PlaceController.kmeans);
 
+router.get("/kmeans2/:id",checkAuth,  PlaceController.kmeansGet);
+
 router.delete("/:id", checkAuth, PlaceController.deletePlace);
 
 router.get("/all", PlaceController.getAllPlaces);

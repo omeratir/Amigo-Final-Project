@@ -158,9 +158,8 @@ export class PlaceFindComponent implements OnInit {
         goal_Culture_And_Historical_Places: this.Goal_Culture_And_Historical_Places
       };
 
-      this.placesService.kmeans(this.kmean_model);
-
-      this.authService.getUserData(this.userId).subscribe(userData => {
+      // this.placesService.kmeans(this.kmean_model);
+      this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
         this.user = {
           email: userData.email,
           password: userData.password,
@@ -174,6 +173,21 @@ export class PlaceFindComponent implements OnInit {
           liked_place: userData.liked_place,
           kmeans_array: userData.kmeans_array
         };
+
+      // this.authService.getUserData(this.userId).subscribe(userData => {
+      //   this.user = {
+      //     email: userData.email,
+      //     password: userData.password,
+      //     firstName: userData.firstName,
+      //     lastName: userData.lastName,
+      //     age: userData.age,
+      //     gender: userData.gender,
+      //     sport: userData.sport,
+      //     culture: userData.culture,
+      //     food: userData.food,
+      //     liked_place: userData.liked_place,
+      //     kmeans_array: userData.kmeans_array
+      //   };
 
         console.log(userData);
 
@@ -204,14 +218,14 @@ export class PlaceFindComponent implements OnInit {
     }
   }
 
-  clickedMarker(infoWindow) {
+clickedMarker(infoWindow) {
     if (this.previous) {
         this.previous.close();
     }
     this.previous = infoWindow;
   }
 
-  LikeClicked(place, infoWindow) {
+LikeClicked(place, infoWindow) {
     console.log('Like Clicked');
     // add the placeid to the list.
     console.log(this.user.liked_place);
@@ -232,7 +246,7 @@ export class PlaceFindComponent implements OnInit {
     }
 
 
-  UnLikeClicked(place, infoWindow) {
+UnLikeClicked(place, infoWindow) {
     console.log('UnLike Clicked');
     // remove the placeid to the list.
     this.splitArray = this.user.liked_place.split(',');
@@ -257,7 +271,7 @@ export class PlaceFindComponent implements OnInit {
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array);
   }
 
-  checkIfUserLikeThePlace(placeid) {
+checkIfUserLikeThePlace(placeid) {
     if (this.user.liked_place === 'EMPTY') {
       return false;
     }

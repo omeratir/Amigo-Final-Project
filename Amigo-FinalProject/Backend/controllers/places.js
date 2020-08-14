@@ -568,4 +568,281 @@ exports.getAllPlaces = (req, res, next) => {
   }
 
 
+  exports.kmeansGet = (req, res, next) => {
+    var userid = req.params.id;
+    var id =0;
+    var vectors = [];
+    var vectors2 = [];
+    var currentUserVector = {};
+    var currentUserVector2 = {};
+    var count =0;
+    var i =0;
+    User.find({}, function(err, users) {
+        var userMap = {};
+
+        users.forEach(function(user) {
+          userMap[user._id] = user;
+          count++;
+          if(userMap[user._id].id != req.body.userid){
+          vectors[i] = {
+           // x: userMap[user._id].age,
+          // x: 1,
+            x: userMap[user._id].sportsAndExtreme,
+            y:userMap[user._id].cultureAndHistoricalPlaces,
+            m:userMap[user._id].attractionsAndLeisure,
+            d:userMap[user._id].rest,
+            a: userMap[user._id].nightLife,
+            b: userMap[user._id].shopping
+           }
+           vectors2[i] = {
+            //  x: userMap[user._id].avg_age20,
+            //  y:userMap[user._id].avg_age35,
+            //  m:userMap[user._id].avg_age50,
+            //  d:userMap[user._id].avg_age_120,
+            //  a: userMap[user._id].avg_gender_place,
+            //  b: userMap[user._id].age
+            x: userMap[user._id].sportsAndExtreme,
+            y:userMap[user._id].cultureAndHistoricalPlaces,
+            m:userMap[user._id].attractionsAndLeisure,
+            d:userMap[user._id].rest,
+            a: userMap[user._id].nightLife,
+            b: userMap[user._id].shopping
+            }
+          vectors[i].id = (userMap[user._id].id);
+          vectors2[i].id = (userMap[user._id].id);
+          i++;
+          }
+          else{
+            currentUserVector = {
+            //  x: userMap[user._id].age,
+            //x: 1,
+            x: 1,
+            y:userMap[user._id].cultureAndHistoricalPlaces,
+            m:userMap[user._id].attractionsAndLeisure,
+            d:userMap[user._id].rest,
+            a: userMap[user._id].nightLife,
+            b: userMap[user._id].shopping
+           }
+             // q: userMap[user._id].id }
+              currentUserVector.id = (userMap[user._id].id);
+
+              currentUserVector2 = {
+                // x: userMap[user._id].avg_age20,
+                // y:userMap[user._id].avg_age35,
+                // m:userMap[user._id].avg_age50,
+                // d:userMap[user._id].avg_age_120,
+                // a: userMap[user._id].avg_gender_place,
+                // b: userMap[user._id].age
+                x: userMap[user._id].sportsAndExtreme,
+                y:userMap[user._id].cultureAndHistoricalPlaces,
+                m:userMap[user._id].attractionsAndLeisure,
+                d:userMap[user._id].rest,
+                a: userMap[user._id].nightLife,
+                b: userMap[user._id].shopping
+              }
+                 // q: userMap[user._id].id }
+                  currentUserVector2.id = (userMap[user._id].id);
+
+          }
+
+        });
+        console.log('currentUser');
+        console.log(currentUserVector);
+
+
+        var kmeans = new KmeansLib();
+        const k = vectors.length/5; // Groups Number
+        const size = 2 // Group size
+
+        var id =0;
+        //var vectors = [];
+        // for(var i=0;i<20;i++){
+        // vectors[i] = { x: i, y: i,s:i,m:i,d:i }
+        // vectors[i].id = 'a'+i;
+        // }
+        //kmeans.init({})
+
+        kmeans.init({k: k,runs: size,normalize: false });
+        // kmeans.init({k: k,normalize: false });
+        var sum = kmeans.calc(vectors);
+        //The vector is mutated
+        console.log('vectors:');
+        console.log(vectors);
+        console.log('end vectors');
+        const machine = new KNearestNeighbors(
+          vectors,
+        [
+          'x',
+          'y',
+          'm',
+          'd',
+          'a',
+          'b',
+        ]);
+        var placeInKnn = machine.classify(
+          currentUserVector
+        , 1, 'k');
+       // console.log(vectors);
+        console.log('the palce is: ' + placeInKnn)
+  var m=0;
+  var vectors3=[];
+  //try the second kmeans
+      for(var z=0;z< vectors.length;z++){
+    if(vectors[z].k==placeInKnn){
+      vectors3[m]=vectors2[z];
+      m++;
+    }
+  }
+  console.log(vectors3);
+        var kmeans2 = new KmeansLib();
+        const k2 = vectors2.length/10; // Groups Number
+        console.log(k2);
+        console.log('k2');
+        const size2 = 2 // Group size
+
+        var id2 =0;
+
+        kmeans2.init({k: k2,runs: size2,normalize: false });
+        // kmeans.init({k: k,normalize: false });
+        var sum2 = kmeans2.calc(vectors3);
+        //The vector is mutated
+        console.log('currentUser2');
+        console.log(currentUserVector2);
+        console.log('end currentUser2');
+        console.log(vectors3);
+        console.log('aviad2');
+        const machine2 = new KNearestNeighbors(
+          vectors3,
+        [
+          'x',
+          'y',
+          'm',
+          'd',
+          'a',
+          'b',
+        ]);
+        var placeInKnn2 = machine2.classify(
+          currentUserVector2
+        , 1, 'k');
+       // console.log(vectors);
+        console.log('the palce is: ' + placeInKnn2)
+
+        var lengthStringUsers = '';
+        for(var index =0; index<vectors3.length;index++){
+          if(vectors3[index].k == placeInKnn2){
+            lengthStringUsers = lengthStringUsers.concat(vectors3[index].id,',');
+          }
+        }
+        lengthStringUsers = lengthStringUsers.concat(userid,',');
+        console.log('userid = ' + userid);
+        console.log('The user list is:' + lengthStringUsers);
+        var splitArray =[];
+        var splitArray2 =[];
+        splitArray = lengthStringUsers.split(',');
+       // console.log('splituser: ' + splitArray[0]);
+        var lengthStringPlaces = '';
+        console.log('The split Array - aviad:' + splitArray);
+      //  console.log('length: ' + splitArray.length);
+        for (var indexPo = 0; indexPo<(splitArray.length-1);indexPo++)
+        {
+          // console.log('which user: ' + splitArray[index]);
+          User.findById(splitArray[indexPo])
+          .then(usertemp => {
+            console.log(usertemp.email);
+          if (usertemp) {
+            if (userid == usertemp._id) {
+              console.log('index: ' + indexPo);
+              const userData = new User({
+                _id: usertemp.id,
+                email: usertemp.email,
+                password: usertemp.password,
+                firstName: usertemp.firstName,
+                lastName: usertemp.lastName,
+                age: usertemp.age,
+                gneder: usertemp.gender,
+                sport: usertemp.sport,
+                culture: usertemp.culture,
+                food: usertemp.food,
+                liked_place: usertemp.liked_place,
+                kmeans_array: lengthStringPlaces
+              });
+              User.updateOne({ _id: req.params.id}, userData)
+              .then(result => {
+                  if (result.n > 0) {
+                    res.status(200).json(userData);
+                    // res.status(200).json({ message: "Update successful!" });
+                  } else {
+                    res.status(401).json({ message: "Not authorized!" });
+                  }
+                })
+                .catch(error => {
+                res.status(500).json({
+                  message: "Couldn't udpate user!"
+                });
+            });
+
+            ////////////////////////////////////
+
+            // User.findById(req.params.id)
+            // .then(user => {
+            //   if (user) {
+            //     res.status(200).json(place);
+            //   } else {
+            //     res.status(404).json({ message: "Place not found!" });
+            //   }
+            // })
+            // .catch(error => {
+            //   res.status(500).json({
+            //     message: "Fetching place failed!"
+            //   });
+            // });
+
+
+
+            ///////////////////////////////////////
+
+            } else {
+              splitArray2 = usertemp.liked_place.split(',');
+
+
+          // console.log('all the split2 in user: ' + splitArray2);
+          if(splitArray2.length>10){
+            var lengthPlaces = 10;
+          }
+          else{
+            var lengthPlaces = splitArray2.length;
+          }
+          if(usertemp.email == 'mor4@gmail.com'){
+            console.log('usertemp.liked_place: ' + usertemp.liked_place)
+          }
+            for(var index2=0; index2<lengthPlaces;index2++)
+            {
+              if(usertemp.email == 'mor4@gmail.com'){
+                console.log('splitArrayOfMOR4 : ' + splitArray2[index2])
+              }
+            // console.log('which index in split2 : ' + splitArray2[index2]);
+              if((!lengthStringPlaces.includes(splitArray2[index2])) && (!splitArray2[index2].includes('EMPTY'))){
+                console.log('splitArray2: ' + splitArray2[index2]);
+              lengthStringPlaces = lengthStringPlaces.concat(splitArray2[index2],',');
+              console.log('the string of user is: ' + lengthStringPlaces);
+              }
+            }
+          }
+         } else {
+            res.status(404).json({ message: "User not found!" });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({
+            message: "Fetching user failed!"
+          });
+        });
+      }
+
+
+
+    });
+  }
+
+
 
