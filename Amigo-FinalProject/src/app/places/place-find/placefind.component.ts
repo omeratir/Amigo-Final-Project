@@ -162,6 +162,8 @@ export class PlaceFindComponent implements OnInit {
 
       // this.placesService.kmeans(this.kmean_model);
       this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
+        console.log('kmeans array = ' + userData);
+
         this.user = {
           email: userData.email,
           password: userData.password,

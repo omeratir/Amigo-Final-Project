@@ -577,6 +577,7 @@ exports.getAllPlaces = (req, res, next) => {
     var currentUserVector2 = {};
     var count =0;
     var i =0;
+
     User.find({}, function(err, users) {
         var userMap = {};
 
@@ -744,6 +745,7 @@ exports.getAllPlaces = (req, res, next) => {
         console.log('The split Array - aviad:' + splitArray);
       //  console.log('length: ' + splitArray.length);
       var indexPo2 = 0;
+
         for (var indexPo = 0; indexPo<(splitArray.length-1);indexPo++)
         {
           console.log('The split Array - aviad2:' + splitArray[indexPo]);
@@ -758,35 +760,35 @@ exports.getAllPlaces = (req, res, next) => {
             console.log('split: ' + splitArray.length);
           //  console.log('index: ' + splitArray);
             if (userid == usertemp._id && indexPo2 == splitArray.length-1) {
-              console.log('index: ' + indexPo);
-              const userData = new User({
-                _id: usertemp.id,
-                email: usertemp.email,
-                password: usertemp.password,
-                firstName: usertemp.firstName,
-                lastName: usertemp.lastName,
-                age: usertemp.age,
-                gneder: usertemp.gender,
-                sport: usertemp.sport,
-                culture: usertemp.culture,
-                food: usertemp.food,
-                liked_place: usertemp.liked_place,
-                kmeans_array: lengthStringPlaces
-              });
-              User.updateOne({ _id: req.params.id}, userData)
-              .then(result => {
-                  if (result.n > 0) {
-                    res.status(200).json(userData);
-                    // res.status(200).json({ message: "Update successful!" });
-                  } else {
-                    res.status(401).json({ message: "Not authorized!" });
-                  }
-                })
-                .catch(error => {
-                res.status(500).json({
-                  message: "Couldn't udpate user!"
-                });
-            });
+            //   console.log('index: ' + indexPo);
+              // const userData = new User({
+              //   _id: usertemp.id,
+              //   email: usertemp.email,
+              //   password: usertemp.password,
+              //   firstName: usertemp.firstName,
+              //   lastName: usertemp.lastName,
+              //   age: usertemp.age,
+              //   gneder: usertemp.gender,
+              //   sport: usertemp.sport,
+              //   culture: usertemp.culture,
+              //   food: usertemp.food,
+              //   liked_place: usertemp.liked_place,
+              //   kmeans_array: lengthStringPlaces
+              // });
+            //   User.updateOne({ _id: req.params.id}, userData)
+            //   .then(result => {
+            //       if (result.n > 0) {
+            //         res.status(200).json(userData);
+            //         // res.status(200).json({ message: "Update successful!" });
+            //       } else {
+            //         res.status(401).json({ message: "Not authorized!" });
+            //       }
+            //     })
+            //     .catch(error => {
+            //     res.status(500).json({
+            //       message: "Couldn't udpate user!"
+            //     });
+            // });
 
             ////////////////////////////////////
 
@@ -845,8 +847,41 @@ exports.getAllPlaces = (req, res, next) => {
           });
         });
       }
+      User.findById(req.params.id)
+      .then(usertemp => {
+        if (usertemp) {
+          console.log('index po2 =' + indexPo2);
+          console.log('lengthStringUsers.length =' + splitArray.length-1);
+
+          if (indexPo2 === splitArray.length-1){
+          const userData = new User({
+            _id: usertemp.id,
+            email: usertemp.email,
+            password: usertemp.password,
+            firstName: usertemp.firstName,
+            lastName: usertemp.lastName,
+            age: usertemp.age,
+            gneder: usertemp.gender,
+            sport: usertemp.sport,
+            culture: usertemp.culture,
+            food: usertemp.food,
+            liked_place: usertemp.liked_place,
+            kmeans_array: lengthStringPlaces
+          });
+
+                  console.log('return')
+                  res.status(200).json(userData);
+           } } else {
+                  res.status(404).json({ message: "Place not found!" });
+                }
+              })
+              .catch(error => {
+                res.status(500).json({
+                  message: "Fetching place failed!"
+                });
+              });
+
+
     });
-  }
 
-
-
+}
