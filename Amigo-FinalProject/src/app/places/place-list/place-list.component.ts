@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Place } from '../place.model';
 import { PlacesService } from '../places.service';
 import { AuthService } from '../../auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
   selector: 'app-place-list',
@@ -16,6 +17,14 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   places: Place[] = [
 
   ];
+
+  user: User;
+
+  splitArray: string[] = [
+
+  ];
+
+  placelist: string;
 
   isLoading = false;
   totalPlaces = 0;
@@ -55,6 +64,22 @@ export class PlaceListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+
+    this.authService.getUserData(this.userId).subscribe(userData => {
+        this.user = {
+          email: userData.email,
+          password: userData.password,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          age: userData.age,
+          gender: userData.gender,
+          sport: userData.sport,
+          culture: userData.culture,
+          food: userData.food,
+          liked_place: userData.liked_place,
+          kmeans_array: userData.kmeans_array
+        };
+    });
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -90,4 +115,70 @@ export class PlaceListComponent implements OnInit, OnDestroy {
     this.longitude = +place.lng;
     return true;
   }
+
+  LikeClicked(place, infoWindow) {
+    console.log('Like Clicked');
+    // add the placeid to the list.
+    console.log(this.user.liked_place);
+    if (this.user.liked_place === 'EMPTY') {
+      this.user.liked_place = place.id;
+    } else {
+      this.placelist = this.user.liked_place;
+      this.placelist = this.placelist.concat(',', place.id);
+      this.user.liked_place = this.placelist;
+    }
+    console.log(this.user.liked_place);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true);
+
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array );
+
+    }
+
+
+UnLikeClicked(place, infoWindow) {
+    console.log('UnLike Clicked');
+    // remove the placeid to the list.
+    this.splitArray = this.user.liked_place.split(',');
+
+    this.user.liked_place = 'EMPTY';
+
+    for (const placeid of this.splitArray) {
+      if (placeid !== place.id) {
+        if (this.user.liked_place === 'EMPTY') {
+          this.user.liked_place = placeid;
+        } else {
+          this.placelist = this.user.liked_place;
+          this.placelist = this.placelist.concat(',', placeid);
+          this.user.liked_place = this.placelist;
+        }
+      }
+  }
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false);
+
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array);
+  }
+
+  checkIfUserLikeThePlace(placeid) {
+    if (this.user.liked_place === 'EMPTY') {
+      return false;
+    }
+    if (this.user.liked_place.includes(placeid)) {
+      return true;
+    }
+    // this.splitArray = this.user.liked_place.split(',');
+
+    // for (const place of this.splitArray) {
+    //   if (place === placeid) {
+    //     return true;
+    //   }
+    // }
+
+    return false;
+  }
+
+
 }

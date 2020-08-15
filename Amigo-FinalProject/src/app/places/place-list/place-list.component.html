@@ -19,6 +19,9 @@
           (markerClick)="clickedMarker(infoWindow)">
             <agm-info-window #infoWindow>
               {{ place.name }}
+              <br>
+              <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+              <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
             </agm-info-window>
           </agm-marker>
     </agm-map>

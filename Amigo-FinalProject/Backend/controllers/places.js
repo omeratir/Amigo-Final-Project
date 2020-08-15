@@ -749,6 +749,7 @@ exports.getAllPlaces = (req, res, next) => {
           User.findById(splitArray[indexPo])
           .then(usertemp => {
             console.log(usertemp.email);
+            console.log("string places =" + lengthStringPlaces)
           if (usertemp) {
             if (userid == usertemp._id) {
               console.log('index: ' + indexPo);

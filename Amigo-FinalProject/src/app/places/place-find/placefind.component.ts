@@ -61,6 +61,9 @@ export class PlaceFindComponent implements OnInit {
 
   ];
 
+  placelist: string;
+
+
   private placesSub: Subscription;
 
   like: boolean;
@@ -72,7 +75,6 @@ export class PlaceFindComponent implements OnInit {
   userId: string;
   private authStatusSub: Subscription;
 
-  placelist: string;
 
   constructor(
     private authService: AuthService,
