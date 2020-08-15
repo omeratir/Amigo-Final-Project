@@ -577,7 +577,6 @@ exports.getAllPlaces = (req, res, next) => {
     var currentUserVector2 = {};
     var count =0;
     var i =0;
-
     User.find({}, function(err, users) {
         var userMap = {};
 
@@ -731,7 +730,9 @@ exports.getAllPlaces = (req, res, next) => {
         var lengthStringUsers = '';
         for(var index =0; index<vectors3.length;index++){
           if(vectors3[index].k == placeInKnn2){
+            if(vectors3[index].id != userid){
             lengthStringUsers = lengthStringUsers.concat(vectors3[index].id,',');
+            }
           }
         }
         //lengthStringUsers = lengthStringUsers.concat(userid,',');
@@ -745,7 +746,6 @@ exports.getAllPlaces = (req, res, next) => {
         console.log('The split Array - aviad:' + splitArray);
       //  console.log('length: ' + splitArray.length);
       var indexPo2 = 0;
-
         for (var indexPo = 0; indexPo<(splitArray.length-1);indexPo++)
         {
           console.log('The split Array - aviad2:' + splitArray[indexPo]);
@@ -756,25 +756,25 @@ exports.getAllPlaces = (req, res, next) => {
             console.log(usertemp.email);
             console.log("string places =" + lengthStringPlaces)
           if (usertemp) {
-            console.log('index: ' + indexPo2);
+            console.log('index2: ' + indexPo2);
             console.log('split: ' + splitArray.length);
           //  console.log('index: ' + splitArray);
-            if (userid == usertemp._id && indexPo2 == splitArray.length-1) {
-            //   console.log('index: ' + indexPo);
-              // const userData = new User({
-              //   _id: usertemp.id,
-              //   email: usertemp.email,
-              //   password: usertemp.password,
-              //   firstName: usertemp.firstName,
-              //   lastName: usertemp.lastName,
-              //   age: usertemp.age,
-              //   gneder: usertemp.gender,
-              //   sport: usertemp.sport,
-              //   culture: usertemp.culture,
-              //   food: usertemp.food,
-              //   liked_place: usertemp.liked_place,
-              //   kmeans_array: lengthStringPlaces
-              // });
+            // if (userid == usertemp.id && indexPo2 == splitArray.length-1) {
+            //   console.log('index insert id2 : ' + indexPo2);
+            //   const userData = new User({
+            //     _id: usertemp.id,
+            //     email: usertemp.email,
+            //     password: usertemp.password,
+            //     firstName: usertemp.firstName,
+            //     lastName: usertemp.lastName,
+            //     age: usertemp.age,
+            //     gneder: usertemp.gender,
+            //     sport: usertemp.sport,
+            //     culture: usertemp.culture,
+            //     food: usertemp.food,
+            //     liked_place: usertemp.liked_place,
+            //     kmeans_array: lengthStringPlaces
+            //   });
             //   User.updateOne({ _id: req.params.id}, userData)
             //   .then(result => {
             //       if (result.n > 0) {
@@ -810,7 +810,7 @@ exports.getAllPlaces = (req, res, next) => {
 
             ///////////////////////////////////////
 
-            } else {
+           // } else {
               splitArray2 = usertemp.liked_place.split(',');
 
 
@@ -836,7 +836,7 @@ exports.getAllPlaces = (req, res, next) => {
               console.log('the string of user is: ' + lengthStringPlaces);
               }
             }
-          }
+          //}
          } else {
             res.status(404).json({ message: "User not found!" });
           }
@@ -847,41 +847,43 @@ exports.getAllPlaces = (req, res, next) => {
           });
         });
       }
-      User.findById(req.params.id)
-      .then(usertemp => {
+      setTimeout(function() {
+        console.log('Blah blah blah blah extra-blah');
+        User.findById(userid)
+        .then(usertemp => {
         if (usertemp) {
-          console.log('index po2 =' + indexPo2);
-          console.log('lengthStringUsers.length =' + splitArray.length-1);
-
-          if (indexPo2 === splitArray.length-1){
-          const userData = new User({
-            _id: usertemp.id,
-            email: usertemp.email,
-            password: usertemp.password,
-            firstName: usertemp.firstName,
-            lastName: usertemp.lastName,
-            age: usertemp.age,
-            gneder: usertemp.gender,
-            sport: usertemp.sport,
-            culture: usertemp.culture,
-            food: usertemp.food,
-            liked_place: usertemp.liked_place,
-            kmeans_array: lengthStringPlaces
-          });
-
-                  console.log('return')
+          console.log('return');
+            const userData = new User({
+              _id: usertemp.id,
+              email: usertemp.email,
+              password: usertemp.password,
+              firstName: usertemp.firstName,
+              lastName: usertemp.lastName,
+              age: usertemp.age,
+              gneder: usertemp.gender,
+              sport: usertemp.sport,
+              culture: usertemp.culture,
+              food: usertemp.food,
+              liked_place: usertemp.liked_place,
+              kmeans_array: lengthStringPlaces
+            });
+            User.updateOne({ _id: req.params.id}, userData)
+            .then(result => {
+                if (result.n > 0) {
                   res.status(200).json(userData);
-           } } else {
-                  res.status(404).json({ message: "Place not found!" });
+                  // res.status(200).json({ message: "Update successful!" });
+                } else {
+                  res.status(401).json({ message: "Not authorized!" });
                 }
               })
               .catch(error => {
-                res.status(500).json({
-                  message: "Fetching place failed!"
-                });
+              res.status(500).json({
+                message: "Couldn't udpate user!"
               });
+          });
 
+        }});
+    }, 100);
 
     });
-
-}
+  }

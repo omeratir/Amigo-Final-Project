@@ -162,8 +162,6 @@ export class PlaceFindComponent implements OnInit {
 
       // this.placesService.kmeans(this.kmean_model);
       this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
-        console.log('kmeans array = ' + userData);
-
         this.user = {
           email: userData.email,
           password: userData.password,
@@ -177,6 +175,8 @@ export class PlaceFindComponent implements OnInit {
           liked_place: userData.liked_place,
           kmeans_array: userData.kmeans_array
         };
+
+        console.log('kmeans done2');
 
       // this.authService.getUserData(this.userId).subscribe(userData => {
       //   this.user = {
@@ -221,6 +221,8 @@ export class PlaceFindComponent implements OnInit {
         }
       }
       });
+      console.log('kmeans done');
+
     }
   }
 

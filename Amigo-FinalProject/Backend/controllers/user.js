@@ -125,6 +125,7 @@ exports.updateUser = (req, res, next) => {
     var avg_Rest = 0;
     var avg_Shopping = 0;
     var tempLikePlace = new Array();
+    var countHobbiesIfZero = 0;
   console.log('aviad check:' + req.body.liked_place);
     if(req.body.liked_place == 'EMPTY'){
       console.log('aviad check2');
@@ -140,7 +141,7 @@ exports.updateUser = (req, res, next) => {
         culture: req.body.culture,
         food: req.body.food,
         liked_place: req.body.liked_place,
-        kmeans_array: 'EMPTY',
+        kmeans_array: req.body.kmeans_array,
         //req.body.kmeans_array,
 
         count_of_liked_places: countlikes,
@@ -179,19 +180,27 @@ exports.updateUser = (req, res, next) => {
 
     }
 else{
+
     tempLikePlace = req.body.liked_place.split(',');
     console.log('aviad check23');
-    for(let placeid of tempLikePlace) {
-      Place.findById(placeid)
+    //for(let placeid of tempLikePlace) {
+      for(var index2 = 0; index2<(tempLikePlace.length); index2++){
+        console.log('placeid :' + tempLikePlace);
+      console.log('placeid[index] :' + tempLikePlace[index2]);
+      Place.findById(tempLikePlace[index2])
       .then(place => {
         if (place) {
           countlikes = countlikes + 1;
-
           avg_gender += place.gender_avg;// the avg_gender of each place
+          console.log('place_avg_age: ' + place.gender_avg);
+
           avg_culture_places +=place.avg_culture; //the avg_cultue of each place
           avg_sport_places +=place.avg_sport; //the avg_sport of each place
           avg_food_places +=place.avg_food; //the avg_food of each place
-
+          if( place.count_of_likes != 0){
+              countHobbiesIfZero++;
+              console.log('countHobbiesIfZero++: '+ countHobbiesIfZero);
+          }
           age20 +=place.count_age20; //השם של העמודה בדאטה בייס
           age35 +=place.count_age35;
           age50 +=place.count_age50;
@@ -222,20 +231,27 @@ else{
             User.findById(req.body.id)
             .then(user => {
               if (user) {
+                var avg_age = age35 + age20 + age50 + age120;
                 avg_AttractionsLeisure= avg_AttractionsLeisure/countlikes;
                 avg_SportExtreme= avg_SportExtreme/countlikes;
                 avg_NightLife= avg_NightLife/countlikes;
                 avg_CultureHistorical= avg_CultureHistorical/countlikes;
                 avg_Rest=avg_Rest/countlikes;
                 avg_Shopping= avg_Shopping/countlikes;
-                avg_gender= avg_gender/countlikes;
-                avg_culture_places= avg_culture_places/countlikes;
-                avg_sport_places=  avg_sport_places/countlikes;
-                avg_food_places= avg_food_places/countlikes;
-                age20= age20/countlikes;
-                age35=  age35/countlikes;
-                age50= age50/countlikes;
-                age120=  age120/countlikes;
+                avg_gender= avg_gender/countHobbiesIfZero;
+                avg_culture_places= avg_culture_places/countHobbiesIfZero;
+                avg_sport_places=  avg_sport_places/countHobbiesIfZero;
+                avg_food_places= avg_food_places/countHobbiesIfZero;
+                age20= age20/avg_age;
+                age35=  age35/avg_age;
+                age50= age50/avg_age;
+                age120=  age120/avg_age;
+
+                console.log('avg_food_places: '+ avg_food_places);
+                console.log('avg_sport_places: '+ avg_sport_places);
+                console.log('avg_culture_places: '+ avg_culture_places);
+                console.log('age120: '+ countHobbiesIfZero);
+
 
                 const userData = new User({
                    _id: req.body.id,
