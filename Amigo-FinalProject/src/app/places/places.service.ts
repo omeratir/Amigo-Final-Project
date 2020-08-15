@@ -253,12 +253,14 @@ private flagSportExtrim = true;
   i: number;
   // tslint:disable-next-line: member-ordering
   temp1 = 0;
+
   sortPlacesByLikes(places: Place[]) {
 
     places.sort((a , b) => b.count_of_likes - a.count_of_likes);
     // this.temp2[0] = places[0].goal;
     // this.temp2[1] = 1;
-    this.mostLikePlaces = places[0].goal;
+    this.mostLikePlaces = '';
+    this.mostLikePlaces.concat(places[0].goal, ',');
     this.temp.push(places[0]);
     for (this.i = 1 ; this.i < places.length ; this.i++) {
       if (this.index === 5) {
@@ -267,7 +269,7 @@ private flagSportExtrim = true;
       if (!(this.mostLikePlaces.includes(places[this.i].goal))) {
         console.log(places[this.i].goal);
         this.index++;
-        this.mostLikePlaces = this.mostLikePlaces.concat(places[this.i].goal , ',');
+        this.mostLikePlaces = this.mostLikePlaces.concat(places[this.i].goal, ',');
         console.log(this.mostLikePlaces);
         this.temp.push(places[this.i]);
       //   // console.log('goal: ' + places[this.i].goal);
