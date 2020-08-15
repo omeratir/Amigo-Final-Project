@@ -197,6 +197,8 @@ export class PlaceFindComponent implements OnInit {
         console.log('KMEANS ARRAY 1 = ' + userData.kmeans_array);
         this.tempstringplaces = userData.kmeans_array.split(',');
 
+        this.placesKMEANS = [];
+
         for (const place of this.tempstringplaces) {
           if (place) {
           this.placesService.getPlace(place).subscribe(placeData => {

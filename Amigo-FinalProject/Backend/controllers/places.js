@@ -839,9 +839,6 @@ exports.getAllPlaces = (req, res, next) => {
           });
         });
       }
-
-
-
     });
   }
 

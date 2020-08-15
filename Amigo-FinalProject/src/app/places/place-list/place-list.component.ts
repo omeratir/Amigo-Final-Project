@@ -35,7 +35,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
   latitude = 52.373169;
   longitude = 4.890660;
   zoom = 12;
-  pageSizeOptions = [1, 2, 5, 10];
+  pageSizeOptions = [1, 10, 20, 30];
   userIsAuthenticated = false;
   userId: string;
   private placesSub: Subscription;
