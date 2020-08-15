@@ -733,7 +733,7 @@ exports.getAllPlaces = (req, res, next) => {
             lengthStringUsers = lengthStringUsers.concat(vectors3[index].id,',');
           }
         }
-        lengthStringUsers = lengthStringUsers.concat(userid,',');
+        //lengthStringUsers = lengthStringUsers.concat(userid,',');
         console.log('userid = ' + userid);
         console.log('The user list is:' + lengthStringUsers);
         var splitArray =[];
@@ -743,15 +743,21 @@ exports.getAllPlaces = (req, res, next) => {
         var lengthStringPlaces = '';
         console.log('The split Array - aviad:' + splitArray);
       //  console.log('length: ' + splitArray.length);
+      var indexPo2 = 0;
         for (var indexPo = 0; indexPo<(splitArray.length-1);indexPo++)
         {
+          console.log('The split Array - aviad2:' + splitArray[indexPo]);
           // console.log('which user: ' + splitArray[index]);
           User.findById(splitArray[indexPo])
           .then(usertemp => {
+            indexPo2++;
             console.log(usertemp.email);
             console.log("string places =" + lengthStringPlaces)
           if (usertemp) {
-            if (userid == usertemp._id) {
+            console.log('index: ' + indexPo2);
+            console.log('split: ' + splitArray.length);
+          //  console.log('index: ' + splitArray);
+            if (userid == usertemp._id && indexPo2 == splitArray.length-1) {
               console.log('index: ' + indexPo);
               const userData = new User({
                 _id: usertemp.id,
