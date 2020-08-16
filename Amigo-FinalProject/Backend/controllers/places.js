@@ -583,8 +583,6 @@ exports.getAllPlaces = (req, res, next) => {
         users.forEach(function(user) {
           userMap[user._id] = user;
           count++;
-          console.log('userid' + userid);
-          console.log('userid denaymic' + userMap[user._id].id);
           if(userMap[user._id].id != userid){
           vectors[i] = {
            // x: userMap[user._id].age,
@@ -644,16 +642,11 @@ exports.getAllPlaces = (req, res, next) => {
               }
                  // q: userMap[user._id].id }
                   currentUserVector2.id = (userMap[user._id].id);
-
           }
 
         });
-        console.log('currentUser');
-        console.log(currentUserVector);
-
-
         var kmeans = new KmeansLib();
-        const k = vectors.length/5; // Groups Number
+        const k = vectors.length/4; // Groups Number
         const size = 2 // Group size
 
         var id =0;
@@ -663,12 +656,15 @@ exports.getAllPlaces = (req, res, next) => {
         // vectors[i].id = 'a'+i;
         // }
         //kmeans.init({})
-
+        console.log('k: ' + k);
         kmeans.init({k: k,runs: size,normalize: false });
         // kmeans.init({k: k,normalize: false });
         var sum = kmeans.calc(vectors);
         //The vector is mutated
-        console.log('vectors:');
+        console.log('currentUser: ');
+        console.log(currentUserVector);
+        console.log('end currentUser');
+        console.log('vectors :');
         console.log(vectors);
         console.log('end vectors');
         const machine = new KNearestNeighbors(
@@ -684,8 +680,9 @@ exports.getAllPlaces = (req, res, next) => {
         var placeInKnn = machine.classify(
           currentUserVector
         , 1, 'k');
+
        // console.log(vectors);
-        console.log('the palce is: ' + placeInKnn)
+        console.log('In first time the palce is: ' + placeInKnn)
   var m=0;
   var vectors3=[];
   //try the second kmeans
@@ -697,9 +694,8 @@ exports.getAllPlaces = (req, res, next) => {
   }
 
         var kmeans2 = new KmeansLib();
-        const k2 = vectors2.length/5; // Groups Number
-        console.log(k2);
-        console.log('k2');
+        const k2 = vectors2.length/4; // Groups Number
+        console.log('k2: ' + k2);
         const size2 = 2 // Group size
 
         var id2 =0;
@@ -708,11 +704,7 @@ exports.getAllPlaces = (req, res, next) => {
         // kmeans.init({k: k,normalize: false });
         var sum2 = kmeans2.calc(vectors3);
         //The vector is mutated
-        console.log('currentUser2');
-        console.log(currentUserVector2);
-        console.log('end currentUser2');
-       // console.log(vectors3);
-        console.log('aviad2');
+
         const machine2 = new KNearestNeighbors(
           vectors3,
         [
@@ -726,9 +718,13 @@ exports.getAllPlaces = (req, res, next) => {
         var placeInKnn2 = machine2.classify(
           currentUserVector2
         , 1, 'k');
-        console.log(vectors);
-       console.log(vectors3);
-        console.log('the palce is: ' + placeInKnn2)
+        console.log('currentUser2: ')
+        console.log(currentUserVector2);
+        console.log('end currentUser2');
+        console.log('vectors3 :');
+        console.log(vectors3);
+        console.log('end vectors3');
+        console.log('In second time the palce is: ' + placeInKnn2)
 
         var lengthStringUsers = '';
         for(var index =0; index<vectors3.length;index++){
@@ -739,28 +735,21 @@ exports.getAllPlaces = (req, res, next) => {
           }
         }
         //lengthStringUsers = lengthStringUsers.concat(userid,',');
-        console.log('userid = ' + userid);
-        console.log('The user list is:' + lengthStringUsers);
         var splitArray =[];
         var splitArray2 =[];
         splitArray = lengthStringUsers.split(',');
        // console.log('splituser: ' + splitArray[0]);
         var lengthStringPlaces = '';
-        console.log('The split Array - aviad:' + splitArray);
       //  console.log('length: ' + splitArray.length);
       var indexPo2 = 0;
         for (var indexPo = 0; indexPo<(splitArray.length-1);indexPo++)
         {
-          console.log('The split Array - aviad2:' + splitArray[indexPo]);
           // console.log('which user: ' + splitArray[index]);
           User.findById(splitArray[indexPo])
           .then(usertemp => {
             indexPo2++;
             console.log(usertemp.email);
-            console.log("string places =" + lengthStringPlaces)
           if (usertemp) {
-            console.log('index2: ' + indexPo2);
-            console.log('split: ' + splitArray.length);
           //  console.log('index: ' + splitArray);
             // if (userid == usertemp.id && indexPo2 == splitArray.length-1) {
             //   console.log('index insert id2 : ' + indexPo2);
@@ -818,25 +807,18 @@ exports.getAllPlaces = (req, res, next) => {
 
 
           // console.log('all the split2 in user: ' + splitArray2);
-          if(splitArray2.length>10){
-            var lengthPlaces = 10;
+          if(splitArray2.length>5){
+            var lengthPlaces = 5;
           }
           else{
             var lengthPlaces = splitArray2.length;
           }
-          if(usertemp.email == 'mor4@gmail.com'){
-            console.log('usertemp.liked_place: ' + usertemp.liked_place)
-          }
             for(var index2=0; index2<lengthPlaces;index2++)
             {
-              if(usertemp.email == 'mor4@gmail.com'){
-                console.log('splitArrayOfMOR4 : ' + splitArray2[index2])
-              }
             // console.log('which index in split2 : ' + splitArray2[index2]);
               if((!lengthStringPlaces.includes(splitArray2[index2])) && (!splitArray2[index2].includes('EMPTY'))){
-                console.log('splitArray2: ' + splitArray2[index2]);
               lengthStringPlaces = lengthStringPlaces.concat(splitArray2[index2],',');
-              console.log('the string of user is: ' + lengthStringPlaces);
+              console.log('the string of user is: ' + lengthStringPlaces + ' and the number is: ' + lengthStringPlaces.length/25);
               }
             }
           //}
@@ -851,11 +833,10 @@ exports.getAllPlaces = (req, res, next) => {
         });
       }
       setTimeout(function() {
-        console.log('Blah blah blah blah extra-blah');
         User.findById(userid)
         .then(usertemp => {
         if (usertemp) {
-          console.log('return');
+          console.log('finish');
             const userData = new User({
               _id: usertemp.id,
               email: usertemp.email,
@@ -868,7 +849,7 @@ exports.getAllPlaces = (req, res, next) => {
               culture: usertemp.culture,
               food: usertemp.food,
               liked_place: usertemp.liked_place,
-              kmeans_array: lengthStringPlaces
+              kmeans_array: lengthStringPlaces,
             });
             User.updateOne({ _id: req.params.id}, userData)
             .then(result => {

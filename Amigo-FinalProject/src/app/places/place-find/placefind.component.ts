@@ -175,7 +175,6 @@ export class PlaceFindComponent implements OnInit {
           liked_place: userData.liked_place,
           kmeans_array: userData.kmeans_array
         };
-
         console.log('kmeans done2');
 
       // this.authService.getUserData(this.userId).subscribe(userData => {
