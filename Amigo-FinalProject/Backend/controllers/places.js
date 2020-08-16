@@ -570,7 +570,7 @@ exports.getAllPlaces = (req, res, next) => {
 
   exports.kmeansGet = (req, res, next) => {
     var userid = req.params.id;
-    var id =0;
+    //var id =0;
     var vectors = [];
     var vectors2 = [];
     var currentUserVector = {};
@@ -583,16 +583,18 @@ exports.getAllPlaces = (req, res, next) => {
         users.forEach(function(user) {
           userMap[user._id] = user;
           count++;
-          if(userMap[user._id].id != req.body.userid){
+          console.log('userid' + userid);
+          console.log('userid denaymic' + userMap[user._id].id);
+          if(userMap[user._id].id != userid){
           vectors[i] = {
            // x: userMap[user._id].age,
           // x: 1,
-            x: userMap[user._id].sportsAndExtreme,
-            y:userMap[user._id].cultureAndHistoricalPlaces,
-            m:userMap[user._id].attractionsAndLeisure,
-            d:userMap[user._id].rest,
-            a: userMap[user._id].nightLife,
-            b: userMap[user._id].shopping
+            x: userMap[user._id].avg_age20,
+            y:userMap[user._id].avg_age35,
+            m:userMap[user._id].avg_age50,
+            d:userMap[user._id].avg_age_120
+            //a: userMap[user._id].nightLife,
+            //b: userMap[user._id].shopping
            }
            vectors2[i] = {
             //  x: userMap[user._id].avg_age20,
@@ -601,27 +603,28 @@ exports.getAllPlaces = (req, res, next) => {
             //  d:userMap[user._id].avg_age_120,
             //  a: userMap[user._id].avg_gender_place,
             //  b: userMap[user._id].age
-            x: userMap[user._id].sportsAndExtreme,
-            y:userMap[user._id].cultureAndHistoricalPlaces,
-            m:userMap[user._id].attractionsAndLeisure,
-            d:userMap[user._id].rest,
-            a: userMap[user._id].nightLife,
-            b: userMap[user._id].shopping
+            x: userMap[user._id].avg_gender_place,
+            y:userMap[user._id].avg_sport_place,
+            m:userMap[user._id].avg_culture_place,
+            d:userMap[user._id].avg_food_place
+            //a: userMap[user._id].nightLife,
+            //b: userMap[user._id].shopping
             }
           vectors[i].id = (userMap[user._id].id);
           vectors2[i].id = (userMap[user._id].id);
           i++;
           }
           else{
+            console.log("shiran is buti");
             currentUserVector = {
             //  x: userMap[user._id].age,
             //x: 1,
-            x: 1,
-            y:userMap[user._id].cultureAndHistoricalPlaces,
-            m:userMap[user._id].attractionsAndLeisure,
-            d:userMap[user._id].rest,
-            a: userMap[user._id].nightLife,
-            b: userMap[user._id].shopping
+            x: userMap[user._id].avg_age20,
+            y:userMap[user._id].avg_age35,
+            m:userMap[user._id].avg_age50,
+            d:userMap[user._id].avg_age_120
+            //a: userMap[user._id].nightLife,
+           // b: userMap[user._id].shopping
            }
              // q: userMap[user._id].id }
               currentUserVector.id = (userMap[user._id].id);
@@ -633,12 +636,11 @@ exports.getAllPlaces = (req, res, next) => {
                 // d:userMap[user._id].avg_age_120,
                 // a: userMap[user._id].avg_gender_place,
                 // b: userMap[user._id].age
-                x: userMap[user._id].sportsAndExtreme,
-                y:userMap[user._id].cultureAndHistoricalPlaces,
-                m:userMap[user._id].attractionsAndLeisure,
-                d:userMap[user._id].rest,
-                a: userMap[user._id].nightLife,
-                b: userMap[user._id].shopping
+                x: userMap[user._id].avg_gender_place,
+            y:userMap[user._id].avg_sport_place,
+            m:userMap[user._id].avg_culture_place,
+            d:userMap[user._id].avg_food_place
+               // b: userMap[user._id].shopping
               }
                  // q: userMap[user._id].id }
                   currentUserVector2.id = (userMap[user._id].id);
@@ -676,8 +678,8 @@ exports.getAllPlaces = (req, res, next) => {
           'y',
           'm',
           'd',
-          'a',
-          'b',
+         // 'a',
+         // 'b',
         ]);
         var placeInKnn = machine.classify(
           currentUserVector
@@ -693,9 +695,9 @@ exports.getAllPlaces = (req, res, next) => {
       m++;
     }
   }
-  console.log(vectors3);
+
         var kmeans2 = new KmeansLib();
-        const k2 = vectors2.length/10; // Groups Number
+        const k2 = vectors2.length/5; // Groups Number
         console.log(k2);
         console.log('k2');
         const size2 = 2 // Group size
@@ -709,7 +711,7 @@ exports.getAllPlaces = (req, res, next) => {
         console.log('currentUser2');
         console.log(currentUserVector2);
         console.log('end currentUser2');
-        console.log(vectors3);
+       // console.log(vectors3);
         console.log('aviad2');
         const machine2 = new KNearestNeighbors(
           vectors3,
@@ -718,13 +720,14 @@ exports.getAllPlaces = (req, res, next) => {
           'y',
           'm',
           'd',
-          'a',
-          'b',
+         // 'a',
+         // 'b',
         ]);
         var placeInKnn2 = machine2.classify(
           currentUserVector2
         , 1, 'k');
-       // console.log(vectors);
+        console.log(vectors);
+       console.log(vectors3);
         console.log('the palce is: ' + placeInKnn2)
 
         var lengthStringUsers = '';
@@ -883,7 +886,7 @@ exports.getAllPlaces = (req, res, next) => {
           });
 
         }});
-    }, 100);
+    }, 500);
 
     });
   }

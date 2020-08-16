@@ -192,12 +192,12 @@ else{
         if (place) {
           countlikes = countlikes + 1;
           avg_gender += place.gender_avg;// the avg_gender of each place
-          console.log('place_avg_age: ' + place.gender_avg);
+          console.log('place_avg_age: ' + avg_gender);
 
           avg_culture_places +=place.avg_culture; //the avg_cultue of each place
           avg_sport_places +=place.avg_sport; //the avg_sport of each place
           avg_food_places +=place.avg_food; //the avg_food of each place
-          if( place.count_of_likes != 0){
+          if( place.count_of_likes != 0 || countlikes ==1){
               countHobbiesIfZero++;
               console.log('countHobbiesIfZero++: '+ countHobbiesIfZero);
           }
