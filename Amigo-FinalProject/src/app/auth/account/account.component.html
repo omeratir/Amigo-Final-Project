@@ -1,0 +1,31 @@
+<h1 class="title"> Hello {{user.firstName}} ,</h1>
+<br>
+
+  <!-- Map -->
+  <div *ngIf="notEmpty(user.liked_place)">
+    <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+      <div *ngFor="let place of likedPlaces">
+        <agm-marker
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)">
+        <agm-info-window #infoWindow>
+              {{ place.name }}
+              <br>
+              <!-- <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a> -->
+              <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+        </agm-info-window>
+        </agm-marker>
+      </div>
+    </agm-map>
+  </div>
+  <div *ngIf="!notEmpty(user.liked_place)">
+    <span>you didn't like any place yet.</span>
+  </div>
+
+  <br>
+  <button mat-raised-button color="warn" class="btn-update">Update my account</button>
+  <br>
+
+
+

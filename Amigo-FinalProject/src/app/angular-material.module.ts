@@ -12,7 +12,8 @@ import {
   MatOptionModule,
   MatCheckboxModule,
   MatButtonToggleModule,
-  MatRadioModule
+  MatRadioModule,
+  MatDividerModule
 } from '@angular/material';
 
 @NgModule({
@@ -21,6 +22,7 @@ import {
     MatCardModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDividerModule,
     MatButtonToggleModule,
     MatToolbarModule,
     MatExpansionModule,

@@ -26,7 +26,6 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { CommonModule } from '@angular/common';
-import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { AccountComponent } from './account/account.component';
     HeaderComponent,
     ErrorComponent,
     MapComponent,
-    HomeComponent,
-    AccountComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,75 @@
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 20px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.goal-button-row {
+  display: table-cell;
+  width: 100%;
+  align-items: center;
+}
+
+.goal-button-row .mat-button-base {
+  margin: 8px 80px 10px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+.btngoal {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+}
+
+.btngoal1 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+}
+
+.btngoal2 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+}
+
+.btngoal:hover {
+  color:white;
+  background-color: mediumaquamarine;
+}
+
+.btngoal1:hover {
+  color:white;
+  background-color: coral;
+}
+
+.btngoal2:hover {
+  color:white;
+  background-color: cornflowerblue
+}
+

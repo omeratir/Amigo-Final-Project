@@ -10,6 +10,7 @@
     </mat-expansion-panel-header>
     <p>lat : {{ place.lat }}</p>
     <p>lng : {{ place.lng }}</p>
+    <p>likes : {{ place.count_of_likes }}</p>
 
     <div *ngIf="setMapValues(place)">
       <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
@@ -20,8 +21,10 @@
             <agm-info-window #infoWindow>
               {{ place.name }}
               <br>
+              <div *ngIf="userIsAuthenticated">
               <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
               <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+            </div>
             </agm-info-window>
           </agm-marker>
     </agm-map>

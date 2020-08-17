@@ -77,7 +77,7 @@ export class AuthService {
             );
             console.log(expirationDate);
             this.saveAuthData(token, expirationDate, this.userId);
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
           }
         },
         error => {
@@ -215,6 +215,34 @@ export class AuthService {
     .subscribe(response => {
       // this.router.navigate(['/']);
     });
+}
+
+updateUserData(id: string, email: string, password: string, firstName: string, lastName: string, age: string,
+  // tslint:disable-next-line: variable-name
+               gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , kmeans_array: string) {
+  let userData: UserData | FormData;
+  userData = new FormData();
+
+  userData = {
+  id,
+  email,
+  password,
+  firstName,
+  lastName,
+  age,
+  gender,
+  sport,
+  culture,
+  food,
+  liked_place,
+  kmeans_array
+  };
+
+  this.http
+  .put(BACKEND_URL + 'update/' + id, userData)
+  .subscribe(response => {
+  // this.router.navigate(['/']);
+  });
 }
 
 }

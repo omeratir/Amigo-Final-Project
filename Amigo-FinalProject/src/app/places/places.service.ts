@@ -9,6 +9,7 @@ import { Place } from './place.model';
 import { PlaceData } from './placeData.model';
 import { Kmeans } from './kmeans.model';
 import { PlaceLikeData } from './PlaceLikeData.model';
+import { TemplateParseError } from '@angular/compiler';
 
 const BACKEND_URL = environment.apiUrl + '/places/';
 
@@ -21,12 +22,12 @@ export class PlacesService {
   private placesLikedUpdated = new Subject<{ like_places: PlaceLikeData[]; placeCount: number }>();
   private mostLikePlaces = '';
   private index = 0;
-private flagAttractions = true;
-private flagCulture = true;
-private flagNightLife = true;
-private flagRelaxing = true;
-private flagShopping = true;
-private flagSportExtrim = true;
+  private flagAttractions = true;
+  private flagCulture = true;
+  private flagNightLife = true;
+  private flagRelaxing = true;
+  private flagShopping = true;
+  private flagSportExtrim = true;
   constructor(private http: HttpClient, private router: Router) {}
 
   getPlaces(placesPerPage: number, currentPage: number) {
@@ -253,6 +254,11 @@ private flagSportExtrim = true;
   i: number;
   // tslint:disable-next-line: member-ordering
   temp1 = 0;
+
+  sortPlaces(places: Place[]) {
+    places.sort((a , b) => b.count_of_likes - a.count_of_likes);
+    return places.slice(0, 10);
+  }
 
   sortPlacesByLikes(places: Place[]) {
 

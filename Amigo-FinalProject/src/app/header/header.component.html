@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <mat-toolbar>
   <span>
-    <a routerLink="/home"><i class="fa fa-globe" aria-hidden="true"></i> A M I G O </a>
+    <a routerLink="/" class="title"><i class="fa fa-globe" aria-hidden="true" style="color: crimson;"></i> A M I G O </a>
   </span>
   <span class="spacer">
   <ul>
@@ -10,30 +10,21 @@
       <a mat-button routerLink="/"> REVIEWS </a>
     </li> -->
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/placelist" routerLinkActive="mat-warn"> PLACES </a>
+      <a mat-button routerLink="/top10places" routerLinkActive="mat-accent"> TOP-10 </a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/findmeplace" routerLinkActive="mat-warn"> FIND ME PLACE! </a>
+      <a mat-button routerLink="/placelist" routerLinkActive="mat-accent"> PLACES </a>
     </li>
-    <!-- <li>
-      <a mat-button routerLink="/routelist" routerLinkActive="mat-warn"> ROUTES </a>
+    <li *ngIf="userIsAuthenticated">
+      <a mat-button routerLink="/findmeplace" routerLinkActive="mat-accent"> FIND ME PLACE! </a>
     </li>
-    <li>
-      <a mat-button routerLink="/map" routerLinkActive="mat-warn"> MAP </a>
-    </li> -->
   </ul>
   </span>
   <span class="spacer"></span>
   <ul>
     <!-- <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/postcreate" routerLinkActive="mat-accent"> Add Review </a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/routecreate" routerLinkActive="mat-accent"> Add Route </a>
-    </li> -->
-    <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/placecreate" routerLinkActive="mat-accent"> Add Place </a>
-    </li>
+    </li> -->
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
     </li>
@@ -41,7 +32,7 @@
       <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/myaccount" routerLinkActive="mat-accent"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Account</a>
+      <a mat-button routerLink="/auth/myaccount" routerLinkActive="mat-accent"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Account</a>
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>

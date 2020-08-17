@@ -8,9 +8,11 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ChoseplaceComponent } from './choseplace/choseplace.component';
 import { AgmCoreModule } from '@agm/core';
+import { AccountComponent } from './account/account.component';
+import { UpdateaccountComponent } from './update-account/update-account.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, ChoseplaceComponent],
+  declarations: [LoginComponent, SignupComponent, ChoseplaceComponent, AccountComponent, UpdateaccountComponent],
   imports: [CommonModule, AngularMaterialModule, FormsModule, AuthRoutingModule ,
     AgmCoreModule.forRoot(
       {

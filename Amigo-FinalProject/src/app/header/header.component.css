@@ -20,3 +20,8 @@ ul {
 .centerspacer {
   flex: center;
 }
+
+.title {
+  color: crimson;
+  font-weight: bold;
+}

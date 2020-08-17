@@ -1,0 +1,48 @@
+
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.abutton {
+  display: block;
+  width: 300px;
+  height: 30px;
+  background: #4E9CAF;
+  padding: 4px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+}
+
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+

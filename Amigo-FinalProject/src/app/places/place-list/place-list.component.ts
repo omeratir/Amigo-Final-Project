@@ -65,7 +65,8 @@ export class PlaceListComponent implements OnInit, OnDestroy {
         this.userId = this.authService.getUserId();
       });
 
-    this.authService.getUserData(this.userId).subscribe(userData => {
+    if (this.userIsAuthenticated) {
+      this.authService.getUserData(this.userId).subscribe(userData => {
         this.user = {
           email: userData.email,
           password: userData.password,
@@ -80,6 +81,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
           kmeans_array: userData.kmeans_array
         };
     });
+    }
   }
 
   onChangedPage(pageData: PageEvent) {
