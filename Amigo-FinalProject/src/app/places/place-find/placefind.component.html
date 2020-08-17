@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <h3 class="header">Choose your goals of your trip:</h3>
 <mat-checkbox [checked]="Goal_Attractions_Leisure" (change)="Goal_Attractions_Leisure = !Goal_Attractions_Leisure">
@@ -30,7 +31,50 @@
 <span class="select" *ngIf="!placeFindBtnClicked">Please select at least one goal</span>
 
 <div *ngIf="placeFindBtnClicked">
-  <br>
+
+<!-- ///////////////////////////////////////////////////// -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+<br>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Card 1</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Card 2</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <h3>Card 2</h3>
+      <p>Some text</p>
+      <p>Some text</p>
+    </div>
+  </div>
+</div>
+  <!-- //////////////////////////////////////// -->
   <br>
 
   <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
@@ -55,6 +99,3 @@
     </agm-marker>
   </agm-map>
 </div>
-
-
-

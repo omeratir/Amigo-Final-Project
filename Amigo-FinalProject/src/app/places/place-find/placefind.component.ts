@@ -12,6 +12,7 @@ import { Kmeans } from '../kmeans.model';
 })
 
 export class PlaceFindComponent implements OnInit {
+
   // tslint:disable-next-line: variable-name
   Goal_Sport_And_Extreme: boolean;
   // tslint:disable-next-line: variable-name
@@ -75,6 +76,14 @@ export class PlaceFindComponent implements OnInit {
   userId: string;
   private authStatusSub: Subscription;
 
+  elements: any = [
+    {id: 1, first: 'Mark', last: 'Otto', handle: '@mdo'},
+    {id: 2, first: 'Jacob', last: 'Thornton', handle: '@fat'},
+    {id: 3, first: 'Larry', last: 'the Bird', handle: '@twitter'},
+  ];
+
+  headElements = ['ID', 'First', 'Last', 'Handle'];
+
 
   constructor(
     private authService: AuthService,
@@ -82,6 +91,7 @@ export class PlaceFindComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.userId = this.authService.getUserId();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
