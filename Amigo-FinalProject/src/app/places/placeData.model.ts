@@ -5,6 +5,7 @@ export interface PlaceData {
   lng: string;
   users_array: string;
   flagLike: boolean;
+  photo: string;
   creator: string;
 }
 

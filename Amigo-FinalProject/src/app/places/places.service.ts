@@ -47,7 +47,8 @@ export class PlacesService {
                 goal: place.goal,
                 count_of_likes: place.count_of_likes,
                 id: place._id,
-                creator: place.creator
+                creator: place.creator,
+                photo: place.photo
               };
             }),
             maxPlaces: placeData.maxPlaces
@@ -78,7 +79,8 @@ export class PlacesService {
                 count_of_likes: place.count_of_likes,
                 goal: place.goal,
                 id: place._id,
-                creator: place.creator
+                creator: place.creator,
+                photo: place.photo
               };
             }),
             maxPlaces: placeData.maxPlaces
@@ -111,6 +113,7 @@ export class PlacesService {
       goal: string;
       count_of_likes: number;
       creator: string;
+      photo: string,
     }>(BACKEND_URL + id);
   }
 
@@ -130,7 +133,7 @@ export class PlacesService {
   }
 
   // tslint:disable-next-line: variable-name
-  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean) {
+  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean,photo:string) {
     let placeData: PlaceData | FormData;
     placeData = new FormData();
 
@@ -145,6 +148,7 @@ export class PlacesService {
       lng,
       users_array,
       flagLike,
+      photo,
       creator: null
     };
 

@@ -4,6 +4,7 @@ export interface PlaceLikeData {
   count_of_likes: number;
   goal: string;
   creator: string;
+  photo: string;
 }
 
 

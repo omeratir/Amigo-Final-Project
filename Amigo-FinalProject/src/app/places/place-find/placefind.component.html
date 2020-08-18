@@ -42,18 +42,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-.list-group{
-    max-height: 550px;
-    width: 350px;
-    margin-bottom: 10px;
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
 
-
-    /* display:inline-block;
-    margin-right:10px; */
-
-}
 </style>
 <br>
 <br>
@@ -68,15 +57,25 @@ body {
                  <ul class="list-group">
                    <div *ngFor="let place of placesKMEANS">
                      <li class="list-group-item">
-                        <strong>Place Name:</strong> {{place.name}}
+                      <div id="qr" style="display:inline-block; min-width:5.2cm; height:3.8cm; align: center;vertical-align: middle;" >
+                      <img src="{{place.photo}}"
+                      style="height: 70px;"
+                      style="width: 170px;"
+                      >
+
+                      </div>
+                      <div style="display:inline-block; vertical-align:top;">
+                        <strong>{{place.name}}</strong>
+                      <br>
+                     {{place.goal}}
+
                         <br>
                         <strong>Likes:</strong> {{place.count_of_likes}}
                         <br>
-                        <strong>Goal:</strong> {{place.goal}}
-                        <br>
                         <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
                         <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-                     </li>
+                      </div>
+                      </li>
                    </div>
                  </ul>
              </div>

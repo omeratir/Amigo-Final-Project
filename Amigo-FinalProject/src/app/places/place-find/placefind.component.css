@@ -13,7 +13,7 @@ agm-map
 
 .liked {
   color: red;
-  font-size: 24px;
+  font-size: 10px;
   position: center;
 }
 
@@ -22,7 +22,7 @@ agm-map
 }
 
 .fa {
-  font-size: 50px;
+  font-size: 30px;
   cursor: pointer;
   user-select: none;
 }
@@ -49,17 +49,21 @@ mat-button-toggle-group {
 }
 .list-group{
   max-height: 550px;
-  width: 350px;
+  width: 500px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow:auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
-  right: 150px;
+  right: 80px;
 
 
   /* display:inline-block;
   margin-right:10px; */
 
+}
+.list-group-item{
+  height: 150px;
+  width: 475px;
 }
 /* * {
   box-sizing: border-box;

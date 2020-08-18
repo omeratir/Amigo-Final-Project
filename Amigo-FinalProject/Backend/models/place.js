@@ -29,7 +29,8 @@ const placeSchema = mongoose.Schema({
   count_age50: { type: Number, required: false },
   count_age120: { type: Number, required: false },
 
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  photo: { type: String, required: false },
 });
 
 module.exports = mongoose.model("Place", placeSchema);

@@ -67,6 +67,7 @@ app.use("/api/routes", routesRoutes);
 //       lat: data[1],
 //       lng: data[2],
 //       goal: data[3],
+//       photo: data[4],
 //       users_array: 'EMPTY',
 //       gender_avg: 0,
 //       count_of_likes: 0,

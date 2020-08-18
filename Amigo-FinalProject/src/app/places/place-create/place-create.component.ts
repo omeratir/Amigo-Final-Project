@@ -62,7 +62,8 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
             lng: placeData.lng,
             goal: placeData.goal,
             count_of_likes: placeData.count_of_likes,
-            creator: placeData.creator
+            creator: placeData.creator,
+            photo: placeData.photo
           };
           this.form.setValue({
             name: this.place.name,
@@ -95,7 +96,8 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
         this.form.value.lat,
         this.form.value.lng,
         'EMPTY',
-        this.form.value.flagLike
+        this.form.value.flagLike,
+        this.form.value.photo,
       );
     }
     this.form.reset();

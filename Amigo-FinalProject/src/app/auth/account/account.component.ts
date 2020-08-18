@@ -109,7 +109,8 @@ export class AccountComponent implements OnInit {
                 lng: placeData.lng,
                 goal: placeData.goal,
                 count_of_likes: placeData.count_of_likes,
-                creator: placeData.creator
+                creator: placeData.creator,
+                photo: placeData.photo
               };
               console.log('place id =' + place);
               console.log('place id 2 =' + this.place.id);
@@ -149,7 +150,7 @@ export class AccountComponent implements OnInit {
       this.user.liked_place = this.placelist;
     }
     console.log(this.user.liked_place);
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true,place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
@@ -176,7 +177,7 @@ UnLikeClicked(place, infoWindow) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false,place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
@@ -213,7 +214,8 @@ UnLikeClicked(place, infoWindow) {
                 lng: placeData.lng,
                 goal: placeData.goal,
                 count_of_likes: placeData.count_of_likes,
-                creator: placeData.creator
+                creator: placeData.creator,
+                photo: placeData.photo
               };
               console.log('place id =' + placeid);
               console.log('place id 2 =' + this.place.id);
