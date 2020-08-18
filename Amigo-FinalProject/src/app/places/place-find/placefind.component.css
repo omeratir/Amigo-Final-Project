@@ -5,11 +5,10 @@
 
 agm-map
 {
-
-  height: 700px;
+  height: 600px;
   width: 1000px;
-  position: absolute;
-  right: 10px;
+  /* position: absolute;
+  right: 10px; */
 }
 
 .liked {
@@ -48,18 +47,31 @@ mat-button-toggle-group {
   font-weight: bold;
   color: red;
 }
+.list-group{
+  max-height: 550px;
+  width: 350px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  right: 150px;
 
-* {
+
+  /* display:inline-block;
+  margin-right:10px; */
+
+}
+/* * {
   box-sizing: border-box;
 }
 
 
 * {
   box-sizing: border-box;
-}
+} */
 
-/* Float four columns side by side */
-.column {
+
+/* .column {
 
   float: left;
   width: 30%;
@@ -68,19 +80,19 @@ mat-button-toggle-group {
 left: 20px;
 
 }
-/* Remove extra left and right margins, due to padding */
+
 .row {
   margin: 0 -5px;
 }
 
-/* Clear floats after the columns */
+
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* Responsive columns */
+
 @media screen and (max-width: 600px) {
   .column {
     float: left;
@@ -92,7 +104,7 @@ left: 20px;
   }
 }
 
-/* Style the counter cards */
+
 .card {
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -101,3 +113,4 @@ left: 20px;
   background-color: #f1f1f1;
 
 }
+ */
