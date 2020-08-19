@@ -32,7 +32,7 @@ agm-map
 }
 
 .fa:hover {
-  color: darkblue;
+  color: red;
 }
 
 mat-button-toggle-group {
@@ -40,11 +40,11 @@ mat-button-toggle-group {
 }
 
 .like {
-  color: red;
+  color: black
 }
 
 .unlike {
-  color: black;
+  color: chartreuse;
 }
 
 .select {

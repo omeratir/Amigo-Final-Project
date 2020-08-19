@@ -118,3 +118,138 @@ left: 20px;
 
 }
  */
+
+ section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 20px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.goal-button-row {
+  display: table-cell;
+  width: 100%;
+  align-items: center;
+}
+
+.goal-button-row .mat-button-base {
+  margin: 8px 60px 10px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+
+.btn {
+  position: relative;
+  font-size: 50px;
+  color: black;
+  background-color: rgb(198, 255, 198);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: initial;
+  font-size-adjust: inherit;
+  position: relative;
+  top: 50%;
+  left: 10%;
+  width: 80%;
+  height: 100px;
+}
+
+.btn1 {
+  position: relative;
+  font-size: 20px;
+  color: black;
+  background-color: rgb(130, 128, 247);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: initial;
+  font-size-adjust: inherit;
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+
+.btngoal1 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoal2 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoal3 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btn:hover {
+  color:white;
+  background-color: lightsalmon;
+}
+
+.btn1:hover {
+  color:white;
+  background-color: lightsalmon;
+}
+
+.btngoal1:hover {
+  color:white;
+  background-color: coral;
+}
+
+.btngoal2:hover {
+  color:white;
+  background-color: cornflowerblue
+}
+
+.btngoal3:hover {
+  color:white;
+  background-color: mediumaquamarine
+}
+
+

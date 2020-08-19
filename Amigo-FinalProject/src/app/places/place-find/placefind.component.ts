@@ -28,6 +28,7 @@ export class PlaceFindComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   kmean_model: Kmeans;
 
+  colorurl: string;
   place: Place;
 
   placeFindBtnClicked: boolean;
@@ -49,6 +50,10 @@ export class PlaceFindComponent implements OnInit {
   ];
 
   placesKMEANS: Place[] = [
+
+  ];
+
+  tempPlaces: Place[] = [
 
   ];
 
@@ -140,19 +145,19 @@ export class PlaceFindComponent implements OnInit {
     //   return true;
     // }
 
-    if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
-    && (!this.Goal_Relaxing) && (!this.Goal_Shopping) && (!this.Goal_Sport_And_Extreme)) {
-      this.placeFindBtnClicked = false;
-    } else {
-      this.placeFindBtnClicked = true;
-      console.log('Goal_Attractions_Leisure = ' + this.Goal_Attractions_Leisure);
-      console.log('Goal_Culture_And_Historical_Places = ' + this.Goal_Culture_And_Historical_Places);
-      console.log('Goal_Night_Life = ' + this.Goal_Night_Life);
-      console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
-      console.log('Goal_Shopping = ' + this.Goal_Shopping);
-      console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
+    // if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
+    // && (!this.Goal_Relaxing) && (!this.Goal_Shopping) && (!this.Goal_Sport_And_Extreme)) {
+    //   this.placeFindBtnClicked = false;
+    // } else {
+    this.placeFindBtnClicked = true;
+    console.log('Goal_Attractions_Leisure = ' + this.Goal_Attractions_Leisure);
+    console.log('Goal_Culture_And_Historical_Places = ' + this.Goal_Culture_And_Historical_Places);
+    console.log('Goal_Night_Life = ' + this.Goal_Night_Life);
+    console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
+    console.log('Goal_Shopping = ' + this.Goal_Shopping);
+    console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
 
-      this.kmean_model = {
+    this.kmean_model = {
         userid: this.userId,
         goal_Sport_And_Extreme: this.Goal_Sport_And_Extreme,
         goal_Shopping: this.Goal_Shopping,
@@ -163,7 +168,7 @@ export class PlaceFindComponent implements OnInit {
       };
 
       // this.placesService.kmeans(this.kmean_model);
-      this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
+    this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
         this.user = {
           email: userData.email,
           password: userData.password,
@@ -223,9 +228,8 @@ export class PlaceFindComponent implements OnInit {
         }
       }
       });
-      console.log('kmeans done');
-
-    }
+    console.log('kmeans done');
+    // }
   }
 
 clickedMarker(infoWindow) {
@@ -235,7 +239,7 @@ clickedMarker(infoWindow) {
     this.previous = infoWindow;
   }
 
-LikeClicked(place, infoWindow) {
+LikeClicked(place) {
     console.log('Like Clicked');
     // add the placeid to the list.
     console.log(this.user.liked_place);
@@ -247,16 +251,76 @@ LikeClicked(place, infoWindow) {
       this.user.liked_place = this.placelist;
     }
     console.log(this.user.liked_place);
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array );
 
+    this.tempPlaces = [];
+
+    this.updateListAfterLikeOrUnlikeClicked(place);
+  }
+
+  updateMarkerColorByGoal(place) {
+    this.colorurl = './assets/images/red-dot.png';
+
+    if (place.goal === 'Attractions & Leisure') {
+      this.colorurl = './assets/images/green-dot.png';
+    }
+
+    if (place.goal === 'Shopping') {
+      this.colorurl = './assets/images/red-dot.png';
+    }
+
+    if (place.goal === 'Culture & Historical Places') {
+      this.colorurl = './assets/images/purple-dot.png';
     }
 
 
-UnLikeClicked(place, infoWindow) {
+    if (place.goal === 'Relaxing') {
+      this.colorurl = './assets/images/pink-dot.png';
+    }
+
+    if (place.goal === 'Sport & Extreme') {
+      this.colorurl = './assets/images/yellow-dot.png';
+    }
+
+    if (place.goal === 'Night Life') {
+      this.colorurl = './assets/images/orange-dot.png';
+    }
+
+    return true;
+  }
+
+  updateListAfterLikeOrUnlikeClicked(place: Place) {
+    this.placesService.getPlace(place.id).subscribe(placeData => {
+      this.place = {
+        id: placeData._id,
+        name: placeData.name,
+        lat: placeData.lat,
+        lng: placeData.lng,
+        goal: placeData.goal,
+        count_of_likes: placeData.count_of_likes,
+        creator: placeData.creator,
+        photo: placeData.photo
+      };
+
+      for (const temp of this.placesKMEANS) {
+        if (temp.id === placeData._id) {
+          this.tempPlaces.push(this.place);
+        } else {
+          this.tempPlaces.push(temp);
+        }
+      }
+
+      this.placesKMEANS = [];
+      this.placesKMEANS = this.tempPlaces;
+  });
+
+  }
+
+  UnLikeClicked(place) {
     console.log('UnLike Clicked');
     // remove the placeid to the list.
     this.splitArray = this.user.liked_place.split(',');
@@ -274,7 +338,7 @@ UnLikeClicked(place, infoWindow) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length

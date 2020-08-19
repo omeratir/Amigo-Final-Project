@@ -18,6 +18,7 @@ export class ChoseplaceComponent implements OnInit {
   private placesSub: Subscription;
 
   placeLiked: string;
+  colorurl: string;
   splitArray: string[] = [
 
   ];
@@ -44,7 +45,7 @@ export class ChoseplaceComponent implements OnInit {
 
   ngOnInit() {
     this.placeLiked = 'EMPTY';
-    this.splitArray = [' '];
+    this.splitArray = [];
 
     this.placesService.getPlaces(this.placesPerPage, this.currentPage);
     this.placesSub = this.placesService
@@ -113,6 +114,37 @@ export class ChoseplaceComponent implements OnInit {
     }
 
     return false;
+}
+
+updateMarkerColorByGoal(place) {
+  this.colorurl = './assets/images/red-dot.png';
+
+  if (place.goal === 'Attractions & Leisure') {
+    this.colorurl = './assets/images/green-dot.png';
+  }
+
+  if (place.goal === 'Shopping') {
+    this.colorurl = './assets/images/red-dot.png';
+  }
+
+  if (place.goal === 'Culture & Historical Places') {
+    this.colorurl = './assets/images/purple-dot.png';
+  }
+
+
+  if (place.goal === 'Relaxing') {
+    this.colorurl = './assets/images/pink-dot.png';
+  }
+
+  if (place.goal === 'Sport & Extreme') {
+    this.colorurl = './assets/images/yellow-dot.png';
+  }
+
+  if (place.goal === 'Night Life') {
+    this.colorurl = './assets/images/orange-dot.png';
+  }
+
+  return true;
 }
 
 }

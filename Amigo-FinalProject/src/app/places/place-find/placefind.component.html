@@ -1,7 +1,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<h3 class="header">Choose your goals of your trip:</h3>
-<mat-checkbox [checked]="Goal_Attractions_Leisure" (change)="Goal_Attractions_Leisure = !Goal_Attractions_Leisure">
+<!-- <h3 class="header">Choose your goals of your trip:</h3> -->
+<!-- <mat-checkbox [checked]="Goal_Attractions_Leisure" (change)="Goal_Attractions_Leisure = !Goal_Attractions_Leisure">
     Attractions & Leisure
 </mat-checkbox>
 <br>
@@ -28,9 +28,24 @@
 
 <button mat-raised-button color="warn" type="button" (click)="onClickFindPlace(user)"> Find Me Places! </button>
 <br>
-<span class="select" *ngIf="!placeFindBtnClicked">Please select at least one goal</span>
+<span class="select" *ngIf="!placeFindBtnClicked">Please select at least one goal</span> -->
+
+
+<!-- <button mat-raised-button color="warn" type="button" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)"> Find Me Places! </button> -->
+<button mat-stroked-button class="btn" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)">Find Me Places!</button>
 
 <div *ngIf="placeFindBtnClicked">
+
+  <div class="goal-button-row">
+    <button mat-stroked-button class="btngoal3" routerLink="/placelist">Attractions & Leisure</button>
+    <button mat-stroked-button class="btngoal1" routerLink="/placelist"><i class="fa fa-futbol-o" aria-hidden="true"></i> Sport & Extreme</button>
+    <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-glass" aria-hidden="true"></i> Night Life</button>
+    <button mat-stroked-button class="btngoal3" routerLink="/placelist">Culture & Historical Places</button>
+    <button mat-stroked-button class="btngoal1"routerLink="/placelist" >Relaxing</button>
+    <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button>
+    <div>
+  <br>
+  <mat-divider></mat-divider>
 
 <!-- ///////////////////////////////////////////////////// -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,10 +102,16 @@ body {
   <div class="col-md-4">
 
   <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-    <agm-marker *ngFor="let place of placesKMEANS;"
+    <div *ngFor="let place of placesKMEANS">
+    <agm-marker *ngIf="updateMarkerColorByGoal(place)"
     [latitude]="place.lat"
     [longitude]="place.lng"
-    (markerClick)="clickedMarker(infoWindow)">
+    (markerClick)="clickedMarker(infoWindow)"
+    [iconUrl] ="
+    {
+      url: colorurl
+    }"
+    >
 
     <agm-info-window #infoWindow>
         Place Name: {{place.name}}
@@ -106,6 +127,7 @@ body {
       </agm-info-window>
 
     </agm-marker>
+    </div>
   </agm-map>
 </div>
 
@@ -113,3 +135,8 @@ body {
 
 </div>
 </div>
+
+<br>
+<br>
+<button mat-stroked-button class="btn1" (click)="onClickFindPlace(user)">Find Again!</button>
+

@@ -26,9 +26,9 @@ exports.createPost = (req, res, next) => {
     //      if(user.gender == 'male'){
     //        place.sum_place_for_gender += 1000;
     //       }
-    //       if(user.gender == 'female'){ 
-    //         place.sum_place_for_gender += 3000; 
-    //       } 
+    //       if(user.gender == 'female'){
+    //         place.sum_place_for_gender += 3000;
+    //       }
     //       place.place_for_gender = place.sum_place_for_gender/place.count_of_post_added_to_place;
 
     //       if(place.place_for_gender > 2000){
@@ -50,9 +50,9 @@ exports.createPost = (req, res, next) => {
     //           place.culture++;
     //           console.log("Culture " + place.culture);
     //         }
-    //         if(user.hobbies == 'Food'){ //9 
+    //         if(user.hobbies == 'Food'){ //9
     //           place.food++;
-    //           console.log("Food " + place.food); 
+    //           console.log("Food " + place.food);
     //         }
     //         let max = Math.max(place.sport, place.culture, place.food);
     //         if(max == place.sport){ // Sport
@@ -62,13 +62,13 @@ exports.createPost = (req, res, next) => {
     //           place.hobbies = 8;
     //         }
     //         if(max == place.food){ // Food
-    //           place.hobbies = 9;    
+    //           place.hobbies = 9;
     //         }
     //         console.log(place.hobbies);
-            
+
     //         // check the age
     //         console.log("The user age is: " + user.age);
-    //         place.sum_place_for_age += user.age; 
+    //         place.sum_place_for_age += user.age;
     //         console.log(place.sum_place_for_age);
     //         place.avg_ages_of_place = place.sum_place_for_age/place.count_of_post_added_to_place;
     //         console.log("The avg age of the place is: " + place.avg_ages_of_place);
@@ -120,7 +120,7 @@ exports.createPost = (req, res, next) => {
     //           console.log("The place is shopping")
     //         }
     //         console.log("The purpse is: " + place.purpose_of_place);
-            
+
     //         place.save();
     //       })
     // })

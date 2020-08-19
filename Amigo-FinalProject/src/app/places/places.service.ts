@@ -133,7 +133,7 @@ export class PlacesService {
   }
 
   // tslint:disable-next-line: variable-name
-  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean,photo:string) {
+  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
     let placeData: PlaceData | FormData;
     placeData = new FormData();
 
@@ -267,13 +267,11 @@ export class PlacesService {
   sortPlacesByLikes(places: Place[]) {
 
     places.sort((a , b) => b.count_of_likes - a.count_of_likes);
-    // this.temp2[0] = places[0].goal;
-    // this.temp2[1] = 1;
     this.mostLikePlaces = '';
-    this.mostLikePlaces.concat(places[0].goal, ',');
-    this.temp.push(places[0]);
+    // this.mostLikePlaces.concat(places[0].goal, ',');
+    // this.temp.push(places[0]);
     for (this.i = 1 ; this.i < places.length ; this.i++) {
-      if (this.index === 5) {
+      if (this.index === 6) {
         break;
       }
       if (!(this.mostLikePlaces.includes(places[this.i].goal))) {
@@ -282,6 +280,7 @@ export class PlacesService {
         this.mostLikePlaces = this.mostLikePlaces.concat(places[this.i].goal, ',');
         console.log(this.mostLikePlaces);
         this.temp.push(places[this.i]);
+
       //   // console.log('goal: ' + places[this.i].goal);
       //   // console.log('count: ' + places[this.i].count_of_likes);
        }

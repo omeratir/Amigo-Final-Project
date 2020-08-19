@@ -26,18 +26,20 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
   placelist: string;
 
+  userIsAuthenticated = false;
+  userId: string;
+
+
   isLoading = false;
   totalPlaces = 0;
-  placesPerPage = 5;
+  placesPerPage = 20;
   placeslength = 1;
   currentPage = 1;
   previous;
   latitude = 52.373169;
   longitude = 4.890660;
   zoom = 12;
-  pageSizeOptions = [1, 10, 20, 30];
-  userIsAuthenticated = false;
-  userId: string;
+  pageSizeOptions = [1, 20, 40, 60];
   private placesSub: Subscription;
   private authStatusSub: Subscription;
 
@@ -130,7 +132,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
       this.user.liked_place = this.placelist;
     }
     console.log(this.user.liked_place);
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
@@ -157,7 +159,7 @@ UnLikeClicked(place, infoWindow) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length

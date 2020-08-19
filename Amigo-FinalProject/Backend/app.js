@@ -10,6 +10,7 @@ const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const placesRoutes = require("./routes/places");
 const routesRoutes = require("./routes/routes");
+const goalsRoutes = require("./routes/goal");
 const app = express();
 
 const io = require("socket.io");
@@ -46,6 +47,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/places", placesRoutes);
 app.use("/api/routes", routesRoutes);
+app.use("/api/goals", goalsRoutes);
 
 
 // ********* One time - Import the csv file of places ********** //
@@ -57,7 +59,7 @@ app.use("/api/routes", routesRoutes);
 
 // **** Add places csv **** //
 
-// let stream = fs.createReadStream("./Backend/csv/AttractionTemp.csv");
+// let stream = fs.createReadStream("./Backend/csv/placesphoto.csv");
 // let csvData = [];
 // let csvStream = fastcsv
 //   .parse()

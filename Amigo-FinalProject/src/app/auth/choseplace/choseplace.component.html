@@ -27,9 +27,14 @@
 
                         <br>
                         <strong>Likes:</strong> {{place.count_of_likes}}
+
+                        <!-- <i class="fa fa-check-square-o" aria-hidden="true"></i> -->
+
                         <br>
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
+                        <!-- <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a> -->
                       </div>
                       </li>
                    </div>
@@ -43,10 +48,13 @@
 <br>
 <div class="col-md-4">
 <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
-  <agm-marker *ngFor="let place of places"
+  <div  *ngFor="let place of places">
+  <agm-marker *ngIf="updateMarkerColorByGoal(place)"
   [latitude]="place.lat"
   [longitude]="place.lng"
-  (markerClick)="clickedMarker(infoWindow)">
+  (markerClick)="clickedMarker(infoWindow)"
+  [iconUrl] = colorurl
+  >
 
   <agm-info-window #infoWindow>
       Place Name: {{place.name}}
@@ -54,11 +62,12 @@
       Place Goal: {{place.goal}}
       <br>
       <br>
-      <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-      <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-  </agm-info-window>
+      <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
+      <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
+</agm-info-window>
 
   </agm-marker>
+</div>
 </agm-map>
 </div>
 

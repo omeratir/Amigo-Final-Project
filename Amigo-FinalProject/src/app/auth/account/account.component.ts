@@ -15,6 +15,8 @@ export class AccountComponent implements OnInit {
   userId: string;
   user: User;
 
+  colorurl: string;
+
   latitude = 52.373169;
   longitude = 4.890660;
   zoom = 12;
@@ -123,6 +125,37 @@ export class AccountComponent implements OnInit {
     });
 }
 
+checkPlaceGoal(place) {
+  this.colorurl = './assets/images/red-dot.png';
+
+  if (place.goal === 'Attractions & Leisure') {
+    this.colorurl = './assets/images/green-dot.png';
+  }
+
+  if (place.goal === 'Shopping') {
+    this.colorurl = './assets/images/blue-dot.png';
+  }
+
+  if (place.goal === 'Culture & Historical Places') {
+    this.colorurl = './assets/images/purple-dot.png';
+  }
+
+
+  if (place.goal === 'Relaxing') {
+    this.colorurl = './assets/images/pink-dot.png';
+  }
+
+  if (place.goal === 'Sport & Extreme') {
+    this.colorurl = './assets/images/yellow-dot.png';
+  }
+
+  if (place.goal === 'Night Life') {
+    this.colorurl = './assets/images/orange-dot.png';
+  }
+
+  return true;
+}
+
   notEmpty(likedplace) {
     console.log(likedplace);
     if (likedplace !== 'EMPTY') {
@@ -150,7 +183,7 @@ export class AccountComponent implements OnInit {
       this.user.liked_place = this.placelist;
     }
     console.log(this.user.liked_place);
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
@@ -177,7 +210,7 @@ UnLikeClicked(place, infoWindow) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false,place.photo);
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length

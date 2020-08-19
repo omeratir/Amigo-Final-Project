@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 
+<div *ngIf="!isLoading">
 <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" (mapClick)="placeMarker($event)">
     <agm-marker *ngFor="let marker of places;"
     [latitude]="marker.lat"
@@ -8,6 +10,12 @@
     >
     <agm-info-window #infoWindow>
     {{ marker.name }}
+    <br>
+    {{ marker.goal }}
+    <br>
+    <a class="abutton" *ngIf="!checkIfUserLikeThePlace(marker.id)" (click)="LikeClicked(marker)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> </a>
+    <a class="abutton"  *ngIf="checkIfUserLikeThePlace(marker.id)" (click)="UnLikeClicked(marker)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
     </agm-info-window>
 </agm-marker>
 </agm-map>
+</div>

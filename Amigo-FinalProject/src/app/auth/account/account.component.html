@@ -5,12 +5,16 @@
   <div *ngIf="notEmpty(user.liked_place)">
     <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
       <div *ngFor="let place of likedPlaces">
-        <agm-marker
+        <agm-marker *ngIf="checkPlaceGoal(place)"
           [latitude]="place.lat"
           [longitude]="place.lng"
-          (markerClick)="clickedMarker(infoWindow)">
+          (markerClick)="clickedMarker(infoWindow)"
+          [iconUrl] = colorurl
+          >
         <agm-info-window #infoWindow>
               {{ place.name }}
+              <br>
+              {{ place.goal }}
               <br>
               <!-- <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a> -->
               <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
