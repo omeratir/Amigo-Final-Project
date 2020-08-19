@@ -1,4 +1,47 @@
-<div>
+<div class="a">
+  <h2>Please "like" one or more places so we can know you better</h2>
+</div>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-primary" id="result_panel">
+           <div class="panel-heading"><h3 class="header">Result List</h3></div>
+             <div class="panel-body">
+                 <ul class="list-group">
+                   <div *ngFor="let place of places">
+                     <li class="list-group-item">
+                      <div id="qr" style="display:inline-block; min-width:5.2cm; height:3.8cm; align: center;vertical-align: middle;" >
+                      <img src="{{place.photo}}"
+                      style="height: 70px;"
+                      style="width: 170px;"
+                      >
+
+                      </div>
+                      <div style="display:inline-block; vertical-align:top;">
+                        <strong>{{place.name}}</strong>
+                      <br>
+                     {{place.goal}}
+
+                        <br>
+                        <strong>Likes:</strong> {{place.count_of_likes}}
+                        <br>
+                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+                      </div>
+                      </li>
+                   </div>
+                 </ul>
+             </div>
+        </div>
+    </div>
+
+
+<!-- --------------------------->
+<br>
+<div class="col-md-4">
 <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng">
   <agm-marker *ngFor="let place of places"
   [latitude]="place.lat"
@@ -17,6 +60,10 @@
 
   </agm-marker>
 </agm-map>
+</div>
+
+</div>
+
 </div>
 
 <br>

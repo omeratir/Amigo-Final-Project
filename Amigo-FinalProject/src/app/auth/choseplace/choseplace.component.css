@@ -3,9 +3,16 @@
   font-weight: bold;
 }
 
+div.a {
+  text-align: center;
+  font-family: cursive;
+  font-weight: bold;
+}
+
 agm-map
 {
-  height: 500px;
+  height: 600px;
+  width: 1000px;
 }
 
 .liked {
@@ -43,5 +50,20 @@ mat-button-toggle-group {
 .select {
   font-weight: bold;
   color: red;
+}
+
+.list-group{
+  max-height: 550px;
+  width: 500px;
+  margin-bottom: 10px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  right: 80px;
+
+}
+.list-group-item{
+  height: 150px;
+  width: 475px;
 }
 
