@@ -80,15 +80,16 @@ body {
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
+                        <a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+                        <br>
                         <strong>{{place.name}}</strong>
                       <br>
                      {{place.goal}}
-
                         <br>
                         <strong>Likes:</strong> {{place.count_of_likes}}
                         <br>
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> You didn't like this place yet.</a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> You already liked this place!</a>
                       </div>
                       </li>
                    </div>

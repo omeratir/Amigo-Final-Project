@@ -35,6 +35,8 @@ export class PlaceFindComponent implements OnInit {
   checked: boolean;
   likeClicked: boolean;
 
+  tempafterdelete: string;
+
   lat = 52.373169;
   lng = 4.890660;
   zoom = 12;
@@ -294,6 +296,7 @@ LikeClicked(place) {
   }
 
   updateListAfterLikeOrUnlikeClicked(place: Place) {
+    this.tempPlaces = [];
     this.placesService.getPlace(place.id).subscribe(placeData => {
       this.place = {
         id: placeData._id,
@@ -361,6 +364,34 @@ checkIfUserLikeThePlace(placeid) {
     // }
 
     return false;
+  }
+
+  deletePlace(placeid) {
+    console.log('place id = ' + placeid);
+
+    this.tempPlaces = [];
+    this.tempafterdelete = 'EMPTY';
+    for (const temp of this.placesKMEANS) {
+      if (temp.id !== placeid) {
+        this.tempPlaces.push(temp);
+
+        if (this.tempafterdelete === 'EMPTY') {
+          this.tempafterdelete = temp.id;
+        } else {
+          this.tempafterdelete.concat(',')
+          this.tempafterdelete.concat(temp.id);
+        }
+      }
+    }
+    this.placesKMEANS = [];
+    this.placesKMEANS = this.tempPlaces;
+
+    console.log('kmeans array : ' + this.user.kmeans_array);
+    console.log('after delete = ' + this.tempafterdelete);
+
+    // tslint:disable-next-line: max-line-length
+    this.authService.updateUserData2(this.userId, this.user.email, this.user.password, this.user.firstName, this.user.lastName, this.user.age, this.user.gender,
+      this.user.sport, this.user.culture, this.user.food, this.user.liked_place, this.tempafterdelete);
   }
 
 

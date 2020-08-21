@@ -646,7 +646,7 @@ exports.getAllPlaces = (req, res, next) => {
 
         });
         var kmeans = new KmeansLib();
-        const k = vectors.length/4; // Groups Number
+        const k = vectors.length/7; // Groups Number
         const size = 2 // Group size
 
         var id =0;
@@ -694,7 +694,7 @@ exports.getAllPlaces = (req, res, next) => {
   }
 
         var kmeans2 = new KmeansLib();
-        const k2 = vectors2.length/4; // Groups Number
+        const k2 = vectors3.length/4; // Groups Number
         console.log('k2: ' + k2);
         const size2 = 2 // Group size
 

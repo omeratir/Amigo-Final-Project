@@ -43,6 +43,13 @@ mat-button-toggle-group {
   color: black;
 }
 
+.delete {
+  size: 2%;
+  right: 2%;
+  color: grey;
+  position: relative;
+}
+
 .select {
   font-weight: bold;
   color: red;
