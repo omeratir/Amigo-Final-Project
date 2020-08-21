@@ -5,6 +5,7 @@ import { Place } from 'src/app/places/place.model';
 import { AuthService } from '../auth.service';
 import { PlacesService } from 'src/app/places/places.service';
 import { Directionality } from '@angular/cdk/bidi';
+import { ThrowStmt } from '@angular/compiler';
 
 interface Direction {
   origin: {lat, lng};
@@ -286,32 +287,38 @@ checkIfUserLikeThePlace(placeid) {
   getDirection(likedPlaces: Place[]) {
     console.log('get');
     console.log(likedPlaces);
-
+    console.log(likedPlaces.push().toString);
+    console.log(likedPlaces.pop().lat);
     this.origin = {lat: 0, lng: 0};
     this.destination = {lat: 0, lng: 0};
     this.directions = [];
-
     this.tempDir = new Dir(this.origin, this.destination);
     console.log(this.tempDir);
+    console.log('aviad');
+    console.log(likedPlaces[0].lat);
+    for (var index =0; index < likedPlaces.length ; index++) {
+      console.log('place in index: ' + index);
+      console.log(likedPlaces[index]);
+      likedPlaces.find
+      
+      //   if (this.origin.lat === 0) {
+      //     this.origin = { lat: place.lat , lng: place.lng };
+      //   } else {
+      //     this.destination = { lat: place.lat , lng: place.lng };
 
-    for (const place of likedPlaces) {
-        if (this.origin.lat === 0) {
-          this.origin = { lat: place.lat , lng: place.lng };
-        } else {
-          this.destination = { lat: place.lat , lng: place.lng };
+      //     this.tempDir = new Dir(this.origin, this.destination);
+      //     console.log(this.tempDir);
+      //     this.directions.push(this.tempDir);
 
-          this.tempDir = new Dir(this.origin, this.destination);
-          console.log(this.tempDir);
-          this.directions.push(this.tempDir);
+      //     this.origin = this.destination;
+      //   }
+      // }
 
-          this.origin = this.destination;
-        }
-      }
       // console.log('directions');
     console.log(this.directions);
-    return true;
+   
   }
-
-
+  return true;
+  }
 }
 
