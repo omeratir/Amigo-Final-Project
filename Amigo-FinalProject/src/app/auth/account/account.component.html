@@ -3,7 +3,14 @@
 
   <!-- Map -->
   <div *ngIf="notEmpty(user.liked_place)">
-    <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-direction *ngFor="let dir of directions"
+        [origin]="dir.origin"
+        [destination]="dir.destination">
+      </agm-direction>
+    </agm-map>
+
+    <!-- <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
       <div *ngFor="let place of likedPlaces">
         <agm-marker *ngIf="checkPlaceGoal(place)"
           [latitude]="place.lat"
@@ -16,12 +23,11 @@
               <br>
               {{ place.goal }}
               <br>
-              <!-- <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a> -->
               <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
         </agm-info-window>
         </agm-marker>
       </div>
-    </agm-map>
+    </agm-map> -->
   </div>
   <div *ngIf="!notEmpty(user.liked_place)">
     <span>you didn't like any place yet.</span>

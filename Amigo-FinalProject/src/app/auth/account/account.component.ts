@@ -4,11 +4,24 @@ import { User } from '../user.model';
 import { Place } from 'src/app/places/place.model';
 import { AuthService } from '../auth.service';
 import { PlacesService } from 'src/app/places/places.service';
+import { Directionality } from '@angular/cdk/bidi';
+
+interface Direction {
+  origin: {lat, lng};
+  destination: {lat, lng};
+}
+
+class Dir implements Direction {
+    constructor(public origin: any, public destination: any) {
+
+    }
+}
 
 @Component({
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
+
 
 export class AccountComponent implements OnInit {
   userIsAuthenticated = false;
@@ -23,6 +36,9 @@ export class AccountComponent implements OnInit {
   previous;
   place: Place;
 
+  public origin: any;
+  public destination: any;
+
   name = '';
   lat = '';
   lng = '';
@@ -31,6 +47,10 @@ export class AccountComponent implements OnInit {
   placesPerPage = 2000;
   placeslength = 1;
   currentPage = 1;
+
+  directions: Dir[] = [];
+
+  tempDir: Dir;
 
   places: Place[] = [
 
@@ -97,7 +117,6 @@ export class AccountComponent implements OnInit {
 
         if (this.notEmpty(userData.liked_place)) {
           this.splitArray = userData.liked_place.split(',');
-          console.log(this.splitArray);
 
           this.likedPlaces = [];
 
@@ -114,13 +133,12 @@ export class AccountComponent implements OnInit {
                 creator: placeData.creator,
                 photo: placeData.photo
               };
-              console.log('place id =' + place);
-              console.log('place id 2 =' + this.place.id);
               this.likedPlaces.push(this.place);
-              console.log(this.likedPlaces);
             });
           }
         }
+          console.log(this.likedPlaces);
+          this.getDirection(this.likedPlaces);
         }
     });
 }
@@ -157,7 +175,6 @@ checkPlaceGoal(place) {
 }
 
   notEmpty(likedplace) {
-    console.log(likedplace);
     if (likedplace !== 'EMPTY') {
       return true;
     }
@@ -172,9 +189,7 @@ checkPlaceGoal(place) {
   }
 
   LikeClicked(place, infoWindow) {
-    console.log('Like Clicked');
     // add the placeid to the list.
-    console.log(this.user.liked_place);
     if (this.user.liked_place === 'EMPTY') {
       this.user.liked_place = place.id;
     } else {
@@ -182,7 +197,6 @@ checkPlaceGoal(place) {
       this.placelist = this.placelist.concat(',', place.id);
       this.user.liked_place = this.placelist;
     }
-    console.log(this.user.liked_place);
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
@@ -193,7 +207,6 @@ checkPlaceGoal(place) {
 
 
 UnLikeClicked(place, infoWindow) {
-    console.log('UnLike Clicked');
     // remove the placeid to the list.
     this.splitArray = this.user.liked_place.split(',');
 
@@ -233,7 +246,6 @@ UnLikeClicked(place, infoWindow) {
 
         if (this.notEmpty(userData.liked_place)) {
           this.splitArray = userData.liked_place.split(',');
-          console.log(this.splitArray);
 
           this.likedPlaces = [];
 
@@ -250,15 +262,13 @@ UnLikeClicked(place, infoWindow) {
                 creator: placeData.creator,
                 photo: placeData.photo
               };
-              console.log('place id =' + placeid);
-              console.log('place id 2 =' + this.place.id);
               this.likedPlaces.push(this.place);
-              console.log(this.likedPlaces);
             });
           }
         }
         }
     });
+
 
   }
 
@@ -271,6 +281,35 @@ checkIfUserLikeThePlace(placeid) {
     }
 
     return false;
+  }
+
+  getDirection(likedPlaces: Place[]) {
+    console.log('get');
+    console.log(likedPlaces);
+
+    this.origin = {lat: 0, lng: 0};
+    this.destination = {lat: 0, lng: 0};
+    this.directions = [];
+
+    this.tempDir = new Dir(this.origin, this.destination);
+    console.log(this.tempDir);
+
+    for (const place of likedPlaces) {
+        if (this.origin.lat === 0) {
+          this.origin = { lat: place.lat , lng: place.lng };
+        } else {
+          this.destination = { lat: place.lat , lng: place.lng };
+
+          this.tempDir = new Dir(this.origin, this.destination);
+          console.log(this.tempDir);
+          this.directions.push(this.tempDir);
+
+          this.origin = this.destination;
+        }
+      }
+      // console.log('directions');
+    console.log(this.directions);
+    return true;
   }
 
 
