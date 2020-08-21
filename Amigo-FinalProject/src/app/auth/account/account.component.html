@@ -1,14 +1,34 @@
-<h1 class="title"> Hello {{user.firstName}} ,</h1>
+<h1 class="title"> Hello {{username}} ,</h1>
 <br>
 
   <!-- Map -->
-  <div *ngIf="notEmpty(user.liked_place)">
+  <div *ngIf="ifuserlikedplaces">
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <!-- *ngFor="let dir of directions" -->
       <agm-direction *ngFor="let dir of directions"
         [origin]="dir.origin"
-        [destination]="dir.destination">
+        [destination]="dir.destination"
+        [waypoints]="waypoints"
+        >
       </agm-direction>
+      <div *ngFor="let place of likedPlaces">
+        <agm-marker *ngIf="checkPlaceGoal(place)"
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)"
+          [iconUrl] = colorurl
+          >
+        <agm-info-window #infoWindow>
+              {{ place.name }}
+              <br>
+              {{ place.goal }}
+              <br>
+              <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
+        </agm-info-window>
+        </agm-marker>
+      </div>
     </agm-map>
+
 
     <!-- <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
       <div *ngFor="let place of likedPlaces">
@@ -29,7 +49,7 @@
       </div>
     </agm-map> -->
   </div>
-  <div *ngIf="!notEmpty(user.liked_place)">
+  <div *ngIf="!ifuserlikedplaces">
     <span>you didn't like any place yet.</span>
   </div>
 

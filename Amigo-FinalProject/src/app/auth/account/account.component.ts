@@ -5,11 +5,13 @@ import { Place } from 'src/app/places/place.model';
 import { AuthService } from '../auth.service';
 import { PlacesService } from 'src/app/places/places.service';
 import { Directionality } from '@angular/cdk/bidi';
-import { ThrowStmt } from '@angular/compiler';
+import { Stringifiable } from 'd3';
+import { LatLng } from '@agm/core';
 
 interface Direction {
   origin: {lat, lng};
   destination: {lat, lng};
+  // renderOptions: { polylineOptions: { strokeColor } };
 }
 
 class Dir implements Direction {
@@ -28,8 +30,14 @@ export class AccountComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
   user: User;
+  username: string;
 
+  waypoints: any[];
+
+  ifuserlikedplaces: boolean;
   colorurl: string;
+
+  index = 0;
 
   latitude = 52.373169;
   longitude = 4.890660;
@@ -58,6 +66,10 @@ export class AccountComponent implements OnInit {
   ];
 
   likedPlaces: Place[] = [
+
+  ];
+
+  placesfordir: Place[] = [
 
   ];
 
@@ -116,10 +128,18 @@ export class AccountComponent implements OnInit {
           kmeans_array: userData.kmeans_array
         };
 
+        this.username = userData.firstName;
+
         if (this.notEmpty(userData.liked_place)) {
           this.splitArray = userData.liked_place.split(',');
 
+          this.origin = {lat: 0, lng: 0};
+          this.destination = {lat: 0, lng: 0};
+
           this.likedPlaces = [];
+          this.directions = [];
+          this.waypoints = [];
+          this.index = 1;
 
           for (const place of this.splitArray) {
             if (place) {
@@ -135,11 +155,26 @@ export class AccountComponent implements OnInit {
                 photo: placeData.photo
               };
               this.likedPlaces.push(this.place);
+
+              if (this.origin.lat === 0) {
+                this.origin.lat = +placeData.lat;
+                this.origin.lng = +placeData.lng;
+                this.index ++;
+              } else {
+                this.destination.lat = +placeData.lat;
+                this.destination.lng = +placeData.lng;
+                if (this.index === this.splitArray.length) {
+                  this.tempDir = new Dir(this.origin, this.destination);
+                  this.directions.push(this.tempDir);
+                } else {
+                  this.waypoints.push( {location: { lat: this.destination.lat , lng: this.destination.lng }});
+                  this.index ++;
+                }
+              }
             });
           }
         }
-          console.log(this.likedPlaces);
-          this.getDirection(this.likedPlaces);
+
         }
     });
 }
@@ -177,8 +212,10 @@ checkPlaceGoal(place) {
 
   notEmpty(likedplace) {
     if (likedplace !== 'EMPTY') {
+      this.ifuserlikedplaces = true;
       return true;
     }
+    this.ifuserlikedplaces = false;
     return false;
   }
 
@@ -284,41 +321,46 @@ checkIfUserLikeThePlace(placeid) {
     return false;
   }
 
-  getDirection(likedPlaces: Place[]) {
-    console.log('get');
-    console.log(likedPlaces);
-    console.log(likedPlaces.push().toString);
-    console.log(likedPlaces.pop().lat);
-    this.origin = {lat: 0, lng: 0};
-    this.destination = {lat: 0, lng: 0};
-    this.directions = [];
-    this.tempDir = new Dir(this.origin, this.destination);
-    console.log(this.tempDir);
-    console.log('aviad');
-    console.log(likedPlaces[0].lat);
-    for (var index =0; index < likedPlaces.length ; index++) {
-      console.log('place in index: ' + index);
-      console.log(likedPlaces[index]);
-      likedPlaces.find
-      
-      //   if (this.origin.lat === 0) {
-      //     this.origin = { lat: place.lat , lng: place.lng };
-      //   } else {
-      //     this.destination = { lat: place.lat , lng: place.lng };
+  // getDirection(likedPlaces: Place[]) {
+  //   console.log('get');
+  //   console.log(likedPlaces);
+  //   this.index = 0;
 
-      //     this.tempDir = new Dir(this.origin, this.destination);
-      //     console.log(this.tempDir);
-      //     this.directions.push(this.tempDir);
+  //   this.origin = {lat: 0, lng: 0};
+  //   this.destination = {lat: 0, lng: 0};
+  //   this.directions = [];
 
-      //     this.origin = this.destination;
-      //   }
-      // }
+  //   this.tempDir = new Dir(this.origin, this.destination);
+  //   console.log(this.tempDir);
 
-      // console.log('directions');
-    console.log(this.directions);
-   
-  }
-  return true;
-  }
+  //   this.placesfordir = likedPlaces;
+  //   console.log('places');
+  //   console.log(this.placesfordir);
+  //   console.log('len = ' + this.placesfordir.length);
+  //   console.log('len = ' + this.likedPlaces.length);
+
+  //   for (const place of this.placesfordir) {
+  //     console.log('for loop');
+  //     if (this.origin.lat === 0) {
+  //         console.log('first');
+  //         this.origin = { lat: place.lat , lng: place.lng };
+  //       } else {
+  //         console.log('second');
+  //         this.destination = { lat: place.lat , lng: place.lng };
+
+  //         this.tempDir = new Dir(this.origin, this.destination);
+  //         console.log(this.tempDir);
+  //         this.directions.push(this.tempDir);
+
+  //         this.origin = this.destination;
+  //       }
+  //     }
+
+  //   console.log('directions');
+  //   console.log(this.directions);
+  //   return true;
+  // }
+
+
 }
 
