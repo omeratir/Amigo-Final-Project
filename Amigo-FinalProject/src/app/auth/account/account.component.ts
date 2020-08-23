@@ -125,6 +125,8 @@ export class AccountComponent implements OnInit {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
+          unliked_place: userData.unliked_place,
+          save_place: userData.save_place,
           kmeans_array: userData.kmeans_array
         };
 
@@ -151,6 +153,8 @@ export class AccountComponent implements OnInit {
                 lng: placeData.lng,
                 goal: placeData.goal,
                 count_of_likes: placeData.count_of_likes,
+                count_of_place_likes: placeData.count_of_place_likes,
+                count_of_place_unlikes: placeData.count_of_place_unlikes,
                 creator: placeData.creator,
                 photo: placeData.photo
               };
@@ -239,7 +243,7 @@ checkPlaceGoal(place) {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
 
     }
 
@@ -261,11 +265,12 @@ UnLikeClicked(place, infoWindow) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false, place.photo);
+    // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array);
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
 
     this.authService.getUserData(this.userId).subscribe(userData => {
         this.user = {
@@ -279,6 +284,8 @@ UnLikeClicked(place, infoWindow) {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
+          unliked_place: userData.unliked_place,
+          save_place: userData.save_place,
           kmeans_array: userData.kmeans_array
         };
 
@@ -297,6 +304,8 @@ UnLikeClicked(place, infoWindow) {
                 lng: placeData.lng,
                 goal: placeData.goal,
                 count_of_likes: placeData.count_of_likes,
+                count_of_place_likes: placeData.count_of_place_likes,
+                count_of_place_unlikes: placeData.count_of_place_unlikes,
                 creator: placeData.creator,
                 photo: placeData.photo
               };

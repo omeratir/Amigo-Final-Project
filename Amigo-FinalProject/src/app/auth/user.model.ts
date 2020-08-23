@@ -9,5 +9,7 @@ export interface User {
   culture: boolean;
   food: boolean;
   liked_place: string;
+  unliked_place: string;
+  save_place: string;
   kmeans_array: string;
 }

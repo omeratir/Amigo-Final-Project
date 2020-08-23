@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", checkAuth, extractFile, PlaceController.createPlace);
 
-router.put("/:id", checkAuth, extractFile, PlaceController.updatePlace);
+router.put("/save/:id", checkAuth, extractFile, PlaceController.updatePlaceAfterSave);
 
 router.put("/updateuser/:id", checkAuth, extractFile, PlaceController.updateUser);
 

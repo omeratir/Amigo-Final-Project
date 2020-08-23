@@ -71,6 +71,8 @@ app.use("/api/goals", goalsRoutes);
 //       goal: data[3],
 //       photo: data[4],
 //       users_array: 'EMPTY',
+//       count_of_place_likes: 0,
+//       count_of_place_unlikes: 0,
 //       gender_avg: 0,
 //       count_of_likes: 0,
 //       count_age20: 0,

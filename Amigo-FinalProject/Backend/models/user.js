@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
   food: { type: Boolean, required: false },
 
   liked_place: { type: String, required: false },
+  unliked_place: { type: String, required: false },
+  save_place: { type: String, required: false },
+
   kmeans_array: { type: String, required: false },
   count_of_liked_places: { type: Number, required: false },
 

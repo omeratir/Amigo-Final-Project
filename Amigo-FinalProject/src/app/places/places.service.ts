@@ -48,7 +48,10 @@ export class PlacesService {
                 count_of_likes: place.count_of_likes,
                 id: place._id,
                 creator: place.creator,
-                photo: place.photo
+                photo: place.photo,
+                count_of_place_likes: place.count_of_place_likes,
+                count_of_place_unlikes: place.count_of_place_unlikes
+
               };
             }),
             maxPlaces: placeData.maxPlaces
@@ -80,7 +83,9 @@ export class PlacesService {
                 goal: place.goal,
                 id: place._id,
                 creator: place.creator,
-                photo: place.photo
+                photo: place.photo,
+                count_of_place_likes: place.count_of_place_likes,
+                count_of_place_unlikes: place.count_of_place_unlikes
               };
             }),
             maxPlaces: placeData.maxPlaces
@@ -114,6 +119,8 @@ export class PlacesService {
       count_of_likes: number;
       creator: string;
       photo: string,
+      count_of_place_likes: number,
+      count_of_place_unlikes: number
     }>(BACKEND_URL + id);
   }
 
@@ -132,8 +139,8 @@ export class PlacesService {
       });
   }
 
-  // tslint:disable-next-line: variable-name
-  updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
+// tslint:disable-next-line: max-line-length tslint:disable-next-line: variable-name
+updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
     let placeData: PlaceData | FormData;
     placeData = new FormData();
 
@@ -153,7 +160,7 @@ export class PlacesService {
     };
 
     this.http
-      .put(BACKEND_URL + id, placeData)
+      .put(BACKEND_URL + 'save/' + id, placeData)
       .subscribe(response => {
         // this.router.navigate(['/placelist']);
       });
@@ -183,6 +190,8 @@ export class PlacesService {
        culture: boolean;
        food: boolean;
        liked_place: string;
+       unliked_place: string;
+       save_place: string;
        kmeans_array: string;
      }>(BACKEND_URL + 'kmeans2/' + kmeans.userid);
 

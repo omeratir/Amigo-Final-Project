@@ -71,6 +71,8 @@ export class UpdateaccountComponent implements OnInit {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
+          unliked_place: userData.unliked_place,
+          save_place: userData.save_place,
           kmeans_array: userData.kmeans_array
         };
 

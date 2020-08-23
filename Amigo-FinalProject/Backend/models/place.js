@@ -9,6 +9,8 @@ const placeSchema = mongoose.Schema({
   users_array: {type: String, required: false},
   gender_avg: { type: Number , required: false },
   count_of_likes: { type: Number , required: false },
+  count_of_place_likes: { type: Number , required: false },
+  count_of_place_unlikes: { type: Number , required: false },
 
   count_sport: { type: Number , required: false },
   count_culture: { type: Number , required: false },

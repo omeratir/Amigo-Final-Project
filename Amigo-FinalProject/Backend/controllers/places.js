@@ -16,6 +16,8 @@ exports.createPlace = (req, res, next) => {
     users_array: 'EMPTY',
     gender_avg: 0,
     count_of_likes: 0,
+    count_of_place_likes: 0,
+    count_of_place_unlikes: 0,
     count_age20: 0,
     count_age35: 0,
     count_age50: 0,
@@ -48,7 +50,7 @@ exports.createPlace = (req, res, next) => {
     });
 };
 
-exports.updatePlace = (req, res, next) => {
+exports.updatePlaceAfterSave = (req, res, next) => {
   var count_of_likes = 0;
 
   var count_sport = 0;
@@ -473,6 +475,8 @@ console.log(vectors3);
               culture: usertemp.culture,
               food: usertemp.food,
               liked_place: usertemp.liked_place,
+              save_place: usertemp.save_place,
+              unliked_place: usertemp.unliked_place,
               kmeans_array: lengthStringPlaces
             });
             User.updateOne({ _id: req.params.id}, userData)
@@ -849,6 +853,8 @@ exports.getAllPlaces = (req, res, next) => {
               culture: usertemp.culture,
               food: usertemp.food,
               liked_place: usertemp.liked_place,
+              save_place: usertemp.save_place,
+              unliked_place: usertemp.unliked_place,
               kmeans_array: lengthStringPlaces,
             });
             User.updateOne({ _id: req.params.id}, userData)

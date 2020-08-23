@@ -28,8 +28,15 @@ export class PlaceFindComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   kmean_model: Kmeans;
 
+  ifSave = false;
+
   colorurl: string;
   place: Place;
+
+  name: string;
+
+  placeName: string[] = [];
+  placeurl: string;
 
   placeFindBtnClicked: boolean;
   checked: boolean;
@@ -46,6 +53,8 @@ export class PlaceFindComponent implements OnInit {
   placesPerPage = 2000;
   placeslength = 1;
   currentPage = 1;
+
+  index = 0;
 
   places: Place[] = [
 
@@ -119,6 +128,8 @@ export class PlaceFindComponent implements OnInit {
             culture: userData.culture,
             food: userData.food,
             liked_place: userData.liked_place,
+            unliked_place: userData.unliked_place,
+            save_place: userData.save_place,
             kmeans_array: userData.kmeans_array
           };
       });
@@ -133,6 +144,7 @@ export class PlaceFindComponent implements OnInit {
     this.likeClicked = false;
     this.like = false;
     this.unlike = false;
+    this.ifSave = false;
   }
 
   onChangeCheckBox() {
@@ -140,24 +152,23 @@ export class PlaceFindComponent implements OnInit {
     this.Goal_Attractions_Leisure = !this.Goal_Attractions_Leisure;
   }
 
+  linkPlace(placename) {
+    this.placeurl = 'https://www.google.com/search?q=';
+    this.placeName = placename.split(' ');
+    this.index = 0;
+    this.name = '';
+
+    for (const temp of this.placeName) {
+      this.placeurl = this.placeurl.concat(temp);
+      this.placeurl = this.placeurl.concat('+');
+    }
+    return true;
+  }
+
   onClickFindPlace(user) {
     console.log('Clicked on find place');
 
-    // if (this.placeFindBtnClicked) {
-    //   return true;
-    // }
-
-    // if ((!this.Goal_Attractions_Leisure) && (!this.Goal_Culture_And_Historical_Places) && (!this.Goal_Night_Life)
-    // && (!this.Goal_Relaxing) && (!this.Goal_Shopping) && (!this.Goal_Sport_And_Extreme)) {
-    //   this.placeFindBtnClicked = false;
-    // } else {
     this.placeFindBtnClicked = true;
-    console.log('Goal_Attractions_Leisure = ' + this.Goal_Attractions_Leisure);
-    console.log('Goal_Culture_And_Historical_Places = ' + this.Goal_Culture_And_Historical_Places);
-    console.log('Goal_Night_Life = ' + this.Goal_Night_Life);
-    console.log('Goal_Relaxing = ' + this.Goal_Relaxing);
-    console.log('Goal_Shopping = ' + this.Goal_Shopping);
-    console.log('Goal_Sport_And_Extreme = ' + this.Goal_Sport_And_Extreme);
 
     this.kmean_model = {
         userid: this.userId,
@@ -169,7 +180,6 @@ export class PlaceFindComponent implements OnInit {
         goal_Culture_And_Historical_Places: this.Goal_Culture_And_Historical_Places
       };
 
-      // this.placesService.kmeans(this.kmean_model);
     this.placesService.kmeans2(this.kmean_model).subscribe(userData => {
         this.user = {
           email: userData.email,
@@ -182,24 +192,11 @@ export class PlaceFindComponent implements OnInit {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
+          unliked_place: userData.unliked_place,
+          save_place: userData.save_place,
           kmeans_array: userData.kmeans_array
         };
         console.log('kmeans done2');
-
-      // this.authService.getUserData(this.userId).subscribe(userData => {
-      //   this.user = {
-      //     email: userData.email,
-      //     password: userData.password,
-      //     firstName: userData.firstName,
-      //     lastName: userData.lastName,
-      //     age: userData.age,
-      //     gender: userData.gender,
-      //     sport: userData.sport,
-      //     culture: userData.culture,
-      //     food: userData.food,
-      //     liked_place: userData.liked_place,
-      //     kmeans_array: userData.kmeans_array
-      //   };
 
         console.log(userData);
 
@@ -219,6 +216,8 @@ export class PlaceFindComponent implements OnInit {
               lng: placeData.lng,
               goal: placeData.goal,
               count_of_likes: placeData.count_of_likes,
+              count_of_place_likes: placeData.count_of_place_likes,
+              count_of_place_unlikes: placeData.count_of_place_unlikes,
               creator: placeData.creator,
               photo: placeData.photo
             };
@@ -241,6 +240,7 @@ clickedMarker(infoWindow) {
     this.previous = infoWindow;
   }
 
+
 LikeClicked(place) {
     console.log('Like Clicked');
     // add the placeid to the list.
@@ -253,15 +253,32 @@ LikeClicked(place) {
       this.user.liked_place = this.placelist;
     }
     console.log(this.user.liked_place);
+    // tslint:disable-next-line: max-line-length
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
 
     this.tempPlaces = [];
 
     this.updateListAfterLikeOrUnlikeClicked(place);
+  }
+
+  onSavePlaceClicked(place: Place) {
+    // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
+
+    // tslint:disable-next-line: max-line-length
+    this.authService.upadateUserAfterSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+
+    this.ifSave = true;
+  }
+
+  onUnSavePlace(placeid) {
+    this.ifSave = false;
   }
 
   updateMarkerColorByGoal(place) {
@@ -306,7 +323,9 @@ LikeClicked(place) {
         goal: placeData.goal,
         count_of_likes: placeData.count_of_likes,
         creator: placeData.creator,
-        photo: placeData.photo
+        photo: placeData.photo,
+        count_of_place_likes: placeData.count_of_place_likes,
+        count_of_place_unlikes: placeData.count_of_place_unlikes
       };
 
       for (const temp of this.placesKMEANS) {
@@ -341,11 +360,12 @@ LikeClicked(place) {
         }
       }
   }
-    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, false, place.photo);
+    // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.kmeans_array);
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
   }
 
 checkIfUserLikeThePlace(placeid) {
@@ -355,14 +375,6 @@ checkIfUserLikeThePlace(placeid) {
     if (this.user.liked_place.includes(placeid)) {
       return true;
     }
-    // this.splitArray = this.user.liked_place.split(',');
-
-    // for (const place of this.splitArray) {
-    //   if (place === placeid) {
-    //     return true;
-    //   }
-    // }
-
     return false;
   }
 
@@ -378,7 +390,7 @@ checkIfUserLikeThePlace(placeid) {
         if (this.tempafterdelete === 'EMPTY') {
           this.tempafterdelete = temp.id;
         } else {
-          this.tempafterdelete.concat(',')
+          this.tempafterdelete.concat(',');
           this.tempafterdelete.concat(temp.id);
         }
       }
@@ -390,17 +402,9 @@ checkIfUserLikeThePlace(placeid) {
     console.log('after delete = ' + this.tempafterdelete);
 
     // tslint:disable-next-line: max-line-length
-    this.authService.updateUserData2(this.userId, this.user.email, this.user.password, this.user.firstName, this.user.lastName, this.user.age, this.user.gender,
-      this.user.sport, this.user.culture, this.user.food, this.user.liked_place, this.tempafterdelete);
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
   }
-
-
-
-
-  // kmeans(place) {
-  //   console.log('kmeans Go');
-  //   this.placesService.kmeans(place.id);
-  // }
-
 
 }

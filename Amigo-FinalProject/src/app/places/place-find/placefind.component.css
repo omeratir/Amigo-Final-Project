@@ -28,7 +28,7 @@ agm-map
 }
 
 .fa:hover {
-  color: darkblue;
+  color: gray;
 }
 
 mat-button-toggle-group {
@@ -50,6 +50,14 @@ mat-button-toggle-group {
   position: relative;
 }
 
+.save {
+  color: goldenrod;
+}
+
+.unsave {
+  color: goldenrod;
+}
+
 .select {
   font-weight: bold;
   color: red;
@@ -69,7 +77,8 @@ mat-button-toggle-group {
 
 }
 .list-group-item{
-  height: 150px;
+  height: fit-content;
+  /* height: 200px; */
   width: 475px;
 }
 /* * {

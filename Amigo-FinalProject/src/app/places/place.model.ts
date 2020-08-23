@@ -5,6 +5,8 @@ export interface Place {
   lng: string;
   goal: string;
   count_of_likes: number;
+  count_of_place_likes: number;
+  count_of_place_unlikes: number;
   creator: string;
   photo: string;
 }
