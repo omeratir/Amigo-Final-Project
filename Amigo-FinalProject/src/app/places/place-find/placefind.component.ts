@@ -265,6 +265,16 @@ LikeClicked(place) {
     this.updateListAfterLikeOrUnlikeClicked(place);
   }
 
+  ifUserSaveThisPlace(placeid: string) {
+    if (this.user.save_place === 'EMPTY') {
+      return false;
+    }
+    if (this.user.save_place.includes(placeid)) {
+      return true;
+    }
+    return false;
+  }
+
   onSavePlaceClicked(place: Place) {
     // tslint:disable-next-line: max-line-length
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
@@ -273,12 +283,41 @@ LikeClicked(place) {
     this.authService.upadateUserAfterSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
-
-    this.ifSave = true;
+    this.user.save_place = this.authService.getUserSavedPlaces();
+    this.updateUser();
   }
 
-  onUnSavePlace(placeid) {
-    this.ifSave = false;
+  onUnSavePlaceClicked(place: Place) {
+      // tslint:disable-next-line: max-line-length
+      this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
+
+        // tslint:disable-next-line: max-line-length
+      this.authService.upadateUserAfterUnSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+          // tslint:disable-next-line: max-line-length
+          , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      this.user.save_place = this.authService.getUserSavedPlaces();
+      this.updateUser();
+  }
+
+  updateUser() {
+    this.authService.getUserData(this.userId).subscribe(userData => {
+      this.user = {
+        email: userData.email,
+        password: userData.password,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        age: userData.age,
+        gender: userData.gender,
+        sport: userData.sport,
+        culture: userData.culture,
+        food: userData.food,
+        liked_place: userData.liked_place,
+        unliked_place: userData.unliked_place,
+        save_place: userData.save_place,
+        kmeans_array: userData.kmeans_array
+      };
+  });
+
   }
 
   updateMarkerColorByGoal(place) {

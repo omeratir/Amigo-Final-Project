@@ -75,8 +75,7 @@ body {
                       <div id="qr" style="display:inline-block; min-width:5.2cm; height:3.8cm; align: center;vertical-align: middle;" >
                       <img src="{{place.photo}}"
                       style="height: 70px;"
-                      style="width: 170px;"
-                      >
+                      style="width: 170px;">
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
@@ -88,8 +87,8 @@ body {
                       <br>
                      {{place.goal}}
                         <br>
-                        <a class="abutton" *ngIf="!ifSave" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
-                        <a class="abutton" *ngIf="ifSave" (click)="onUnSavePlace(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+                        <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+                        <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
                         <br>
                         <strong>Likes:</strong> {{place.count_of_likes}}
                         <br>

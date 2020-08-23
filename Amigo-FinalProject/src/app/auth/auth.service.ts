@@ -19,6 +19,9 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private user: User;
   private email: string;
+  private userSavedPlaces: string;
+
+  private tempplaces: string[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,6 +33,10 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  getUserSavedPlaces() {
+    return this.userSavedPlaces;
+  }
+
   getUserId() {
     return this.userId;
   }
@@ -39,13 +46,13 @@ export class AuthService {
   }
 
   createUser(email: string, password: string, firstName: string, lastName: string,
-             // tslint:disable-next-line: variable-name
-             // tslint:disable-next-line: max-line-length
+             // tslint:disable-next-line: max-line-length tslint:disable-next-line: variable-name
              age: string, gender: string, sport: boolean, culture: boolean, food: boolean , liked_place: string , unliked_place: string , save_place: string , kmeans_array: string) {
     const authData: AuthData = { email, password };
     localStorage.setItem('email', email);
     // tslint:disable-next-line: max-line-length
     const user: User = {email , password , firstName, lastName, age, gender , sport, culture, food , liked_place , unliked_place, save_place, kmeans_array  };
+    this.userSavedPlaces = save_place;
     this.http.post(BACKEND_URL + '/signup', user).subscribe(
       () => {
         this.router.navigate(['/auth/recommend']);
@@ -195,15 +202,15 @@ export class AuthService {
     };
   }
 
-  upadateUserAfterSavePlace(placeid: string ,id: string, email: string, password: string, firstName: string, lastName: string, age: string,
+  upadateUserAfterSavePlace(placeid: string , id: string, email: string, password: string, firstName: string, lastName: string, age: string,
     // tslint:disable-next-line: variable-name tslint:disable-next-line: max-line-length
                             gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , unliked_place: string , save_place: string ,  kmeans_array: string) {
-      if (this.user.save_place === 'EMPTY') {
-         this.user.save_place = placeid;
+      if (save_place === 'EMPTY') {
+         save_place = placeid;
       } else {
        save_place = save_place.concat(',', placeid);
       }
-
+      this.userSavedPlaces = save_place;
       let userData: UserData | FormData;
       userData = new FormData();
 
@@ -231,11 +238,56 @@ export class AuthService {
         });
     }
 
+    // tslint:disable-next-line: max-line-length
+    upadateUserAfterUnSavePlace(placeid: string , id: string, email: string, password: string, firstName: string, lastName: string, age: string,
+      // tslint:disable-next-line: variable-name tslint:disable-next-line: max-line-length
+                                gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , unliked_place: string , save_place: string ,  kmeans_array: string) {
+
+        this.tempplaces = save_place.split(',');
+        save_place = '';
+        for (const place of this.tempplaces) {
+          if (place !== placeid) {
+            save_place = save_place.concat(place, ',');
+          }
+        }
+        if (save_place === '') {
+          save_place = 'EMPTY';
+        }
+        this.userSavedPlaces = save_place;
+        let userData: UserData | FormData;
+        userData = new FormData();
+
+        userData = {
+          id,
+          email,
+          password,
+          firstName,
+          lastName,
+          age,
+          gender,
+          sport,
+          culture,
+          food,
+          liked_place,
+          unliked_place,
+          save_place,
+          kmeans_array
+        };
+
+        this.http
+          .put(BACKEND_URL + id, userData)
+          .subscribe(response => {
+            // this.router.navigate(['/']);
+          });
+      }
+
   updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string,
              // tslint:disable-next-line: variable-name tslint:disable-next-line: max-line-length
              gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , unliked_place: string , save_place: string ,  kmeans_array: string) {
+
   let userData: UserData | FormData;
   userData = new FormData();
+  this.userSavedPlaces = save_place;
 
   userData = {
     id,
@@ -267,6 +319,7 @@ updateUserData(id: string, email: string, password: string, firstName: string, l
 
   let userData: UserData | FormData;
   userData = new FormData();
+  this.userSavedPlaces = save_place;
 
   userData = {
   id,
@@ -298,6 +351,7 @@ updateUserData2(id: string, email: string, password: string, firstName: string, 
 
   let userData: UserData | FormData;
   userData = new FormData();
+  this.userSavedPlaces = save_place;
 
   userData = {
   id,
