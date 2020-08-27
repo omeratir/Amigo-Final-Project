@@ -139,6 +139,51 @@ export class PlacesService {
       });
   }
 
+  // tslint:disable-next-line: variable-name
+  updatePlaceAfterLike(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
+    let placeData: PlaceData | FormData;
+    placeData = new FormData();
+
+    placeData = {
+      id,
+      name,
+      lat,
+      lng,
+      users_array,
+      flagLike,
+      photo,
+      creator: null
+    };
+
+    this.http
+      .put(BACKEND_URL + 'like/' + id, placeData)
+      .subscribe(response => {
+      });
+
+  }
+
+  // tslint:disable-next-line: variable-name
+  updatePlaceAfterUnlike(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
+    let placeData: PlaceData | FormData;
+    placeData = new FormData();
+
+    placeData = {
+      id,
+      name,
+      lat,
+      lng,
+      users_array,
+      flagLike,
+      photo,
+      creator: null
+    };
+
+    this.http
+      .put(BACKEND_URL + 'unlike/' + id, placeData)
+      .subscribe(response => {
+      });
+  }
+
 // tslint:disable-next-line: max-line-length tslint:disable-next-line: variable-name
 updatePlace(id: string, name: string, lat: string, lng: string, users_array: string, flagLike: boolean, photo: string) {
     let placeData: PlaceData | FormData;
@@ -251,17 +296,6 @@ updatePlace(id: string, name: string, lat: string, lng: string, users_array: str
       });
   }
 
-
-
-  onLikeClicked(placeId: string, userId: string) {
-    console.log('onLikeClicked placesService userId = ' + userId);
-    console.log('onLikeClicked placesService placeId = ' + placeId);
-
-    this.http.put(BACKEND_URL + placeId , userId )
-    .subscribe(response => {
-
-    });
-  }
 
   // tslint:disable-next-line: member-ordering
   i: number;

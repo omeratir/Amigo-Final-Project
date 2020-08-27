@@ -10,6 +10,10 @@ router.post("/", checkAuth, extractFile, PlaceController.createPlace);
 
 router.put("/save/:id", checkAuth, extractFile, PlaceController.updatePlaceAfterSave);
 
+router.put("/like/:id", checkAuth, extractFile, PlaceController.updatePlaceOnLikeClicked);
+
+router.put("/unlike/:id", checkAuth, extractFile, PlaceController.updatePlaceOnUnLikeClicked);
+
 router.put("/updateuser/:id", checkAuth, extractFile, PlaceController.updateUser);
 
 router.get("", PlaceController.getPlaces);

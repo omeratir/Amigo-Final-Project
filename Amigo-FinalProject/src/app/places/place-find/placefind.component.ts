@@ -28,6 +28,8 @@ export class PlaceFindComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   kmean_model: Kmeans;
 
+  usersavedplaces: string;
+
   ifSave = false;
 
   colorurl: string;
@@ -37,6 +39,8 @@ export class PlaceFindComponent implements OnInit {
 
   placeName: string[] = [];
   placeurl: string;
+
+  tempplacessave: string[] = [];
 
   placeFindBtnClicked: boolean;
   checked: boolean;
@@ -276,27 +280,46 @@ LikeClicked(place) {
   }
 
   onSavePlaceClicked(place: Place) {
+    this.usersavedplaces = this.user.save_place;
+    if (this.user.save_place === 'EMPTY') {
+      this.user.save_place = place.id;
+   } else {
+    this.user.save_place = this.user.save_place.concat(',', place.id);
+   }
     // tslint:disable-next-line: max-line-length
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
     // tslint:disable-next-line: max-line-length
     this.authService.upadateUserAfterSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.usersavedplaces, this.user.kmeans_array );
     this.user.save_place = this.authService.getUserSavedPlaces();
     this.updateUser();
   }
 
   onUnSavePlaceClicked(place: Place) {
+      this.usersavedplaces = this.user.save_place;
+
+      this.tempplacessave = this.user.save_place.split(',');
+      this.user.save_place = '';
+      for (const temp of this.tempplacessave) {
+        if (temp !== place.id) {
+          this.user.save_place = this.user.save_place.concat(temp, ',');
+        }
+      }
+      if (this.user.save_place === '') {
+        this.user.save_place = 'EMPTY';
+      }
+
       // tslint:disable-next-line: max-line-length
       this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
         // tslint:disable-next-line: max-line-length
       this.authService.upadateUserAfterUnSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
           // tslint:disable-next-line: max-line-length
-          , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
-      this.user.save_place = this.authService.getUserSavedPlaces();
-      this.updateUser();
+          , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.usersavedplaces, this.user.kmeans_array );
+      // this.user.save_place = this.authService.getUserSavedPlaces();
+      // this.updateUser();
   }
 
   updateUser() {

@@ -877,3 +877,79 @@ exports.getAllPlaces = (req, res, next) => {
 
     });
   }
+
+  exports.updatePlaceOnLikeClicked = (req, res, next) => {
+        Place.findById(req.body.id)
+        .then(place => {
+          if (place) {
+            const placeData = new Place({
+              _id: req.body.id,
+              name: req.body.name,
+              lat: req.body.lat,
+              lng: req.body.lng,
+              count_of_place_likes: place.count_of_place_likes + 1
+            });
+
+            Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
+              .then(result => {
+                if (result.n > 0) {
+                  res.status(200).json({ message: "Update successful!" });
+                } else {
+                  res.status(401).json({ message: "Not authorized!" });
+                }
+              })
+              .catch(error => {
+                res.status(500).json({
+                  message: "Couldn't udpate place!"
+                });
+              });
+          } else {
+            res.status(404).json({ message: "Place not found!" });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({
+            message: "Fetching place failed!"
+          });
+        });
+
+  };
+
+  exports.updatePlaceOnUnLikeClicked = (req, res, next) => {
+    Place.findById(req.body.id)
+    .then(place => {
+      if (place) {
+        const placeData = new Place({
+          _id: req.body.id,
+          name: req.body.name,
+          lat: req.body.lat,
+          lng: req.body.lng,
+          count_of_place_unlikes: place.count_of_place_unlikes + 1
+        });
+
+        Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
+          .then(result => {
+            if (result.n > 0) {
+              res.status(200).json({ message: "Update successful!" });
+            } else {
+              res.status(401).json({ message: "Not authorized!" });
+            }
+          })
+          .catch(error => {
+            res.status(500).json({
+              message: "Couldn't udpate place!"
+            });
+          });
+      } else {
+        res.status(404).json({ message: "Place not found!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching place failed!"
+      });
+    });
+
+};
+
+
