@@ -1,3 +1,4 @@
+
 .header {
   font-family: cursive;
   font-weight: bold;
@@ -169,6 +170,7 @@ left: 20px;
 .goal-button-row {
   display: table-cell;
   width: 100%;
+  margin-left: 50px;
   align-items: center;
 }
 
@@ -233,6 +235,7 @@ left: 20px;
   margin-bottom: 5px;
   margin-right: 5px;
   height: fit-content;
+
 }
 
 .btngoal2 {
@@ -275,17 +278,30 @@ left: 20px;
 
 .btngoal1:hover {
   color:white;
-  background-color: coral;
+  background-color: mediumaquamarine
+
 }
 
 .btngoal2:hover {
   color:white;
-  background-color: cornflowerblue
+  background-color: rgb(233, 243, 95)
 }
 
 .btngoal3:hover {
   color:white;
-  background-color: mediumaquamarine
+  background-color: coral;
+}
+.btngoal4:hover {
+  color:white;
+  background-color: rgb(153, 69, 231)
+}
+.btngoal5:hover {
+  color:white;
+  background-color: rgb(236, 61, 207)
+}
+.btngoal6:hover {
+  color:white;
+  background-color: rgb(245, 147, 68)
 }
 
 
