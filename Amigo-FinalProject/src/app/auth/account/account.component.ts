@@ -195,7 +195,7 @@ export class AccountComponent implements OnInit {
           }
 
         }
-        setTimeout(() => {
+          setTimeout(() => {
 
 
           console.log('check avu first');
@@ -210,8 +210,8 @@ export class AccountComponent implements OnInit {
           } else {
             this.destination.lat = +this.likedPlaces[index2].lat;
             this.destination.lng = +this.likedPlaces[index2].lng;
-            if (index2+1 === this.likedPlaces.length) {
-              console.log('index3: '+ index2);
+            if (index2 + 1 === this.likedPlaces.length) {
+              console.log('index3: ' + index2);
               this.tempDir = new Dir(this.origin, this.destination);
               this.directions.push(this.tempDir);
             } else {
@@ -220,7 +220,7 @@ export class AccountComponent implements OnInit {
             }
           }
         }
-      }, 1000);
+      }, 1500);
         }
 
     });
@@ -241,23 +241,24 @@ distanceFromStart(array) {
   //UpdateArrayByDistance.push(array);
   console.log('distanceFromMiddle');
   console.log(UpdateArrayByDistance);
-  let checkIfExistPlace = UpdateArrayByDistance[0].name;
+  let checkIfExistPlace = '';
+  //UpdateArrayByDistance[0].name;
   console.log(array.length);
   for (let index = 0; index < array.length; index++) {
     checkIfExistPlace = checkIfExistPlace.concat(UpdateArrayByDistance[index].name);
-      temp = 10000000;
-      console.log('index : ' + index);
-      for (let index2 = 0; index2 < array.length; index2++) {
+    temp = 10000000;
+    console.log('index : ' + index);
+    for (let index2 = 0; index2 < array.length; index2++) {
         console.log('index2 : ' + index2);
         console.log('checkIfExistPlace: ' + checkIfExistPlace);
         console.log(array[index2].name);
         if (!checkIfExistPlace.includes(array[index2].name)) {
           console.log(UpdateArrayByDistance[index]);
           console.log(array[index2]);
-     dist = this.distance(UpdateArrayByDistance[index].lat, UpdateArrayByDistance[index].lng, array[index2].lat, array[index2].lng);
-    console.log('dist : ' + dist);
-    console.log('temp : ' + temp);
-     if (dist !== 0) {
+          dist = this.distance(UpdateArrayByDistance[index].lat, UpdateArrayByDistance[index].lng, array[index2].lat, array[index2].lng);
+          console.log('dist : ' + dist);
+          console.log('temp : ' + temp);
+          if (dist !== 0) {
       if ( (Math.min(dist, temp)) === dist) {
         UpdateArrayByDistance[index + 1] = array[index2];
        // checkIfExistPlace = checkIfExistPlace.concat(UpdateArrayByDistance[index + 1].name);

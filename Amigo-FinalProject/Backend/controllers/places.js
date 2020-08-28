@@ -581,6 +581,7 @@ exports.getAllPlaces = (req, res, next) => {
     var currentUserVector2 = {};
     var count =0;
     var i =0;
+    var stringOfPlaceOfCurrentUser = '';
     User.find({}, function(err, users) {
         var userMap = {};
 
@@ -617,6 +618,7 @@ exports.getAllPlaces = (req, res, next) => {
           i++;
           }
           else{
+            stringOfPlaceOfCurrentUser = userMap[user._id].liked_place;
             console.log("shiran is buti");
             currentUserVector = {
             //  x: userMap[user._id].age,
@@ -650,7 +652,31 @@ exports.getAllPlaces = (req, res, next) => {
 
         });
         var kmeans = new KmeansLib();
-        const k = vectors.length/7; // Groups Number
+        var k =5;
+        console.log(vectors.length);
+        switch(true){
+          case (vectors.length<25):
+            k=vectors.length/5;
+            console.log('k '+ k);
+            break;
+          case (vectors.length<48):
+            k=vectors.length/8;
+            console.log('k '+ k);
+            break;
+          case (vectors.length<100):
+            k=vectors.length/10;
+            console.log('k '+ k);
+            break;
+          case (vectors.length<200):
+            k=vectors.length/20;
+            console.log('k '+ k);
+            break;
+            case (vectors.length>=300):
+            k=vectors.length/30;
+            console.log('k '+ k);
+            break;
+        }
+         //= vectors.length/7; // Groups Number
         const size = 2 // Group size
 
         var id =0;
@@ -698,7 +724,30 @@ exports.getAllPlaces = (req, res, next) => {
   }
 
         var kmeans2 = new KmeansLib();
-        const k2 = vectors3.length/4; // Groups Number
+        var k2 = 5; // Groups Number
+        console.log('vectors3 :'+ vectors3.length);
+        switch(true){
+          case (vectors3.length<5):
+            k2=vectors3.length/2;
+            console.log('k '+ k2);
+            break;
+          case (vectors3.length<10):
+            k2=vectors3.length/3;
+            console.log('k '+ k2);
+            break;
+          case (vectors3.length<16):
+            k2=vectors3.length/4;
+            console.log('k '+ k2);
+            break;
+          case (vectors3.length<20):
+            k2=vectors3.length/4;
+            console.log('k '+ k2);
+            break;
+            case (vectors3.length>=25):
+            k2=vectors3.length/5;
+            console.log('k '+ k2);
+            break;
+        }
         console.log('k2: ' + k2);
         const size2 = 2 // Group size
 
@@ -820,7 +869,7 @@ exports.getAllPlaces = (req, res, next) => {
             for(var index2=0; index2<lengthPlaces;index2++)
             {
             // console.log('which index in split2 : ' + splitArray2[index2]);
-              if((!lengthStringPlaces.includes(splitArray2[index2])) && (!splitArray2[index2].includes('EMPTY'))){
+              if((!lengthStringPlaces.includes(splitArray2[index2])) && (!splitArray2[index2].includes('EMPTY')) &&(!stringOfPlaceOfCurrentUser.includes(splitArray2[index2]))){
               lengthStringPlaces = lengthStringPlaces.concat(splitArray2[index2],',');
               console.log('the string of user is: ' + lengthStringPlaces + ' and the number is: ' + lengthStringPlaces.length/25);
               }
