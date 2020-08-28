@@ -22,9 +22,16 @@ agm-map
 }
 
 .fa {
-  font-size: 30px;
+  font-size: 20px;
   cursor: pointer;
   user-select: none;
+}
+.search{
+  font-size: 28px;
+  right: 3px;
+  bottom: auto;
+  position: absolute;
+  color:gray;
 }
 
 .fa:hover {
@@ -36,26 +43,39 @@ mat-button-toggle-group {
 }
 
 .like {
+  font-size: 28px;
   color: red;
 }
 
 .unlike {
+  font-size: 28px;
   color: black;
 }
 
 .delete {
-  size: 2%;
-  right: 2%;
-  color: grey;
-  position: relative;
+  size: 3%;
+  font-size: 28px;
+  right: 3px;
+  bottom: auto;
+  position: absolute;
+  /* margin-left: ; */
+ /* padding-left: ; */
+
+  /* position: relative; */
 }
 
 .save {
-  color: goldenrod;
+  font-size: 28px;
+  color:rgb(240, 222, 59);
+  right: 3px;
+  position: absolute;
 }
 
 .unsave {
-  color: goldenrod;
+  font-size: 28px;
+  color:rgb(240, 222, 59);
+  right: 3px;
+  position: absolute;
 }
 
 .select {
@@ -64,12 +84,12 @@ mat-button-toggle-group {
 }
 .list-group{
   max-height: 550px;
-  width: 500px;
+  width: 520px;
   margin-bottom: 10px;
   overflow:auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
-  right: 80px;
+  right: 30px;
 
 
   /* display:inline-block;
@@ -79,7 +99,7 @@ mat-button-toggle-group {
 .list-group-item{
   height: fit-content;
   /* height: 200px; */
-  width: 475px;
+      width: 500px;
 }
 /* * {
   box-sizing: border-box;

@@ -1,8 +1,9 @@
 
 agm-map
 {
-  height: 500px;
-  border-radius: 25px;
+  height: 600px;
+  width: 1000px;
+  border-radius: 1000px;
 }
 
 .header {
@@ -53,3 +54,24 @@ mat-button-toggle-group {
   font-size: xx-large;
   font-weight: bold;
 }
+.list-group{
+  max-height: 550px;
+  width: 500px;
+  margin-bottom: 10px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  right: 80px;
+}
+.list-group-item{
+  height: fit-content;
+  /* height: 200px; */
+  width: 475px;
+}
+
+.image{
+  /* height: 70px;
+  width:170px; */
+  border-radius: 90px;
+}
+

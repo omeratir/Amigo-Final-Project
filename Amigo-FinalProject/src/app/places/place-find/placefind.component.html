@@ -72,28 +72,22 @@ body {
                  <ul class="list-group">
                    <div *ngFor="let place of placesKMEANS">
                      <li class="list-group-item">
-                      <div id="qr" style="display:inline-block; min-width:5.2cm; height:3.8cm; align: center;vertical-align: middle;" >
+                      <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
                       <img src="{{place.photo}}"
-                      style="height: 70px;"
-                      style="width: 170px;">
+                      style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
-                        <a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
-                        <br>
-                        <strong>{{place.name}}</strong>
-                        <br>
-                        <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}">Link to {{ place.name}}</a>
+                      <strong>{{place.name}} </strong> <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+                      <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
                       <br>
-                     {{place.goal}}
+                       {{place.goal}}
+                       <br>
+                         <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
                         <br>
-                        <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
-                        <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
                         <br>
-                        <strong>Likes:</strong> {{place.count_of_likes}}
-                        <br>
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)" aria-disabled="true"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> You didn't like this place yet.</a>
-                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> You already liked this place!</a>
+                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)" aria-disabled="true"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> {{place.count_of_likes}} </a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_likes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
                       </div>
                       </li>
                    </div>

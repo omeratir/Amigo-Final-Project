@@ -7,6 +7,8 @@ import { PlacesService } from 'src/app/places/places.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { Stringifiable } from 'd3';
 import { LatLng } from '@agm/core';
+import { identifierModuleUrl } from '@angular/compiler';
+import { callbackify } from 'util';
 
 interface Direction {
   origin: {lat, lng};
@@ -89,6 +91,8 @@ export class AccountComponent implements OnInit {
   userPlacesArray: string[] = [
 
   ];
+
+
   private authListenerSubs: Subscription;
   placelist: string;
 
@@ -141,7 +145,9 @@ export class AccountComponent implements OnInit {
           this.likedPlaces = [];
           this.directions = [];
           this.waypoints = [];
-          this.index = 1;
+          this.index = 0;
+          const tempArr = [];
+
 
           for (const place of this.splitArray) {
             if (place) {
@@ -158,30 +164,138 @@ export class AccountComponent implements OnInit {
                 creator: placeData.creator,
                 photo: placeData.photo
               };
-              this.likedPlaces.push(this.place);
+              // this.likedPlaces.push(this.place);
 
-              if (this.origin.lat === 0) {
-                this.origin.lat = +placeData.lat;
-                this.origin.lng = +placeData.lng;
-                this.index ++;
-              } else {
-                this.destination.lat = +placeData.lat;
-                this.destination.lng = +placeData.lng;
-                if (this.index === this.splitArray.length) {
-                  this.tempDir = new Dir(this.origin, this.destination);
-                  this.directions.push(this.tempDir);
-                } else {
-                  this.waypoints.push( {location: { lat: this.destination.lat , lng: this.destination.lng }});
-                  this.index ++;
-                }
-              }
+
+              //for (i = 0; i < this.splitArray.length; i++) {
+              tempArr[this.index] = placeData;
+              this.index++;
+              console.log(tempArr[0]);
+              // console.log(tempArr);
+              // this.likedPlaces = this.distanceFromStart(tempArr);
+              // console.log('check avu');
+              // console.log(this.likedPlaces );
+              // if (this.origin.lat === 0) {
+              //   this.origin.lat = +tempArr[0].lat;
+              //   this.origin.lng = +tempArr[0].lng;
+              //   this.index ++;
+              // } else {
+              //   this.destination.lat = +tempArr[1].lat;
+              //   this.destination.lng = +tempArr[1].lng;
+              //   if (this.index === this.splitArray.length) {
+              //     this.tempDir = new Dir(this.origin, this.destination);
+              //     this.directions.push(this.tempDir);
+              //   } else {
+              //     this.waypoints.push( {location: { lat: this.destination.lat , lng: this.destination.lng }});
+              //     this.index ++;
+              //   }
+              // }
             });
+
+          }
+
+        }
+        setTimeout(() => {
+
+
+          console.log('check avu first');
+          this.likedPlaces = this.distanceFromStart(tempArr);
+          console.log('check avu');
+          console.log(this.likedPlaces );
+          for (let index2 = 0; index2 < this.likedPlaces.length; index2++) {
+            if (this.origin.lat === 0) {
+            this.origin.lat = +this.likedPlaces[index2].lat;
+            this.origin.lng = +this.likedPlaces[index2].lng;
+            //this.index ++;
+          } else {
+            this.destination.lat = +this.likedPlaces[index2].lat;
+            this.destination.lng = +this.likedPlaces[index2].lng;
+            if (index2+1 === this.likedPlaces.length) {
+              console.log('index3: '+ index2);
+              this.tempDir = new Dir(this.origin, this.destination);
+              this.directions.push(this.tempDir);
+            } else {
+              this.waypoints.push( {location: { lat: this.destination.lat , lng: this.destination.lng }});
+             // this.index ++;
+            }
           }
         }
-
+      }, 1000);
         }
+
     });
 }
+
+distanceFromStart(array) {
+  console.log('distanceFromStart');
+  console.log(array);
+  if (array.lentgh === 1) {
+    return array;
+  } else {
+
+  let dist = 0;
+  let temp = 0;
+  var UpdateArrayByDistance = [];
+  UpdateArrayByDistance[0] = array[0];
+  //UpdateArrayByDistance
+  //UpdateArrayByDistance.push(array);
+  console.log('distanceFromMiddle');
+  console.log(UpdateArrayByDistance);
+  let checkIfExistPlace = UpdateArrayByDistance[0].name;
+  console.log(array.length);
+  for (let index = 0; index < array.length; index++) {
+    checkIfExistPlace = checkIfExistPlace.concat(UpdateArrayByDistance[index].name);
+      temp = 10000000;
+      console.log('index : ' + index);
+      for (let index2 = 0; index2 < array.length; index2++) {
+        console.log('index2 : ' + index2);
+        console.log('checkIfExistPlace: ' + checkIfExistPlace);
+        console.log(array[index2].name);
+        if (!checkIfExistPlace.includes(array[index2].name)) {
+          console.log(UpdateArrayByDistance[index]);
+          console.log(array[index2]);
+     dist = this.distance(UpdateArrayByDistance[index].lat, UpdateArrayByDistance[index].lng, array[index2].lat, array[index2].lng);
+    console.log('dist : ' + dist);
+    console.log('temp : ' + temp);
+     if (dist !== 0) {
+      if ( (Math.min(dist, temp)) === dist) {
+        UpdateArrayByDistance[index + 1] = array[index2];
+       // checkIfExistPlace = checkIfExistPlace.concat(UpdateArrayByDistance[index + 1].name);
+        console.log(UpdateArrayByDistance[index + 1]);
+        temp = dist;
+      }
+
+     }
+      }
+    }
+    }
+  }
+  console.log(array);
+  console.log(UpdateArrayByDistance);
+  return UpdateArrayByDistance;
+}
+
+ distance(lat1, lon1, lat2, lon2) {
+	// tslint:disable-next-line: indent
+	if ((lat1 === lat2) && (lon1 === lon2)) {
+		return 0;
+	} else {
+		const radlat1 = Math.PI * lat1 / 180;
+		const radlat2 = Math.PI * lat2 / 180;
+		const theta = lon1 - lon2;
+		const radtheta = Math.PI * theta / 180;
+		let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180 / Math.PI;
+		dist = dist * 60 * 1.1515;
+  dist = dist * 1.609344;
+		return dist;
+	}
+}
+
 
 checkPlaceGoal(place) {
   this.colorurl = './assets/images/red-dot.png';
