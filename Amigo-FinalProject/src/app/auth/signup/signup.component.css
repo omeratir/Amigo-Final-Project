@@ -29,3 +29,21 @@ mat-spinner {
   font-weight: bold;
   font-size: medium;
 }
+.mat-form-field {
+  width: 100%;
+  display: block;
+  /* position: relative; */
+  text-align: left;
+}
+
+.mat-card{
+  left: 32%;
+  width:35%;
+  /* box-shadow: 100%; */
+  -webkit-filter: drop-shadow(2px 2px 2px #222);
+  background: aliceblue;
+/* background-color: #daf9ff; */
+}
+body{
+  /* background-color: #4E9CAF; */
+}

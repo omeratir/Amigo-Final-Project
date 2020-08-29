@@ -15,13 +15,13 @@
                      <li class="list-group-item">
                       <div id="qr" style="display:inline-block; min-width:5.2cm; height:3.8cm; align: center;vertical-align: middle;" >
                       <img src="{{place.photo}}"
-                      style="height: 70px;"
-                      style="width: 170px;"
-                      >
+                      style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
-                        <strong>{{place.name}}</strong>
+                        <strong>{{place.name}}</strong>                         <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
+                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
                       <br>
                      {{place.goal}}
 
@@ -30,9 +30,7 @@
 
                         <!-- <i class="fa fa-check-square-o" aria-hidden="true"></i> -->
 
-                        <br>
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
-                        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
+
                         <!-- <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
                         <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a> -->
                       </div>
@@ -55,17 +53,25 @@
   (markerClick)="clickedMarker(infoWindow)"
   [iconUrl] = colorurl
   >
+  <div class="infoWindow">
 
-  <agm-info-window #infoWindow>
-      Place Name: {{place.name}}
-      <br>
-      Place Goal: {{place.goal}}
-      <br>
-      <br>
-      <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
-      <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
-</agm-info-window>
+  <agm-info-window #infoWindow  >
 
+      <strong>Place Name:</strong> {{place.name}}
+      <br>
+      <strong> Place Goal:</strong> {{place.goal}}
+      <br>
+      <br>
+
+      <div id="qr" style="display:inline-block; min-width:4.2cm; height:2.8cm; align: center;vertical-align: middle;" >
+        <img src="{{place.photo}}"
+        style ="border-radius: 20px;height: 100px;width:120px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+
+        </div>
+        <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
+        <a  class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
+    </agm-info-window>
+</div>
   </agm-marker>
 </div>
 </agm-map>

@@ -28,11 +28,11 @@ agm-map
   user-select: none;
 }
 .search{
-  font-size: 28px;
+  font-size: 25px;
   right: 3px;
   bottom: auto;
   position: absolute;
-  color:gray;
+  color:rgb(11, 64, 212);
 }
 
 .fa:hover {
@@ -55,7 +55,7 @@ mat-button-toggle-group {
 
 .liked {
   font-size: 28px;
-  color: red;
+  color: rgb(15, 47, 224);
 }
 
 .unliked {
@@ -313,5 +313,27 @@ left: 20px;
   color:white;
   background-color: rgb(245, 147, 68)
 }
+/* //////////////////////// */
 
+.circular-chart {
+  display: block;
+  margin: 10px auto;
+  max-width: 85%;
+  max-height: 50px;
+  position: absolute;
+  left: 300px;
+}
 
+.circle {
+  stroke: #4CC790;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}

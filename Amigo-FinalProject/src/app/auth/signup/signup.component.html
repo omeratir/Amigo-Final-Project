@@ -1,5 +1,7 @@
+<body>
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="blocks">
   <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
@@ -78,5 +80,8 @@
     </div> -->
 
     <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Next</button>
+
   </form>
+</div>
 </mat-card>
+</body>

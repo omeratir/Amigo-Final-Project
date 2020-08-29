@@ -85,12 +85,27 @@ body {
                        <br>
                          <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
                         <br>
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                          <a *ngIf="chartPercent(place)" ><text x="4" y="24" >{{this.chart}}%</text>
+                          <path class="circle"
+                          attr.stroke-dasharray="{{this.chart}}, 100"
+
+
+                            d="M18 2.0845
+                              a 15.9155 15.9155 0 0 1 0 31.831
+                              a 15.9155 15.9155 0 0 1 0 -31.831"
+
+                          />
+
+                        </a>
+                        </svg>
                         <br>
                         <!-- *ngIf="!checkIfUserLikeThePlace(place.id)"* -->
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place)" aria-disabled="true"><i class="fa fa-thumbs-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-                        <a class="abutton" *ngIf="checkIfUserLikeThePlace(place.id)" (click)="removeLike(place)" aria-disabled="true"><i class="fa fa-thumbs-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
+                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
+                        <a class="abutton" *ngIf="checkIfUserLikeThePlace(place.id)" (click)="removeLike(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
                         <a class="abutton" *ngIf="!checkIfUserUnLikeThePlace(place.id)" (click)="UnLikeClicked(place)">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
                         <a class="abutton" *ngIf="checkIfUserUnLikeThePlace(place.id)"(click)="removeUnlike(place)">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+
                       </div>
                       </li>
                    </div>

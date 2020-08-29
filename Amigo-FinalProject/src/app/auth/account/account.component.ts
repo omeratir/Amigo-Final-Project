@@ -308,7 +308,7 @@ distanceFromStart(array) {
 
   let dist = 0;
   let temp = 0;
-  let UpdateArrayByDistance = [];
+  var UpdateArrayByDistance = [];
   UpdateArrayByDistance[0] = array[0];
   //UpdateArrayByDistance
   //UpdateArrayByDistance.push(array);
@@ -345,7 +345,7 @@ distanceFromStart(array) {
     }
   }
   console.log(array);
-  console.log(UpdateArrayByDistance);
+  // console.log(UpdateArrayByDistance);
   return UpdateArrayByDistance;
 }
 

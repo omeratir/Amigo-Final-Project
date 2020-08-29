@@ -54,16 +54,46 @@ mat-button-toggle-group {
 
 .list-group{
   max-height: 550px;
-  width: 500px;
+  width: 520px;
   margin-bottom: 10px;
   overflow:auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
-  right: 80px;
+  right: 30px;
 
 }
 .list-group-item{
-  height: 150px;
-  width: 475px;
+  height: fit-content;
+  /* height: 200px; */
+      width: 500px;
 }
+
+.abutton{
+size: 3%;
+font-size: 28px;
+right: 3px;
+bottom: auto;
+position: absolute;
+}
+
+/* .gm-style .gm-style-iw-c{
+  padding-right: 100px;
+  padding-bottom: 50px;
+  max-width: 400px;
+  max-height: 400px;
+  min-width: 100px;
+} */
+
+/* .gm-style .gm-style-iw-c {
+  position: absolute;
+  box-sizing: border-box;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  transform: translate(-50%,-100%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
+} */
 

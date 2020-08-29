@@ -5,7 +5,9 @@ import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
 import { User } from 'src/app/auth/user.model';
 import { Kmeans } from '../kmeans.model';
-
+import { PlaceFullData } from 'src/app/places/placeFullData.model';
+import { UserFullData } from 'src/app/auth/userfulldata.model';
+import { take } from 'rxjs/operators';
 @Component({
   templateUrl: './placefind.component.html',
   styleUrls: ['./placefind.component.css']
@@ -31,17 +33,17 @@ export class PlaceFindComponent implements OnInit {
   usersavedplaces: string;
 
   ifSave = false;
-
+  userFulldata: UserFullData;
   colorurl: string;
   place: Place;
 
   name: string;
 
   flag: boolean;
-
+  placeFull: PlaceFullData;
   placeName: string[] = [];
   placeurl: string;
-
+  chart = 0;
   tempplacessave: string[] = [];
 
   placeFindBtnClicked: boolean;
@@ -257,7 +259,120 @@ clickedMarker(infoWindow) {
     return false;
   }
 
-  onSavePlaceClicked(place: Place) {
+
+chartPercent(place) {
+// this.placesService.getPlaceFullData(placeid).subscribe(placeData => {
+//     this.placeFull = {
+//       id: placeData._id,
+//       name: placeData.name,
+//       lat: placeData.lat,
+//       lng: placeData.lng,
+//       goal: placeData.goal,
+//       count_of_likes: placeData.count_of_likes,
+//       count_of_place_likes: placeData.count_of_place_likes,
+//       count_of_place_unlikes: placeData.count_of_place_unlikes,
+//       creator: placeData.creator,
+//       photo: placeData.photo,
+//       gender_avg: placeData.gender_avg,
+//       count_sport: placeData.count_sport,
+//       count_culture: placeData.count_culture,
+//       count_food: placeData.count_food,
+//       count_female: placeData.count_female,
+//       count_male: placeData.count_male,
+//       avg_sport: placeData.avg_sport,
+//       avg_culture: placeData.gender_avg,
+//       avg_food: placeData.avg_food,
+//       count_age20: placeData.count_age20,
+//       count_age35: placeData.count_age35,
+//       count_age50: placeData.count_age50,
+//       count_age120: placeData.count_age120
+//     };
+//     this.authService.getUserFullData(this.userId).subscribe(userData => {
+//       this.userFulldata = {
+//         email: userData.email,
+//         password: userData.password,
+//         firstName: userData.firstName,
+//         lastName: userData.lastName,
+//         age: userData.age,
+//         gender: userData.gender,
+//         sport: userData.sport,
+//         culture: userData.culture,
+//         food: userData.food,
+//         liked_place: userData.liked_place,
+//         liked_places_array: userData.liked_places_array,
+//         unliked_places_array: userData.unliked_places_array,
+//         kmeans_array: userData.kmeans_array,
+//         count_of_liked_places: userData.count_of_liked_places,
+//         sportsAndExtreme: userData.sportsAndExtreme,
+//         cultureAndHistoricalPlaces: userData.cultureAndHistoricalPlaces,
+//         attractionsAndLeisure: userData.attractionsAndLeisure,
+//         rest: userData.rest,
+//         nightLife: userData.nightLife,
+//         shopping: userData.shopping,
+//         avg_age20: userData.avg_age20,
+//         avg_age35: userData.avg_age35,
+//         avg_age50: userData.avg_age50,
+//         avg_age_120: userData.avg_age_120,
+//         avg_gender_place: userData.avg_gender_place,
+//         avg_sport_place: userData.avg_sport_place,
+//         avg_culture_place: userData.avg_culture_place,
+//         avg_food_place: userData.avg_food_place
+//       };
+//       if ((userData.avg_gender_place - placeData.gender_avg) < 0) {
+//         this.chart += ((userData.avg_gender_place - placeData.gender_avg) * (-1));
+//       } else {
+//         this.chart += (userData.avg_gender_place - placeData.gender_avg);
+//       }
+//       console.log(this.chart);
+//       if ((userData.avg_sport_place - placeData.avg_sport) < 0) {
+//         this.chart += ((userData.avg_sport_place - placeData.avg_sport) * (-1));
+//       } else {
+//         this.chart += (userData.avg_sport_place - placeData.avg_sport);
+//       }
+//       console.log(this.chart);
+//       if ((userData.avg_culture_place - placeData.avg_culture) < 0) {
+//         this.chart += ((userData.avg_culture_place - placeData.avg_culture) * (-1));
+//       } else {
+//         this.chart += (userData.avg_culture_place - placeData.avg_culture);
+//       }
+//       console.log(this.chart);
+//       if ((userData.avg_food_place - placeData.avg_food) < 0) {
+//         this.chart += ((userData.avg_food_place - placeData.avg_food) * (-1));
+//       } else {
+//         this.chart += (userData.avg_food_place - placeData.avg_food);
+//       }
+//       if ((userData.avg_age20 - (placeData.count_age20 / placeData.count_of_likes)) < 0) {
+//         this.chart += ((userData.avg_age20 - (placeData.count_age20 / placeData.count_of_likes)) * (-1));
+//       } else {
+//         this.chart += (userData.avg_age20 - (placeData.count_age20 / placeData.count_of_likes));
+//       }
+//       if ((userData.avg_age35 - (placeData.count_age35 / placeData.count_of_likes)) < 0) {
+//         this.chart += ((userData.avg_age35 - (placeData.count_age35 / placeData.count_of_likes)) * (-1));
+//       } else {
+//         this.chart += (userData.avg_age35 - (placeData.count_age35 / placeData.count_of_likes));
+//       }
+//       if ((userData.avg_age50 - (placeData.count_age50 / placeData.count_of_likes)) < 0) {
+//         this.chart += ((userData.avg_age50 - (placeData.count_age50 / placeData.count_of_likes)) * (-1));
+//       } else {
+//         this.chart += (userData.avg_age50 - (placeData.count_age50 / placeData.count_of_likes));
+//       }
+//       if ((userData.avg_age_120 - (placeData.count_age120 / placeData.count_of_likes)) < 0) {
+//         this.chart += ((userData.avg_age_120 - (placeData.count_age120 / placeData.count_of_likes)) * (-1));
+//       } else {
+//         this.chart += (userData.avg_age_120 - (placeData.count_age120 / placeData.count_of_likes));
+//       }
+//       this.chart = (this.chart/5)*(100);
+
+//      return true;
+//     });
+// });
+console.log(place.count_of_likes);
+this.chart = place.count_of_likes;
+return true;
+}
+
+
+onSavePlaceClicked(place: Place) {
     this.usersavedplaces = this.user.liked_place;
     if (this.user.liked_place === 'EMPTY') {
       this.user.liked_place = place.id;
@@ -275,7 +390,7 @@ clickedMarker(infoWindow) {
     this.updateUser();
   }
 
-  onUnSavePlaceClicked(place: Place) {
+onUnSavePlaceClicked(place: Place) {
       this.usersavedplaces = this.user.liked_place;
 
       this.tempplacessave = this.user.liked_place.split(',');
@@ -300,7 +415,7 @@ clickedMarker(infoWindow) {
       // this.updateUser();
   }
 
-  updateUser() {
+updateUser() {
     this.authService.getUserData(this.userId).subscribe(userData => {
       this.user = {
         email: userData.email,
@@ -318,10 +433,9 @@ clickedMarker(infoWindow) {
         kmeans_array: userData.kmeans_array
     };
   });
-
   }
 
-  updateMarkerColorByGoal(place) {
+updateMarkerColorByGoal(place) {
     this.colorurl = './assets/images/red-dot.png';
 
     if (place.goal === 'Attractions & Leisure') {
@@ -352,7 +466,7 @@ clickedMarker(infoWindow) {
     return true;
   }
 
-  updateListAfterLikeOrUnlikeClicked(place: Place) {
+updateListAfterLikeOrUnlikeClicked(place: Place) {
     this.tempPlaces = [];
     this.placesService.getPlace(place.id).subscribe(placeData => {
       this.place = {
@@ -435,7 +549,7 @@ LikeClicked(place) {
     this.updateListAfterLikeOrUnlikeClicked(place);
 }
 
-  UnLikeClicked(place) {
+UnLikeClicked(place) {
     console.log('UnLike Clicked');
     // remove the placeid to the list.
     // add the placeid to the list.
@@ -485,7 +599,7 @@ LikeClicked(place) {
 
   }
 
-  removeLike(place) {
+removeLike(place) {
     console.log('Remove Like Clicked');
     // remove the placeid to the list.
     this.splitArray = [];
@@ -517,7 +631,7 @@ LikeClicked(place) {
 
   }
 
-  removeUnlike(place) {
+removeUnlike(place) {
     console.log('Remove UnLike Clicked');
     // remove the placeid to the list.
     this.splitArray = [];
@@ -549,7 +663,7 @@ LikeClicked(place) {
 
   }
 
-    checkIfUserLikeThePlace(placeid) {
+checkIfUserLikeThePlace(placeid) {
     if (this.user.liked_places_array === 'EMPTY') {
       return false;
     }
