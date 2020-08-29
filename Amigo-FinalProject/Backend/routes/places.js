@@ -10,9 +10,9 @@ router.post("/", checkAuth, extractFile, PlaceController.createPlace);
 
 router.put("/save/:id", checkAuth, extractFile, PlaceController.updatePlaceAfterSave);
 
-router.put("/like/:id", checkAuth, extractFile, PlaceController.updatePlaceOnLikeClicked);
+// router.put("/like/:id", checkAuth, extractFile, PlaceController.updatePlaceOnLikeClicked);
 
-router.put("/unlike/:id", checkAuth, extractFile, PlaceController.updatePlaceOnUnLikeClicked);
+// router.put("/unlike/:id", checkAuth, extractFile, PlaceController.updatePlaceOnUnLikeClicked);
 
 router.put("/updateuser/:id", checkAuth, extractFile, PlaceController.updateUser);
 
@@ -20,7 +20,11 @@ router.get("", PlaceController.getPlaces);
 
 router.get("/:id", PlaceController.getPlace);
 
+router.get("/getFullData/:id", PlaceController.getPlaceFullData);
+
 router.put("/kmeans/:id",checkAuth,  PlaceController.kmeans);
+
+router.put("/onlikeunlike/:id",checkAuth,  PlaceController.upadePlaceAferLikeUnlike);
 
 router.get("/kmeans2/:id",checkAuth,  PlaceController.kmeansGet);
 

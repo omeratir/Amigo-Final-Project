@@ -10,7 +10,7 @@ export interface UserData {
   culture: boolean;
   food: boolean;
   liked_place: string;
-  unliked_place: string;
-  save_place: string;
+  liked_places_array: string;
+  unliked_places_array: string;
   kmeans_array: string;
 }

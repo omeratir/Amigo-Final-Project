@@ -22,8 +22,8 @@ exports.createUser = (req, res, next) => {
       avg_age_120: 0, //avg age of liked places
       liked_place: 'EMPTY',
       kmeans_array: 'EMPTY',
-      save_place: 'EMPTY',
-      unlike_place: 'EMPTY',
+      liked_places_array: 'EMPTY',
+      unliked_places_array: 'EMPTY',
       count_of_liked_places: 0,
 
       //goals
@@ -108,6 +108,22 @@ exports.getUser = (req, res, next) => {
     });
 };
 
+exports.getUserFullData = (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ message: "User not found!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching user failed!"
+      });
+    });
+};
+
 
 exports.updateUser = (req, res, next) => {
     // vars
@@ -143,8 +159,8 @@ exports.updateUser = (req, res, next) => {
         culture: req.body.culture,
         food: req.body.food,
         liked_place: req.body.liked_place,
-        save_place: req.body.save_place,
-        unlike_place: req.body.unlike_place,
+        liked_places_array: req.body.liked_places_array,
+        unliked_places_array: req.body.unliked_places_array,
         kmeans_array: req.body.kmeans_array,
         //req.body.kmeans_array,
 
@@ -269,8 +285,8 @@ else{
                    culture: req.body.culture,
                    food: req.body.food,
                    liked_place: req.body.liked_place,
-                   save_place: req.body.save_place,
-                   unlike_place: req.body.unlike_place,
+                   liked_places_array: req.body.liked_places_array,
+                   unliked_places_array: req.body.unliked_places_array,
                    kmeans_array: req.body.kmeans_array,
 
                    count_of_liked_places: countlikes,
@@ -344,8 +360,8 @@ exports.updateUserAfterRecommend = (req, res, next) => {
       sport: req.body.sport,
       culture: req.body.culture,
       food: req.body.food,
-      save_place: req.body.save_place,
-      unlike_place: req.body.unlike_place,
+      liked_places_array: req.body.liked_places_array,
+      unliked_places_array: req.body.unliked_places_array,
       liked_place: req.body.liked_place,
       kmeans_array: 'EMPTY',
     });
@@ -480,8 +496,8 @@ exports.UpdateUserByEmail = (req, res, next) => {
                culture: user.culture,
                food: user.food,
                liked_place: user.liked_place,
-               save_place: user.save_place,
-               unlike_place: user.unlike_place,
+               liked_places_array: user.liked_places_array,
+               unliked_places_array: user.unliked_places_array,
                kmeans_array: user.kmeans_array,
 
          count_of_liked_places: 0,
@@ -544,8 +560,8 @@ exports.updateUserData = (req, res, next) => {
     culture: req.body.culture,
     food: req.body.food,
     liked_place: req.body.liked_place,
-    unliked_place: req.body.unliked_place,
-    save_place: req.body.save_place,
+    unliked_places_array: req.body.unliked_places_array,
+    liked_places_array: req.body.liked_places_array,
     kmeans_array: req.body.kmeans_array
   });
 

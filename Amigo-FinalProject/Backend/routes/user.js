@@ -19,4 +19,6 @@ router.put("/updateuser/:id", checkAuth , UserController.updateUserData);
 
 router.put("/update/:email", extractFile, UserController.UpdateUserByEmail);
 
+router.get("/userfulldata/:id", UserController.getUserFullData);
+
 module.exports = router;

@@ -80,8 +80,8 @@ export class PlaceListComponent implements OnInit, OnDestroy {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
-          unliked_place: userData.unliked_place,
-          save_place: userData.save_place,
+          liked_places_array: userData.liked_places_array,
+          unliked_places_array: userData.unliked_places_array,
           kmeans_array: userData.kmeans_array
         };
     });
@@ -139,7 +139,7 @@ export class PlaceListComponent implements OnInit, OnDestroy {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
 
     }
 
@@ -167,7 +167,7 @@ UnLikeClicked(place, infoWindow) {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
   }
 
   checkIfUserLikeThePlace(placeid) {

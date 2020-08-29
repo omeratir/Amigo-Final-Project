@@ -9,6 +9,8 @@ import { Stringifiable } from 'd3';
 import { LatLng } from '@agm/core';
 import { identifierModuleUrl } from '@angular/compiler';
 import { callbackify } from 'util';
+import { PlaceFullData } from 'src/app/places/placeFullData.model';
+import { UserFullData } from '../userfulldata.model';
 
 interface Direction {
   origin: {lat, lng};
@@ -32,6 +34,7 @@ export class AccountComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
   user: User;
+  userFulldata: UserFullData;
   username: string;
 
   waypoints: any[];
@@ -62,6 +65,8 @@ export class AccountComponent implements OnInit {
   directions: Dir[] = [];
 
   tempDir: Dir;
+
+  placeFull: PlaceFullData;
 
   places: Place[] = [
 
@@ -117,6 +122,74 @@ export class AccountComponent implements OnInit {
             this.places = placeData.places;
           });
 
+
+    // this.placesService.getPlaceFullData('5f49f6fcdd1d6828683cc1ad').subscribe(placeData => {
+    //         this.placeFull = {
+    //           id: placeData._id,
+    //           name: placeData.name,
+    //           lat: placeData.lat,
+    //           lng: placeData.lng,
+    //           goal: placeData.goal,
+    //           count_of_likes: placeData.count_of_likes,
+    //           count_of_place_likes: placeData.count_of_place_likes,
+    //           count_of_place_unlikes: placeData.count_of_place_unlikes,
+    //           creator: placeData.creator,
+    //           photo: placeData.photo,
+    //           gender_avg: placeData.gender_avg,
+    //           count_sport: placeData.count_sport,
+    //           count_culture: placeData.count_culture,
+    //           count_food: placeData.count_food,
+    //           count_female: placeData.count_female,
+    //           count_male: placeData.count_male,
+    //           avg_sport: placeData.avg_sport,
+    //           avg_culture: placeData.gender_avg,
+    //           avg_food: placeData.avg_food,
+    //           count_age20: placeData.count_age20,
+    //           count_age35: placeData.count_age35,
+    //           count_age50: placeData.count_age50,
+    //           count_age120: placeData.count_age120
+    //         };
+    //         console.log('place data');
+    //         console.log(placeData);
+    //       });
+
+    // this.authService.getUserFullData(this.userId).subscribe(userData => {
+    //   this.userFulldata = {
+    //     email: userData.email,
+    //     password: userData.password,
+    //     firstName: userData.firstName,
+    //     lastName: userData.lastName,
+    //     age: userData.age,
+    //     gender: userData.gender,
+    //     sport: userData.sport,
+    //     culture: userData.culture,
+    //     food: userData.food,
+    //     liked_place: userData.liked_place,
+    //     liked_places_array: userData.liked_places_array,
+    //     unliked_places_array: userData.unliked_places_array,
+    //     kmeans_array: userData.kmeans_array,
+    //     count_of_liked_places: userData.count_of_liked_places,
+    //     sportsAndExtreme: userData.sportsAndExtreme,
+    //     cultureAndHistoricalPlaces: userData.cultureAndHistoricalPlaces,
+    //     attractionsAndLeisure: userData.attractionsAndLeisure,
+    //     rest: userData.rest,
+    //     nightLife: userData.nightLife,
+    //     shopping: userData.shopping,
+    //     avg_age20: userData.avg_age20,
+    //     avg_age35: userData.avg_age35,
+    //     avg_age50: userData.avg_age50,
+    //     avg_age_120: userData.avg_age_120,
+    //     avg_gender_place: userData.avg_gender_place,
+    //     avg_sport_place: userData.avg_sport_place,
+    //     avg_culture_place: userData.avg_culture_place,
+    //     avg_food_place: userData.avg_food_place
+    //   };
+    //   console.log('user data');
+    //   console.log(userData);
+
+    // });
+
+
     this.authService.getUserData(this.userId).subscribe(userData => {
         this.user = {
           email: userData.email,
@@ -129,8 +202,8 @@ export class AccountComponent implements OnInit {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
-          unliked_place: userData.unliked_place,
-          save_place: userData.save_place,
+          liked_places_array: userData.liked_places_array,
+          unliked_places_array: userData.unliked_places_array,
           kmeans_array: userData.kmeans_array
         };
 
@@ -235,7 +308,7 @@ distanceFromStart(array) {
 
   let dist = 0;
   let temp = 0;
-  var UpdateArrayByDistance = [];
+  let UpdateArrayByDistance = [];
   UpdateArrayByDistance[0] = array[0];
   //UpdateArrayByDistance
   //UpdateArrayByDistance.push(array);
@@ -358,7 +431,7 @@ checkPlaceGoal(place) {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
 
     }
 
@@ -385,7 +458,7 @@ UnLikeClicked(place, infoWindow) {
 
     this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
-      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.unliked_place, this.user.save_place, this.user.kmeans_array );
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
 
     this.authService.getUserData(this.userId).subscribe(userData => {
         this.user = {
@@ -399,8 +472,8 @@ UnLikeClicked(place, infoWindow) {
           culture: userData.culture,
           food: userData.food,
           liked_place: userData.liked_place,
-          unliked_place: userData.unliked_place,
-          save_place: userData.save_place,
+          liked_places_array: userData.liked_places_array,
+          unliked_places_array: userData.unliked_places_array,
           kmeans_array: userData.kmeans_array
         };
 

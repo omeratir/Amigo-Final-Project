@@ -264,6 +264,22 @@ exports.getPlace = (req, res, next) => {
     });
 };
 
+exports.getPlaceFullData = (req, res, next) => {
+  Place.findById(req.params.id)
+    .then(place => {
+      if (place) {
+        res.status(200).json(place);
+      } else {
+        res.status(404).json({ message: "Place not found!" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "Fetching place failed!"
+      });
+    });
+};
+
 exports.deletePlace = (req, res, next) => {
   Place.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
@@ -475,8 +491,8 @@ console.log(vectors3);
               culture: usertemp.culture,
               food: usertemp.food,
               liked_place: usertemp.liked_place,
-              save_place: usertemp.save_place,
-              unliked_place: usertemp.unliked_place,
+              liked_places_array: usertemp.liked_places_array,
+              unliked_places_array: usertemp.unliked_places_array,
               kmeans_array: lengthStringPlaces
             });
             User.updateOne({ _id: req.params.id}, userData)
@@ -902,8 +918,8 @@ exports.getAllPlaces = (req, res, next) => {
               culture: usertemp.culture,
               food: usertemp.food,
               liked_place: usertemp.liked_place,
-              save_place: usertemp.save_place,
-              unliked_place: usertemp.unliked_place,
+              liked_places_array: usertemp.liked_places_array,
+              unliked_places_array: usertemp.unliked_places_array,
               kmeans_array: lengthStringPlaces,
             });
             User.updateOne({ _id: req.params.id}, userData)
@@ -927,78 +943,107 @@ exports.getAllPlaces = (req, res, next) => {
     });
   }
 
-  exports.updatePlaceOnLikeClicked = (req, res, next) => {
-        Place.findById(req.body.id)
-        .then(place => {
-          if (place) {
-            const placeData = new Place({
-              _id: req.body.id,
-              name: req.body.name,
-              lat: req.body.lat,
-              lng: req.body.lng,
-              count_of_place_likes: place.count_of_place_likes + 1
-            });
-
-            Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
-              .then(result => {
-                if (result.n > 0) {
-                  res.status(200).json({ message: "Update successful!" });
-                } else {
-                  res.status(401).json({ message: "Not authorized!" });
-                }
-              })
-              .catch(error => {
-                res.status(500).json({
-                  message: "Couldn't udpate place!"
-                });
-              });
-          } else {
-            res.status(404).json({ message: "Place not found!" });
-          }
-        })
-        .catch(error => {
-          res.status(500).json({
-            message: "Fetching place failed!"
-          });
-        });
-
-  };
-
-  exports.updatePlaceOnUnLikeClicked = (req, res, next) => {
-    Place.findById(req.body.id)
-    .then(place => {
-      if (place) {
-        const placeData = new Place({
-          _id: req.body.id,
-          name: req.body.name,
-          lat: req.body.lat,
-          lng: req.body.lng,
-          count_of_place_unlikes: place.count_of_place_unlikes + 1
-        });
-
-        Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
-          .then(result => {
-            if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!" });
-            } else {
-              res.status(401).json({ message: "Not authorized!" });
-            }
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: "Couldn't udpate place!"
-            });
-          });
-      } else {
-        res.status(404).json({ message: "Place not found!" });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: "Fetching place failed!"
-      });
+  exports.upadePlaceAferLikeUnlike = (req, res, next) => {
+    const place = new Place({
+      _id: req.body.id,
+      name: req.body.name,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      goal: req.body.goal,
+      count_of_likes: req.body.count_of_likes,
+      count_of_place_likes: req.body.count_of_place_likes,
+      count_of_place_unlikes: req.body.count_of_place_unlikes
     });
 
-};
+    Place.updateOne({ _id: req.params.id }, place)
+      .then(result => {
+        if (result.n > 0) {
+          res.status(200).json({ message: "Update place successful!" });
+        } else {
+          res.status(401).json({ message: "Not authorized to update place !" });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: "Couldn't udpate place!!!!"
+        });
+      });
+
+
+  }
+
+//   exports.updatePlaceOnLikeClicked = (req, res, next) => {
+//         Place.findById(req.body.id)
+//         .then(place => {
+//           if (place) {
+//             const placeData = new Place({
+//               _id: req.body.id,
+//               name: req.body.name,
+//               lat: req.body.lat,
+//               lng: req.body.lng,
+//               count_of_place_likes: place.count_of_place_likes + 1
+//             });
+
+//             Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
+//               .then(result => {
+//                 if (result.n > 0) {
+//                   res.status(200).json({ message: "Update successful!" });
+//                 } else {
+//                   res.status(401).json({ message: "Not authorized!" });
+//                 }
+//               })
+//               .catch(error => {
+//                 res.status(500).json({
+//                   message: "Couldn't udpate place!"
+//                 });
+//               });
+//           } else {
+//             res.status(404).json({ message: "Place not found!" });
+//           }
+//         })
+//         .catch(error => {
+//           res.status(500).json({
+//             message: "Fetching place failed!"
+//           });
+//         });
+
+//   };
+
+//   exports.updatePlaceOnUnLikeClicked = (req, res, next) => {
+//     Place.findById(req.body.id)
+//     .then(place => {
+//       if (place) {
+//         const placeData = new Place({
+//           _id: req.body.id,
+//           name: req.body.name,
+//           lat: req.body.lat,
+//           lng: req.body.lng,
+//           count_of_place_unlikes: place.count_of_place_unlikes + 1
+//         });
+
+//         Place.updateOne({ _id: req.params.id /*, creator: req.userData.userId */}, placeData)
+//           .then(result => {
+//             if (result.n > 0) {
+//               res.status(200).json({ message: "Update successful!" });
+//             } else {
+//               res.status(401).json({ message: "Not authorized!" });
+//             }
+//           })
+//           .catch(error => {
+//             res.status(500).json({
+//               message: "Couldn't udpate place!"
+//             });
+//           });
+//       } else {
+//         res.status(404).json({ message: "Place not found!" });
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         message: "Fetching place failed!"
+//       });
+//     });
+
+// };
 
 

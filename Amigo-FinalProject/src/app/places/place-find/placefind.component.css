@@ -36,7 +36,7 @@ agm-map
 }
 
 .fa:hover {
-  color: gray;
+  color: green;
 }
 
 mat-button-toggle-group {
@@ -45,12 +45,22 @@ mat-button-toggle-group {
 
 .like {
   font-size: 28px;
-  color: red;
+  color: black;
 }
 
 .unlike {
   font-size: 28px;
   color: black;
+}
+
+.liked {
+  font-size: 28px;
+  color: red;
+}
+
+.unliked {
+  font-size: 28px;
+  color: red;
 }
 
 .delete {

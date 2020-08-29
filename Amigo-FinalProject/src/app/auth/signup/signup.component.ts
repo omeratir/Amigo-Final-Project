@@ -110,13 +110,13 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     form.value.liked_place = 'EMPTY';
     form.value.kmeans_array = 'EMPTY';
-    form.value.unliked_place = 'EMPTY';
-    form.value.save_place = 'EMPTY';
+    form.value.unliked_places_array = 'EMPTY';
+    form.value.liked_places_array = 'EMPTY';
 
     form.value.gender = this.gender;
 
     // tslint:disable-next-line: max-line-length
-    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , form.value.liked_place , form.value.unliked_place, form.value.save_place, form.value.kmeans_array );
+    this.authService.createUser(form.value.email, form.value.password, form.value.firstName, form.value.lastName, form.value.age , form.value.gender, this.Hobby_Sport, this.Hobby_Culture, this.Hobby_Food , form.value.liked_place , form.value.liked_places_array, form.value.unliked_places_array, form.value.kmeans_array );
   }
 
   ngOnDestroy() {
