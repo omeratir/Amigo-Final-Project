@@ -73,3 +73,63 @@ section {
   background-color: cornflowerblue
 }
 
+.homeImg {
+    margin: auto;
+    width: 80%;
+    border: 3px solid transparent;
+    padding: 10px;
+}
+
+.back{
+background-color:rgb(85, 221, 226) ;
+    border-radius: 12px;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 128px;
+    padding: 72px 0 108px;
+    position: relative;
+    box-sizing: border-box;
+}
+.pic {
+  /* background-image:url("/../..assets/images/people.jpg"); */
+  background-repeat: no-repeat;
+  background-position: 100%;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+}
+
+  .inPic {
+    /* -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: var(--_2lVoDyKM);
+    /* display: -webkit-flex;
+    display: -ms-flexbox; */
+    display: flex;
+    width: 100%;
+  }
+
+  ._3ltpazuV {
+    max-width: calc(100vw - var(--_UgotPsXG) - 48px - (100vw - 48px - var(--_2lVoDyKM))/2 - 16px);
+}
+
+    ._picText {
+      font-size: 36px;
+      line-height: 40px;
+      color: var(--primaryText);
+      height: 80px;
+      /* display: -webkit-flex;
+      display: -ms-flexbox; */
+      display: flex;
+      /* -webkit-align-items: flex-end;
+      -ms-flex-align: end; */
+      align-items: flex-end;
+      margin: 8px 0 24px;
+      font-weight: 900;
+  }

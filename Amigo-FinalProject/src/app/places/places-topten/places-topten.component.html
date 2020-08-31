@@ -1,5 +1,40 @@
-<img src="assets/images/top10.png" alt="image" width="20%" class="centerimg"/>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<img src="assets/images/topTen.png" alt="image" width="20%" class="centerimg"/>
+<br>
+<br>
 
+
+  <div class="row">
+    <div *ngFor="let place of places">
+     <div class="column">
+      <div class="card">
+        <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
+          <img src="{{place.photo}}"
+          style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+          </div>
+          <br>
+          <br>
+          <div style="display:inline-block; vertical-align:top;">
+            <strong>{{place.name}}</strong>
+            <!-- <h3>Card 1</h3>
+            <p>Some text</p>
+            <p>Some text</p> -->
+
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>
+
+
+
+<!--
 <div *ngFor="let place of places">
   <span>
     {{ place.name }}
@@ -8,4 +43,4 @@
   <span>
     {{ place.count_of_likes }}
   </span>
-</div>
+</div> -->

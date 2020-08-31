@@ -15,12 +15,12 @@ export interface UserFullData {
 
   count_of_liked_places: number;
 
-  sportsAndExtreme: number;
-  cultureAndHistoricalPlaces: number;
-  attractionsAndLeisure: number;
-  rest: number;
-  nightLife: number;
-  shopping: number;
+  sportsAndExtreme: string;
+  cultureAndHistoricalPlaces: string;
+  attractionsAndLeisure: string;
+  rest: string;
+  nightLife: string;
+  shopping: string;
 
   avg_age20: number;
   avg_age35: number;

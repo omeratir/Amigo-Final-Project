@@ -921,6 +921,21 @@ exports.getAllPlaces = (req, res, next) => {
               liked_places_array: usertemp.liked_places_array,
               unliked_places_array: usertemp.unliked_places_array,
               kmeans_array: lengthStringPlaces,
+              avg_gender_place: usertemp.avg_gender_place,
+              avg_sport_place: usertemp.avg_sport_place,
+              avg_culture_place: usertemp.avg_culture_place,
+              avg_food_place: usertemp.avg_food_place,
+              count_of_liked_places: usertemp.count_of_liked_places,    
+  sportsAndExtreme: usertemp.sportsAndExtreme,
+  cultureAndHistoricalPlaces: usertemp.cultureAndHistoricalPlaces,
+  attractionsAndLeisure: usertemp.attractionsAndLeisure,
+  rest: usertemp.rest,
+  nightLife: usertemp.nightLife,
+  shopping: usertemp.shopping,
+  avg_age20: usertemp.avg_age20,
+  avg_age35: usertemp.avg_age35,
+  avg_age50: usertemp.avg_age50,
+  avg_age_120: usertemp.avg_age_120,
             });
             User.updateOne({ _id: req.params.id}, userData)
             .then(result => {

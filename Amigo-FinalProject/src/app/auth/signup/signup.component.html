@@ -1,87 +1,90 @@
 <body>
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <div class="blocks">
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="firstName" ngModel type="firstName" placeholder="First Name" #firstNameInput="ngModel" required>
-      <mat-error *ngIf="firstNameInput.invalid">Please enter your first name.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="lastName" ngModel type="lastName" placeholder="Last Name" #lastNameInput="ngModel" required>
-      <mat-error *ngIf="lastNameInput.invalid">Please enter your last name.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput name="age" ngModel type="age" placeholder="Age" #ageInput="ngModel" required>
-      <mat-error *ngIf="ageInput.invalid">Please enter your age.</mat-error>
-    </mat-form-field>
-
-    <span>Select Your Gender:</span>
-
-    <br>
-
-    <mat-radio-group>
-      <mat-radio-button value="Male" [checked]="male" (change)="male = !male">Male</mat-radio-button>
+  <mat-card style="border:5px solid rgb(85, 221, 226);">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <div class="blocks">
+    <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+      <img src="assets/images/AMIGO.png" alt="image" class="centerimg"/>
       <br>
-      <mat-radio-button value="Female" [checked]="female" (change)="female = !female">Female</mat-radio-button>
-    </mat-radio-group>
-
-    <mat-error *ngIf="female == male">Please Choose your Gender</mat-error>
-
-    <br>
-
-    <!-- <mat-form-field>
-      <input matInput name="gender" ngModel type="gender" placeholder="Gender" #genderInput="ngModel" required>
-      <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
-    </mat-form-field> -->
-
-    <span>Select Your Hobbies:</span>
-
-    <br>
-
-    <mat-checkbox [checked]="Hobby_Sport" (change)="Hobby_Sport = !Hobby_Sport">
-      Sport
-    </mat-checkbox>
-
-    <br>
-
-    <mat-checkbox [checked]="Hobby_Culture" (change)="Hobby_Culture = !Hobby_Culture">
-      Culture
-    </mat-checkbox>
-
-    <br>
-
-    <mat-checkbox [checked]="Hobby_Food" (change)="Hobby_Food = !Hobby_Food">
-      Food
-    </mat-checkbox>
-
-    <br>
-
-    <mat-error *ngIf="((!Hobby_Food) && (!Hobby_Culture) && (!Hobby_Sport))">Please Choose your hoobies</mat-error>
-
-    <br>
-
-    <!-- <div>
-      <h5>Help us get to know you better</h5>
-      <h6>Which places interest you the most?</h6>
-
-    </div> -->
-
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Next</button>
-
-  </form>
-</div>
-</mat-card>
-</body>
+      <br>
+      <mat-form-field>
+        <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
+        <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
+        <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <input matInput name="firstName" ngModel type="firstName" placeholder="First Name" #firstNameInput="ngModel" required>
+        <mat-error *ngIf="firstNameInput.invalid">Please enter your first name.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <input matInput name="lastName" ngModel type="lastName" placeholder="Last Name" #lastNameInput="ngModel" required>
+        <mat-error *ngIf="lastNameInput.invalid">Please enter your last name.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <input matInput name="age" ngModel type="age" placeholder="Age" #ageInput="ngModel" required>
+        <mat-error *ngIf="ageInput.invalid">Please enter your age.</mat-error>
+      </mat-form-field>
+  
+      <span>Select Your Gender:</span>
+  
+      <br>
+  
+      <mat-radio-group>
+        <mat-radio-button value="Male" [checked]="male" (change)="male = !male">Male</mat-radio-button>
+        <br>
+        <mat-radio-button value="Female" [checked]="female" (change)="female = !female">Female</mat-radio-button>
+      </mat-radio-group>
+  
+      <mat-error *ngIf="female == male">Please Choose your Gender</mat-error>
+  
+      <br>
+  
+      <!-- <mat-form-field>
+        <input matInput name="gender" ngModel type="gender" placeholder="Gender" #genderInput="ngModel" required>
+        <mat-error *ngIf="genderInput.invalid">Please enter your gender.</mat-error>
+      </mat-form-field> -->
+  
+      <span>Select Your Hobbies:</span>
+  
+      <br>
+  
+      <mat-checkbox [checked]="Hobby_Sport" (change)="Hobby_Sport = !Hobby_Sport">
+        Sport
+      </mat-checkbox>
+  
+      <br>
+  
+      <mat-checkbox [checked]="Hobby_Culture" (change)="Hobby_Culture = !Hobby_Culture">
+        Culture
+      </mat-checkbox>
+  
+      <br>
+  
+      <mat-checkbox [checked]="Hobby_Food" (change)="Hobby_Food = !Hobby_Food">
+        Food
+      </mat-checkbox>
+  
+      <br>
+  
+      <mat-error *ngIf="((!Hobby_Food) && (!Hobby_Culture) && (!Hobby_Sport))">Please Choose your hoobies</mat-error>
+  
+      <br>
+  
+      <!-- <div>
+        <h5>Help us get to know you better</h5>
+        <h6>Which places interest you the most?</h6>
+  
+      </div> -->
+  
+      <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Next</button>
+  
+    </form>
+  </div>
+  </mat-card>
+  </body>

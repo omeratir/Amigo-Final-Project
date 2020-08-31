@@ -1,6 +1,9 @@
-<mat-card>
+<mat-card style="border:5px solid rgb(85, 221, 226);">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
+    <img src="assets/images/AMIGO.png" alt="image" class="centerimg"/>
+    <br>
+    <br>
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
       <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
@@ -9,6 +12,6 @@
       <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
+    <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Login</button>
   </form>
 </mat-card>

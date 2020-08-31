@@ -80,15 +80,16 @@ body {
                       <div style="display:inline-block; vertical-align:top;">
                       <strong>{{place.name}} </strong> <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
                       <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+
                       <br>
                        {{place.goal}}
                        <br>
                          <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
                         <br>
                         <svg viewBox="0 0 36 36" class="circular-chart">
-                          <a *ngIf="chartPercent(place)" ><text x="4" y="24" >{{this.chart}}%</text>
+                          <a><text x="4" y="24" >{{chartMap[place.id]}}%</text>
                           <path class="circle"
-                          attr.stroke-dasharray="{{this.chart}}, 100"
+                          attr.stroke-dasharray="{{chartMap[place.id]}}, 100"
 
 
                             d="M18 2.0845

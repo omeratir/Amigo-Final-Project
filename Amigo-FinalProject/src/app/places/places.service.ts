@@ -159,20 +159,15 @@ export class PlacesService {
       count_of_place_unlikes: number;
       creator: string;
       photo: string;
-
       gender_avg: number;
-
       count_sport: number;
       count_culture: number;
       count_food: number;
-
       count_female: number;
       count_male: number;
-
       avg_sport: number;
       avg_culture: number;
       avg_food: number;
-
       count_age20: number;
       count_age35: number;
       count_age50: number;
@@ -295,6 +290,22 @@ updatePlace(id: string, name: string, lat: string, lng: string, users_array: str
        liked_places_array: string;
        unliked_places_array: string;
        kmeans_array: string;
+       avg_gender_place: number;
+       avg_sport_place: number;
+       avg_culture_place: number;
+       avg_food_place: number;
+       count_of_liked_places: number;
+       sportsAndExtreme: string;
+       cultureAndHistoricalPlaces: string;
+       attractionsAndLeisure:string;
+       rest: string;
+       nightLife: string;
+       shopping: string;
+       avg_age20: number;
+       avg_age35: number;
+       avg_age50: number;
+       avg_age_120: number;
+    
      }>(BACKEND_URL + 'kmeans2/' + kmeans.userid);
 
 

@@ -40,10 +40,19 @@ mat-spinner {
   left: 32%;
   width:35%;
   /* box-shadow: 100%; */
-  -webkit-filter: drop-shadow(2px 2px 2px #222);
-  background: aliceblue;
+  /* -webkit-filter: drop-shadow(2px 2px 2px #222); */
+  /* background: aliceblue; */
+  background: white;
 /* background-color: #daf9ff; */
 }
 body{
   /* background-color: #4E9CAF; */
+}
+
+.centerimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 90%;
 }

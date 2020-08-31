@@ -22,6 +22,11 @@ ul {
 }
 
 .title {
-  color: crimson;
+  color: rgb(85, 221, 226);
   font-weight: bold;
+}
+
+.mat-toolbar{
+  background: white;
+  color: rgba(0,0,0,.87)
 }
