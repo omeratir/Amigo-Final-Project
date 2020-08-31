@@ -454,7 +454,6 @@ updateMarkerColorByGoal(place) {
   }
 
 updateListAfterLikeOrUnlikeClicked(place: Place) {
-  this.aviad=false;
     this.tempPlaces = [];
     this.placesService.getPlaceFullData(place.id).subscribe(placeData => {
       this.placeFull = {

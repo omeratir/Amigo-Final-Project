@@ -20,7 +20,7 @@
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
-                        <strong>{{place.name}}</strong>                         <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
+                        <strong>{{place.name}}</strong><a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place.id)"><i class="fa fa-square-o like" aria-hidden="true"></i></a>
                         <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place.id)"><i class="fa fa-check-square-o unlike" aria-hidden="true"></i></a>
                       <br>
                      {{place.goal}}
@@ -54,12 +54,12 @@
   [iconUrl] = colorurl
   >
   <div class="infoWindow">
-
-  <agm-info-window #infoWindow  >
-
+    
+  <agm-info-window #infoWindow>
+    
       <strong>Place Name:</strong> {{place.name}}
       <br>
-      <strong> Place Goal:</strong> {{place.goal}}
+      <strong> Place Goal: </strong> {{place.goal}}
       <br>
       <br>
 

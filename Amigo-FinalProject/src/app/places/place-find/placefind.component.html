@@ -1,39 +1,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <h3 class="header">Choose your goals of your trip:</h3> -->
-<!-- <mat-checkbox [checked]="Goal_Attractions_Leisure" (change)="Goal_Attractions_Leisure = !Goal_Attractions_Leisure">
-    Attractions & Leisure
-</mat-checkbox>
-<br>
-<mat-checkbox [checked]="Goal_Culture_And_Historical_Places" (change)="Goal_Culture_And_Historical_Places = !Goal_Culture_And_Historical_Places">
-    Culture & Historical Places
-</mat-checkbox>
-<br>
-<mat-checkbox [checked]="Goal_Shopping" (change)="Goal_Shopping = !Goal_Shopping">
-    Shopping
-</mat-checkbox>
-<br>
-<mat-checkbox [checked]="Goal_Night_Life" (change)="Goal_Night_Life = !Goal_Night_Life">
-    Night Life
-</mat-checkbox>
-<br>
-<mat-checkbox [checked]="Goal_Relaxing" (change)="Goal_Relaxing = !Goal_Relaxing">
-    Relaxing
-</mat-checkbox>
-<br>
-<mat-checkbox [checked]="Goal_Sport_And_Extreme" (change)="Goal_Sport_And_Extreme = !Goal_Sport_And_Extreme">
-    Sport & Extreme
-</mat-checkbox>
-<br>
 
-<button mat-raised-button color="warn" type="button" (click)="onClickFindPlace(user)"> Find Me Places! </button>
-<br>
-<span class="select" *ngIf="!placeFindBtnClicked">Please select at least one goal</span> -->
-
-
-<!-- <button mat-raised-button color="warn" type="button" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)"> Find Me Places! </button> -->
-<button mat-stroked-button class="btn" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)">Find Me Places!</button>
-
+<!-- <button mat-stroked-button class="btn" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)">Find Me Places!</button> -->
+<div class="wrap">
+  <button class="button1" *ngIf="!placeFindBtnClicked" (click)="onClickFindPlace(user)">Find Me Places!</button>
+</div>
 <div *ngIf="placeFindBtnClicked">
 
   <div class="goal-button-row">
@@ -78,7 +49,7 @@ body {
 
                       </div>
                       <div style="display:inline-block; vertical-align:top;">
-                      <strong>{{place.name}} </strong> <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+                      <strong>{{place.name}} </strong> <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" ><i class="fa fa-star-o save" aria-hidden="true"></i></a>
                       <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
 
                       <br>
@@ -132,17 +103,27 @@ body {
     >
 
     <agm-info-window #infoWindow>
-        Place Name: {{place.name}}
+      
+        <strong>Place Name:</strong> {{place.name}}    
+        <br>     
+        <strong> Place Goal: </strong> {{place.goal}}
         <br>
-        Likes : {{place.count_of_likes}}
+        <strong> Stars:</strong> {{place.count_of_likes}}
         <br>
-        Goal : {{place.goal}}
         <br>
-        PlaceId : {{place.id}}
-        <br>
-          <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-          <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-      </agm-info-window>
+  
+        <div id="qr" style="display:inline-block; min-width:4.2cm; height:2.8cm; align: center;vertical-align: middle;" >
+          <img src="{{place.photo}}"
+          style ="border-radius: 20px;height: 100px;width:120px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+  
+          </div>
+          <a style="
+          position: absolute;bottom: 35px;  right: 15px;" class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
+          <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+          <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+          <br>
+
+           </agm-info-window>
 
     </agm-marker>
     </div>

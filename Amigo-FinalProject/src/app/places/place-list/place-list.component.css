@@ -79,7 +79,7 @@ agm-map
 }
 
 .fa {
-  font-size: 50px;
+  font-size: 25px;
   cursor: pointer;
   user-select: none;
 }
@@ -96,6 +96,20 @@ mat-button-toggle-group {
   color: red;
 }
 
+.save {
+  font-size: 28px;
+  color:rgb(240, 222, 59);
+  right: 3px;
+  position: absolute;
+}
+
+.unsave {
+  font-size: 28px;
+  color:rgb(240, 222, 59);
+  right: 3px;
+  position: absolute;
+}
+
 .unlike {
   color: black;
 }
@@ -106,3 +120,10 @@ mat-button-toggle-group {
 }
 
 
+.search{
+  font-size: 25px;
+  right: 3px;
+  bottom: auto;
+  position: absolute;
+  color:rgb(11, 64, 212);
+}

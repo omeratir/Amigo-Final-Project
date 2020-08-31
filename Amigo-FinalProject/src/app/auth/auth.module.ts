@@ -17,7 +17,7 @@ import { AgmDirectionModule } from 'agm-direction';
   imports: [CommonModule, AngularMaterialModule, FormsModule, AuthRoutingModule ,
     AgmCoreModule.forRoot(
       {
-        apiKey: 'AIzaSyDJIZ9dA27h7oOSd1Xs3phL--skBzc0Ykg'
+        apiKey: 'AIzaSyDr3IHfD-66OkEpHEg-KscblaXiEA0YeHA'
       }
     ), AgmDirectionModule]
 })

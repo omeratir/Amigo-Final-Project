@@ -6,7 +6,7 @@
 
   <mat-expansion-panel *ngFor="let place of places">
     <mat-expansion-panel-header>
-      {{ place.name }}
+     <strong> {{ place.name }}</strong>
     </mat-expansion-panel-header>
     <p>lat : {{ place.lat }}</p>
     <p>lng : {{ place.lng }}</p>
@@ -19,12 +19,25 @@
           [longitude]="place.lng"
           (markerClick)="clickedMarker(infoWindow)">
             <agm-info-window #infoWindow>
-              {{ place.name }}
+              <strong>Place Name:</strong> {{place.name}}    
+              <br>     
+              <strong> Place Goal: </strong> {{place.goal}}
               <br>
-              <div *ngIf="userIsAuthenticated">
-              <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place,infoWindow)"><i class="fa fa-thumbs-up like" aria-hidden="true"></i>  </a>
-              <a class="abutton"  *ngIf="checkIfUserLikeThePlace(place.id)" (click)="UnLikeClicked(place,infoWindow)"><i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i></a>
-            </div>
+              <strong> Stars:</strong> {{place.count_of_likes}}
+              <br>
+              <br>
+        
+              <div id="qr" style="display:inline-block; min-width:4.2cm; height:2.8cm; align: center;vertical-align: middle;" >
+                <img src="{{place.photo}}"
+                style ="border-radius: 20px;height: 100px;width:120px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+        
+                </div>
+                <a style="
+                position: absolute;bottom: 35px;  right: 15px;" class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
+                <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+                <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+                <br>
+      
             </agm-info-window>
           </agm-marker>
     </agm-map>
