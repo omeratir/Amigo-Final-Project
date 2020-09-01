@@ -97,6 +97,25 @@ export class AccountComponent implements OnInit {
 
   ];
 
+  placesKMEANS: Place[] = [
+
+  ];
+
+  usersavedplaces: string;
+
+  tempplacessave: string[] = [];
+
+  tempPlaces: Place[] = [
+
+  ];
+
+  aviad = false;
+  userFull: UserFullData;
+  chartMap = {};
+  placeurl: string;
+  placeName: string[] = [];
+  tempafterdelete: string;
+
 
   private authListenerSubs: Subscription;
   placelist: string;
@@ -121,73 +140,6 @@ export class AccountComponent implements OnInit {
           .subscribe((placeData: { places: Place[]; placeCount: number }) => {
             this.places = placeData.places;
           });
-
-
-    // this.placesService.getPlaceFullData('5f49f6fcdd1d6828683cc1ad').subscribe(placeData => {
-    //         this.placeFull = {
-    //           id: placeData._id,
-    //           name: placeData.name,
-    //           lat: placeData.lat,
-    //           lng: placeData.lng,
-    //           goal: placeData.goal,
-    //           count_of_likes: placeData.count_of_likes,
-    //           count_of_place_likes: placeData.count_of_place_likes,
-    //           count_of_place_unlikes: placeData.count_of_place_unlikes,
-    //           creator: placeData.creator,
-    //           photo: placeData.photo,
-    //           gender_avg: placeData.gender_avg,
-    //           count_sport: placeData.count_sport,
-    //           count_culture: placeData.count_culture,
-    //           count_food: placeData.count_food,
-    //           count_female: placeData.count_female,
-    //           count_male: placeData.count_male,
-    //           avg_sport: placeData.avg_sport,
-    //           avg_culture: placeData.gender_avg,
-    //           avg_food: placeData.avg_food,
-    //           count_age20: placeData.count_age20,
-    //           count_age35: placeData.count_age35,
-    //           count_age50: placeData.count_age50,
-    //           count_age120: placeData.count_age120
-    //         };
-    //         console.log('place data');
-    //         console.log(placeData);
-    //       });
-
-    // this.authService.getUserFullData(this.userId).subscribe(userData => {
-    //   this.userFulldata = {
-    //     email: userData.email,
-    //     password: userData.password,
-    //     firstName: userData.firstName,
-    //     lastName: userData.lastName,
-    //     age: userData.age,
-    //     gender: userData.gender,
-    //     sport: userData.sport,
-    //     culture: userData.culture,
-    //     food: userData.food,
-    //     liked_place: userData.liked_place,
-    //     liked_places_array: userData.liked_places_array,
-    //     unliked_places_array: userData.unliked_places_array,
-    //     kmeans_array: userData.kmeans_array,
-    //     count_of_liked_places: userData.count_of_liked_places,
-    //     sportsAndExtreme: userData.sportsAndExtreme,
-    //     cultureAndHistoricalPlaces: userData.cultureAndHistoricalPlaces,
-    //     attractionsAndLeisure: userData.attractionsAndLeisure,
-    //     rest: userData.rest,
-    //     nightLife: userData.nightLife,
-    //     shopping: userData.shopping,
-    //     avg_age20: userData.avg_age20,
-    //     avg_age35: userData.avg_age35,
-    //     avg_age50: userData.avg_age50,
-    //     avg_age_120: userData.avg_age_120,
-    //     avg_gender_place: userData.avg_gender_place,
-    //     avg_sport_place: userData.avg_sport_place,
-    //     avg_culture_place: userData.avg_culture_place,
-    //     avg_food_place: userData.avg_food_place
-    //   };
-    //   console.log('user data');
-    //   console.log(userData);
-
-    // });
 
 
     this.authService.getUserData(this.userId).subscribe(userData => {
@@ -237,32 +189,11 @@ export class AccountComponent implements OnInit {
                 creator: placeData.creator,
                 photo: placeData.photo
               };
-              // this.likedPlaces.push(this.place);
 
-
-              //for (i = 0; i < this.splitArray.length; i++) {
               tempArr[this.index] = placeData;
               this.index++;
               console.log(tempArr[0]);
-              // console.log(tempArr);
-              // this.likedPlaces = this.distanceFromStart(tempArr);
-              // console.log('check avu');
-              // console.log(this.likedPlaces );
-              // if (this.origin.lat === 0) {
-              //   this.origin.lat = +tempArr[0].lat;
-              //   this.origin.lng = +tempArr[0].lng;
-              //   this.index ++;
-              // } else {
-              //   this.destination.lat = +tempArr[1].lat;
-              //   this.destination.lng = +tempArr[1].lng;
-              //   if (this.index === this.splitArray.length) {
-              //     this.tempDir = new Dir(this.origin, this.destination);
-              //     this.directions.push(this.tempDir);
-              //   } else {
-              //     this.waypoints.push( {location: { lat: this.destination.lat , lng: this.destination.lng }});
-              //     this.index ++;
-              //   }
-              // }
+
             });
 
           }
@@ -518,46 +449,297 @@ checkIfUserLikeThePlace(placeid) {
     return false;
   }
 
-  // getDirection(likedPlaces: Place[]) {
-  //   console.log('get');
-  //   console.log(likedPlaces);
-  //   this.index = 0;
+  ifUserSaveThisPlace(placeid: string) {
+    if (this.user.liked_place === 'EMPTY') {
+      return false;
+    }
+    if (this.user.liked_place.includes(placeid)) {
+      return true;
+    }
+    return false;
+  }
 
-  //   this.origin = {lat: 0, lng: 0};
-  //   this.destination = {lat: 0, lng: 0};
-  //   this.directions = [];
+  onUnSavePlaceClicked(place: Place) {
+    this.usersavedplaces = this.user.liked_place;
 
-  //   this.tempDir = new Dir(this.origin, this.destination);
-  //   console.log(this.tempDir);
+    this.tempplacessave = this.user.liked_place.split(',');
+    this.user.liked_place = '';
+    for (const temp of this.tempplacessave) {
+      if (temp !== place.id) {
+        this.user.liked_place = this.user.liked_place.concat(temp, ',');
+      }
+    }
+    if (this.user.liked_place === '') {
+      this.user.liked_place = 'EMPTY';
+    }
 
-  //   this.placesfordir = likedPlaces;
-  //   console.log('places');
-  //   console.log(this.placesfordir);
-  //   console.log('len = ' + this.placesfordir.length);
-  //   console.log('len = ' + this.likedPlaces.length);
+    // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
 
-  //   for (const place of this.placesfordir) {
-  //     console.log('for loop');
-  //     if (this.origin.lat === 0) {
-  //         console.log('first');
-  //         this.origin = { lat: place.lat , lng: place.lng };
-  //       } else {
-  //         console.log('second');
-  //         this.destination = { lat: place.lat , lng: place.lng };
+      // tslint:disable-next-line: max-line-length
+    this.authService.upadateUserAfterUnSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+        // tslint:disable-next-line: max-line-length
+        , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.usersavedplaces, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
+    // this.user.liked_place = this.authService.getUserSavedPlaces();
+    // this.updateUser();
+    this.updateListAfterLikeOrUnlikeClicked(place);
+}
 
-  //         this.tempDir = new Dir(this.origin, this.destination);
-  //         console.log(this.tempDir);
-  //         this.directions.push(this.tempDir);
+updateListAfterLikeOrUnlikeClicked(place: Place) {
+  this.tempPlaces = [];
+  this.placesService.getPlaceFullData(place.id).subscribe(placeData => {
+    this.placeFull = {
+      ...placeData,
+      id: placeData._id
+    };
 
-  //         this.origin = this.destination;
-  //       }
-  //     }
-
-  //   console.log('directions');
-  //   console.log(this.directions);
-  //   return true;
-  // }
-
+    for (const temp of this.placesKMEANS) {
+      if (temp.id === placeData._id) {
+        this.tempPlaces.push(this.placeFull);
+      } else {
+        this.tempPlaces.push(temp);
+      }
+    }
+    this.chartPercent(this.placeFull);
+    this.placesKMEANS = [];
+    this.placesKMEANS = this.tempPlaces;
+});
+  this.checkIfUserLikeThePlace(this.placeFull.id);
+  this.checkIfUserUnLikeThePlace(this.placeFull.id);
 
 }
 
+chartPercent(place: PlaceFullData) {
+
+  if (this.aviad === true) {
+    let chart = 0;
+    if ((this.userFull.avg_gender_place - place.gender_avg) < 0) {
+          chart += ((this.userFull.avg_gender_place - place.gender_avg) * (-1));
+        } else {
+          chart += (this.userFull.avg_gender_place - place.gender_avg);
+        }
+    console.log('chart1' + chart);
+    if ((this.userFull.avg_sport_place - place.avg_sport) < 0) {
+          chart += ((this.userFull.avg_sport_place - place.avg_sport) * (-1));
+        } else {
+          chart += (this.userFull.avg_sport_place - place.avg_sport);
+        }
+    console.log('chart2' + chart);
+    if ((this.userFull.avg_culture_place - place.avg_culture) < 0) {
+          chart += ((this.userFull.avg_culture_place - place.avg_culture) * (-1));
+        } else {
+          chart += (this.userFull.avg_culture_place - place.avg_culture);
+        }
+    console.log('chart3' + chart);
+    if ((this.userFull.avg_food_place - place.avg_food) < 0) {
+          chart += ((this.userFull.avg_food_place - place.avg_food) * (-1));
+        } else {
+          chart += (this.userFull.avg_food_place - place.avg_food);
+        }
+    console.log('chart4' + chart);
+    if ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) < 0) {
+          chart += ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) * (-1));
+        } else {
+          chart += (this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes));
+        }
+    console.log('chart5' + chart);
+    if ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) < 0) {
+          chart += ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) * (-1));
+        } else {
+          chart += (this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes));
+        }
+    console.log('chart6' + chart);
+    if ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) < 0) {
+          chart += ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) * (-1));
+        } else {
+          chart += (this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes));
+        }
+    console.log('chart7' + chart);
+    if ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) < 0) {
+          chart += ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) * (-1));
+        } else {
+          chart += (this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes));
+        }
+    console.log('chart8' + chart);
+    chart = ((chart / 5) - 1) * (-100);
+    console.log('chart9' + chart);
+    this.chartMap[place.id] = chart.toFixed(0);
+
+  }
+  return true;
+  // console.log(place.count_of_likes);
+  // this.chart = place.count_of_likes;
+  // return true;
+  }
+
+  checkIfUserUnLikeThePlace(placeid) {
+    if (this.user.unliked_places_array === 'EMPTY') {
+      return false;
+    }
+    if (this.user.unliked_places_array.includes(placeid)) {
+     // this.aviad=false;
+      return true;
+    }
+    return false;
+  }
+
+  linkPlace(placename) {
+    this.placeurl = 'https://www.google.com/search?q=';
+    this.placeName = placename.split(' ');
+    this.index = 0;
+    this.name = '';
+
+    for (const temp of this.placeName) {
+      this.placeurl = this.placeurl.concat(temp);
+      this.placeurl = this.placeurl.concat('+');
+    }
+    return true;
+  }
+
+  onSavePlaceClicked(place: Place) {
+    this.usersavedplaces = this.user.liked_place;
+    if (this.user.liked_place === 'EMPTY') {
+      this.user.liked_place = place.id;
+   } else {
+    this.user.liked_place = this.user.liked_place.concat(',', place.id);
+   }
+    // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
+
+    // tslint:disable-next-line: max-line-length
+    this.authService.upadateUserAfterSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+      // tslint:disable-next-line: max-line-length
+      , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.usersavedplaces, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
+    this.user.liked_place = this.authService.getUserSavedPlaces();
+    this.updateUser();
+    this.updateListAfterLikeOrUnlikeClicked(place);
+  }
+
+  updateUser() {
+    this.authService.getUserData(this.userId).subscribe(userData => {
+      this.user = {
+        email: userData.email,
+        password: userData.password,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        age: userData.age,
+        gender: userData.gender,
+        sport: userData.sport,
+        culture: userData.culture,
+        food: userData.food,
+        liked_place: userData.liked_place,
+        liked_places_array: userData.liked_places_array,
+        unliked_places_array: userData.unliked_places_array,
+        kmeans_array: userData.kmeans_array
+    };
+  });
+  }
+
+  removeLike(place) {
+    this.aviad = false;
+    console.log('Remove Like Clicked');
+      // remove the placeid to the list.
+    this.splitArray = [];
+    this.splitArray = this.user.liked_places_array.split(',');
+
+    this.user.liked_places_array = 'EMPTY';
+
+    for (const placeid of this.splitArray) {
+        if (placeid !== place.id) {
+          if (this.user.liked_places_array === 'EMPTY') {
+            this.user.liked_places_array = placeid;
+            //this.aviad=true;
+          } else {
+            this.placelist = this.user.liked_places_array;
+            this.placelist = this.placelist.concat(',', placeid);
+            this.user.liked_places_array = this.placelist;
+            //this.aviad=true;
+          }
+        }
+      }
+
+      // tslint:disable-next-line: max-line-length
+    this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes - 1, place.count_of_place_unlikes , place.photo);
+
+    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+        // tslint:disable-next-line: max-line-length
+        , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
+
+
+    this.updateListAfterLikeOrUnlikeClicked(place);
+
+    }
+
+    removeUnlike(place) {
+      console.log('Remove UnLike Clicked');
+      ////////////////////////////////////////////////
+      const regex = `${place.id},*`;
+      this.user.unliked_places_array = this.user.unliked_places_array.replace(new RegExp(regex, 'g') , '');
+
+      if (this.user.unliked_places_array === ',' || this.user.unliked_places_array === '') {
+        this.user.unliked_places_array = 'EMPTY';
+      }
+
+      /////////////////////////////////////////////////
+        // remove the placeid to the list.
+        // this.splitArray = [];
+        // this.splitArray = this.user.unliked_places_array.split(',');
+
+        // this.user.unliked_places_array = 'EMPTY';
+
+        // for (const placeid of this.splitArray) {
+        //   if (placeid !== place.id) {
+        //     if (this.user.unliked_places_array === 'EMPTY') {
+        //       this.user.unliked_places_array = placeid;
+        //     } else {
+        //       this.placelist = this.user.unliked_places_array;
+        //       this.placelist = this.placelist.concat(',', placeid);
+        //       this.user.unliked_places_array = this.placelist;
+        //     }
+        //   }
+        // }
+
+        // tslint:disable-next-line: max-line-length
+      this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes , place.count_of_place_unlikes - 1, place.photo);
+
+      this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+          // tslint:disable-next-line: max-line-length
+          , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
+
+
+      this.updateListAfterLikeOrUnlikeClicked(place);
+
+      }
+
+      deletePlace(placeid) {
+        console.log('place id = ' + placeid);
+
+        this.tempPlaces = [];
+        this.tempafterdelete = 'EMPTY';
+        for (const temp of this.placesKMEANS) {
+          if (temp.id !== placeid) {
+            this.tempPlaces.push(temp);
+
+            if (this.tempafterdelete === 'EMPTY') {
+              this.tempafterdelete = temp.id;
+            } else {
+              this.tempafterdelete.concat(',');
+              this.tempafterdelete.concat(temp.id);
+            }
+          }
+        }
+        this.placesKMEANS = [];
+        this.placesKMEANS = this.tempPlaces;
+
+        console.log('kmeans array : ' + this.user.kmeans_array);
+        console.log('after delete = ' + this.tempafterdelete);
+
+        // tslint:disable-next-line: max-line-length
+        this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+          // tslint:disable-next-line: max-line-length
+          , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
+      }
+
+
+
+}

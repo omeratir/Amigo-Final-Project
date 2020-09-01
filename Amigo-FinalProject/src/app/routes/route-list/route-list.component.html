@@ -6,43 +6,7 @@
     <mat-expansion-panel-header>
       {{ route.name }}
     </mat-expansion-panel-header>
-    <p>Duration of the route : {{ route.time_of_route }} Hours </p>
-    <p *ngIf="route.rating == '1-Very Bad'">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p *ngIf="route.rating == '2-Bad'">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p *ngIf="route.rating == '3-Nice'">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p *ngIf="route.rating == '4-Very Good'">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p *ngIf="route.rating == '5-Excellent'">
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-      <span class="fa fa-star checked"></span>
-    </p>
-
+   
     <div *ngIf="routePlaces(route.places)">
       <p *ngFor="let placeData of placesListStringArray">
         <label *ngIf="ifPlaceName(placeData);">

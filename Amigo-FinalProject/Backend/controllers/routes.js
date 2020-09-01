@@ -5,8 +5,6 @@ exports.createRoute = (req, res, next) => {
   const route = new Route({
     name: req.body.name,
     places: req.body.places,
-    time_of_route: req.body.time_of_route,
-    rating: req.body.rating,
     creator: req.userData.userId
   });
   route
@@ -32,8 +30,6 @@ exports.updateRoute = (req, res, next) => {
     _id: req.body.id,
     name: req.body.name,
     places: req.body.places,
-    time_of_route: req.body.time_of_route,
-    rating: req.body.rating,
     creator: req.userData.userId
   });
 

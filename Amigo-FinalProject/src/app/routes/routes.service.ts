@@ -30,8 +30,6 @@ export class RoutesService {
               return {
                 name: route.name,
                 places: route.places,
-                time_of_route: route.time_of_route,
-                rating: route.rating,
                 id: route._id,
                 creator: route.creator
               };
@@ -58,18 +56,14 @@ export class RoutesService {
       _id: string;
       name: string;
       places: string,
-      time_of_route: string;
-      rating: string,
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addRoute(name: string, places: string, timeofroute: string, rating: string) {
+  addRoute(name: string, places: string) {
     const routeData = new FormData();
     routeData.append('name', name);
     routeData.append('places', places);
-    routeData.append('time_of_route', timeofroute);
-    routeData.append('rating', rating);
     this.http
       .post<{ message: string; route: Route }>(
         BACKEND_URL,
@@ -81,14 +75,12 @@ export class RoutesService {
   }
 
   // tslint:disable-next-line: variable-name
-  updateRoute(id: string, name: string, places: string, time_of_route: string , rating: string ) {
+  updateRoute(id: string, name: string, places: string) {
     let routeData: Route | FormData;
     routeData = {
         id,
         name,
         places,
-        time_of_route,
-        rating,
         creator: null
       };
     this.http

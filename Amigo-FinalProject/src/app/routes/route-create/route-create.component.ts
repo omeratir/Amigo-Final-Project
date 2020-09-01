@@ -81,9 +81,7 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
     name: [null, Validators.required],
     places: this.fb.array([
       this.fb.control('')
-    ]),
-    time_of_route: [null, Validators.required],
-    rating: [null, Validators.required]
+    ])
   });
 
     this.route2.paramMap.subscribe((paramMap: ParamMap) => {
@@ -97,15 +95,11 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
             id: routeData._id,
             name: routeData.name,
             places: routeData.places,
-            time_of_route: routeData.time_of_route,
-            rating: routeData.rating,
             creator: routeData.creator
           };
           this.form.setValue({
             name: this.route.name,
             places: this.route.places,
-            time_of_route: this.route.time_of_route,
-            rating: this.route.rating,
           });
         });
       } else {
@@ -147,16 +141,12 @@ export class RouteCreateComponent implements OnInit, OnDestroy {
       this.routesService.addRoute(
         this.routeCreateForm.get('name').value,
         this.place,
-        this.routeCreateForm.get('time_of_route').value,
-        this.routeCreateForm.get('rating').value
       );
     } else {
       this.routesService.updateRoute(
         this.routeId,
         this.routeCreateForm.get('name').value,
-        this.place,
-        this.routeCreateForm.get('time_of_route').value,
-        this.routeCreateForm.get('rating').value
+        this.place
       );
     }
     this.routeCreateForm.reset();

@@ -27,18 +27,6 @@
   <input type="text" formControlName="rating" placeholder="Route time" >
   <mat-error *ngIf="routeCreateForm.get('rating').invalid">Please enter a route rate.</mat-error>
   <br> -->
-
-  <label>Choose the rate of the route : </label>
-  <select formControlName="rating" >
-    <option *ngFor="let rate of rates" [value]="rate.value">
-      {{ rate.viewValue }}
-    </option>
-  </select>
-  <br>
-
-  <label>Enter the duration of the route in hours : </label>
-  <input type="text" formControlName="time_of_route" placeholder="Route time">
-  <mat-error *ngIf="routeCreateForm.get('time_of_route').invalid">Please enter a route time.</mat-error>
   <br>
 
   <button type="submit">Save Route</button>
