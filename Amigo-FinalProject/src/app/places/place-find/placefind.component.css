@@ -223,6 +223,32 @@ mat-button-toggle-group {
   height: fit-content;
 }
 
+.btngoal4 {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoal4:hover {
+  color:white;
+  background-color: palevioletred
+
+}
+
+.btngoal4:focus {
+  color:white;
+  background-color: palevioletred
+
+}
+
 .btn:hover {
   color:white;
   background-color: lightsalmon;
@@ -376,3 +402,175 @@ content: '';
     opacity: 0;
   }
 }
+
+.btngoalrelax {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalrelax:hover {
+  color:white;
+  background-color: palevioletred
+
+}
+
+.btngoalrelax:focus {
+  color:white;
+  background-color: palevioletred
+}
+
+.btngoalshop {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalshop:hover {
+  color:white;
+  background-color: coral;
+
+}
+
+.btngoalshop:focus {
+  color:white;
+  background-color: coral
+}
+
+.btngoalsport {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalsport:hover {
+  color:white;
+  background-color: rgb(239, 243, 28);
+}
+
+.btngoalsport:focus {
+  color:white;
+  background-color: rgb(239, 243, 28);
+}
+
+.btngoalnight {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalnight:hover {
+  color:white;
+  background-color: orange;
+}
+
+.btngoalnight:focus{
+  color:white;
+  background-color: orange;
+}
+
+.btngoalculture {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalculture:hover {
+  color:white;
+  background-color: rgb(98, 27, 146);
+}
+
+.btngoalculture:focus {
+  color:white;
+  background-color: rgb(98, 27, 146);
+}
+
+.btngoalattraction {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalattraction:hover {
+  color:white;
+  background-color: forestgreen;
+}
+
+.btngoalattraction:focus {
+  color:white;
+  background-color: forestgreen;
+}
+
+.btngoalall {
+  font-size: large;
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+  font-variant-position: inherit;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  height: fit-content;
+}
+
+.btngoalall:hover {
+  color:white;
+  background-color: black;
+}
+
+.btngoalall:focus {
+  color:white;
+  background-color: black;
+}
+
+

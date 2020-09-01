@@ -7,39 +7,30 @@
   </span>
   <span class="spacer">
   <ul>
-    <!-- <li>
-      <a mat-button routerLink="/"> REVIEWS </a>
-    </li> -->
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/top10places" routerLinkActive="mat-primary"> TOP-10 </a>
+      <a class="but" mat-button routerLink="/top10places" routerLinkActive="active"> Top-10 </a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/placelist" routerLinkActive="mat-primary"> PLACES </a>
+      <a class="but" mat-button routerLink="/findmeplace" routerLinkActive="active"> Find Me Places </a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/findmeplace" routerLinkActive="mat-primary"> FIND ME PLACE! </a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/map" routerLinkActive="mat-primary"> MAP </a>
+      <a class="but" mat-button routerLink="/placelist" routerLinkActive="active"> Our Places </a>
     </li>
   </ul>
   </span>
   <span class="spacer"></span>
   <ul>
-    <!-- <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/placecreate" routerLinkActive="mat-accent"> Add Place </a>
-    </li> -->
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/login" routerLinkActive="mat-primary"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+      <a class="but" mat-button routerLink="/auth/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-primary"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a>
+      <a class="but" mat-button routerLink="/auth/signup" routerLinkActive="active"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/auth/myaccount" routerLinkActive="mat-primary"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Account</a>
+      <a class="but" mat-button routerLink="/auth/myaccount" routerLinkActive="active"><i class="fa fa-user-circle-o" aria-hidden="true"></i> My Account</a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+      <button class="but" mat-button (click)="onLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
     </li>
   </ul>
 

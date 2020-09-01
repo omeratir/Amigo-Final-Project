@@ -97,9 +97,6 @@ export class PlaceFindComponent implements OnInit {
 
   index = 0;
 
-  places: Place[] = [
-
-  ];
 
   placesKMEANS: Place[] = [
 

@@ -30,3 +30,14 @@ ul {
   background: white;
   color: rgba(0,0,0,.87)
 }
+
+.but {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  border-color: black;
+  border-radius: 10px;
+}
+
+.active {
+  color: #5ce1e6;
+}
