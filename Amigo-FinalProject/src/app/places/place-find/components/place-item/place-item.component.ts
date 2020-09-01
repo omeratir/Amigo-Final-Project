@@ -9,9 +9,11 @@ import { Place } from 'src/app/places/place.model';
 export class PlaceItemComponent implements OnInit, OnChanges {
     @Input() place: Place;
     @Input() userLikedPlaces: string;
-    @Input() userUnLikedPlaces: string;
+    @Input() userUnLikedPlaces:string;
     @Input() userSavedPlaces: string;
     @Input() chartPercent = 0;
+    @Input() countLikes = 0;
+    @Input() countUnlikes = 0;
     @Output() onSavePlace = new EventEmitter<any>();
     @Output() onUnSavePlace = new EventEmitter<any>();
     @Output() onLikePlace = new EventEmitter<any>();
@@ -23,6 +25,8 @@ export class PlaceItemComponent implements OnInit, OnChanges {
     public isUnLiked = false;
     public isFavorite = false;
     public placeUrl: string;
+    public likeMap= {};
+    public likeTFMap= {};
 
     ngOnInit() {
         this.setPlaceUrl();

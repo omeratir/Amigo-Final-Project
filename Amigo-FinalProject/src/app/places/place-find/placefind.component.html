@@ -43,20 +43,22 @@ body {
              <div class="panel-body">
                  <ul class="list-group">
                    <div *ngFor="let place of placesKMEANS">
-                     <app-place-item
-                      [place]="place"
-                      [userLikedPlaces]="user.liked_places_array"
-                      [userUnLikedPlaces]="user.unliked_places_array"
-                      [userSavedPlaces]="user.liked_place"
-                      [chartPercent]="chartMap[place.id]"
-                      (onSavePlace)="onSavePlaceClicked(place)"
-                      (onUnSavePlace)="onUnSavePlaceClicked(place)"
-                      (onLikePlace)="LikeClicked(place)"
-                      (removeLikePlace)="removeLike(place)"
-                      (onUnLikePlace)="UnLikeClicked(place)"
-                      (removeUnLikePlace)="removeUnlike(place)"
-                      (onDeletePlace)="deletePlace(place.id)"
-                     ></app-place-item>
+                    <app-place-item
+                    [place]="place"
+                    [userLikedPlaces]="user.liked_places_array"
+                    [userUnLikedPlaces]="user.unliked_places_array"
+                    [userSavedPlaces]="user.liked_place"
+                    [chartPercent]="chartMap[place.id]"
+                    [countLikes] = "likeMap[place.id]"
+                    [countUnlikes] = "unlikeMap[place.id]"
+                    (onSavePlace)="onSavePlaceClicked(place)"
+                    (onUnSavePlace)="onUnSavePlaceClicked(place)"
+                    (onLikePlace)="LikeClicked(place)"
+                    (removeLikePlace)="removeLike(place)"
+                    (onUnLikePlace)="UnLikeClicked(place)"
+                    (removeUnLikePlace)="removeUnlike(place)"
+                    (onDeletePlace)="deletePlace(place.id)"
+                   ></app-place-item>
                    </div>
                  </ul>
              </div>

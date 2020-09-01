@@ -30,10 +30,10 @@
       </svg>
       <br>
       <!-- *ngIf="!checkIfUserLikeThePlace(place.id)"* -->
-      <a class="abutton" *ngIf="!isLiked" (click)="onLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-      <a class="abutton" *ngIf="isLiked" (click)="removeLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-      <a class="abutton" *ngIf="!isUnLiked" (click)="onUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
-      <a class="abutton" *ngIf="isUnLiked"(click)="removeUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+      <a class="abutton" *ngIf="!isLiked" (click)="onLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{countLikes}} </a>
+      <a class="abutton" *ngIf="isLiked" (click)="removeLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{countLikes}} </a>
+      <a class="abutton" *ngIf="!isUnLiked" (click)="onUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{countUnlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+      <a class="abutton" *ngIf="isUnLiked"(click)="removeUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{countUnlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
 
     </div>
     </li>
