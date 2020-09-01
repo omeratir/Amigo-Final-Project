@@ -282,11 +282,11 @@ clickedMarker(infoWindow) {
 
 
   ifUserSaveThisPlace(placeid: string) {
-    if (this.userFull.liked_place === 'EMPTY') {
+    if (this.user.liked_place === 'EMPTY') {
       return false;
     }
     console.log('placeid-aviad',placeid);
-    if (this.userFull.liked_place.includes(placeid)) {
+    if (this.user.liked_place.includes(placeid)) {
       return true;
     }
     return false;
@@ -621,27 +621,33 @@ removeLike(place) {
   }
 
 removeUnlike(place) {
-  this.aviad=false;
   console.log('Remove UnLike Clicked');
+  ////////////////////////////////////////////////
+  const regex = `${place.id},*`;
+  this.user.unliked_places_array = this.user.unliked_places_array.replace(new RegExp(regex, 'g') , '');
+
+  if (this.user.unliked_places_array === ',' || this.user.unliked_places_array === '') {
+    this.user.unliked_places_array = 'EMPTY'
+  }
+
+  /////////////////////////////////////////////////
     // remove the placeid to the list.
-    this.splitArray = [];
-    this.splitArray = this.user.unliked_places_array.split(',');
+    // this.splitArray = [];
+    // this.splitArray = this.user.unliked_places_array.split(',');
 
-    this.user.unliked_places_array = 'EMPTY';
+    // this.user.unliked_places_array = 'EMPTY';
 
-    for (const placeid of this.splitArray) {
-      if (placeid !== place.id) {
-        if (this.user.unliked_places_array === 'EMPTY') {
-          this.user.unliked_places_array = placeid;
-          //this.aviad=true;
-        } else {
-          this.placelist = this.user.unliked_places_array;
-          this.placelist = this.placelist.concat(',', placeid);
-          this.user.unliked_places_array = this.placelist;
-          //this.aviad=true;
-        }
-      }
-    }
+    // for (const placeid of this.splitArray) {
+    //   if (placeid !== place.id) {
+    //     if (this.user.unliked_places_array === 'EMPTY') {
+    //       this.user.unliked_places_array = placeid;
+    //     } else {
+    //       this.placelist = this.user.unliked_places_array;
+    //       this.placelist = this.placelist.concat(',', placeid);
+    //       this.user.unliked_places_array = this.placelist;
+    //     }
+    //   }
+    // }
 
     // tslint:disable-next-line: max-line-length
     this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes , place.count_of_place_unlikes - 1, place.photo);

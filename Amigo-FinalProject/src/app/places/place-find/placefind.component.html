@@ -42,44 +42,20 @@ body {
              <div class="panel-body">
                  <ul class="list-group">
                    <div *ngFor="let place of placesKMEANS">
-                     <li class="list-group-item">
-                      <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
-                      <img src="{{place.photo}}"
-                      style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
-
-                      </div>
-                      <div style="display:inline-block; vertical-align:top;">
-                      <strong>{{place.name}} </strong> <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" ><i class="fa fa-star-o save" aria-hidden="true"></i></a>
-                      <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
-
-                      <br>
-                       {{place.goal}}
-                       <br>
-                         <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
-                        <br>
-                        <svg viewBox="0 0 36 36" class="circular-chart">
-                          <a><text x="4" y="24" >{{chartMap[place.id]}}%</text>
-                          <path class="circle"
-                          attr.stroke-dasharray="{{chartMap[place.id]}}, 100"
-
-
-                            d="M18 2.0845
-                              a 15.9155 15.9155 0 0 1 0 31.831
-                              a 15.9155 15.9155 0 0 1 0 -31.831"
-
-                          />
-
-                        </a>
-                        </svg>
-                        <br>
-                        <!-- *ngIf="!checkIfUserLikeThePlace(place.id)"* -->
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-                        <a class="abutton" *ngIf="checkIfUserLikeThePlace(place.id)" (click)="removeLike(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-                        <a class="abutton" *ngIf="!checkIfUserUnLikeThePlace(place.id)" (click)="UnLikeClicked(place)">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
-                        <a class="abutton" *ngIf="checkIfUserUnLikeThePlace(place.id)"(click)="removeUnlike(place)">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
-
-                      </div>
-                      </li>
+                     <app-place-item
+                      [place]="place"
+                      [userLikedPlaces]="user.liked_places_array"
+                      [userUnLikedPlaces]="user.unliked_places_array"
+                      [userSavedPlaces]="user.liked_place"
+                      [chartPercent]="chartMap[place.id]"
+                      (onSavePlace)="onSavePlaceClicked(place)"
+                      (onUnSavePlace)="onUnSavePlaceClicked(place)"
+                      (onLikePlace)="LikeClicked(place)"
+                      (removeLikePlace)="removeLike(place)"
+                      (onUnLikePlace)="UnLikeClicked(place)"
+                      (removeUnLikePlace)="removeUnlike(place)"
+                      (onDeletePlace)="deletePlace(place.id)"
+                     ></app-place-item>
                    </div>
                  </ul>
              </div>

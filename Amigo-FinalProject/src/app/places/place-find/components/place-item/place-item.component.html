@@ -1,0 +1,39 @@
+<li class="list-group-item">
+    <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
+    <img src="{{place.photo}}"
+    style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+
+    </div>
+    <div style="display:inline-block; vertical-align:top;">
+    <strong>{{place.name}} </strong>
+    <a class="abutton" *ngIf="!isFavorite" (click)="onSavePlace.emit()" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
+    <a class="abutton" *ngIf="isFavorite" (click)="onUnSavePlace.emit()"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+
+    <br>
+     {{place.goal}}
+     <br>
+       <a class="abutton" [href]="placeurl"><i class="fa fa-search search" aria-hidden="true"></i></a>
+      <br>
+      <svg viewBox="0 0 36 36" class="circular-chart">
+        <a><text x="4" y="24" >{{chartPercent}}%</text>
+        <path class="circle"
+        attr.stroke-dasharray="{{chartPercent}}, 100"
+
+
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+
+        />
+
+      </a>
+      </svg>
+      <br>
+      <!-- *ngIf="!checkIfUserLikeThePlace(place.id)"* -->
+      <a class="abutton" *ngIf="!isLiked" (click)="onLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
+      <a class="abutton" *ngIf="isLiked" (click)="removeLikePlace.emit()" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
+      <a class="abutton" *ngIf="!isUnLiked" (click)="onUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+      <a class="abutton" *ngIf="isUnLiked"(click)="removeUnLikePlace.emit()">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="onDeletePlace.emit()"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
+
+    </div>
+    </li>
