@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { CommonModule } from '@angular/common';
+import { AgmDirectionModule } from 'agm-direction';
 
 @NgModule({
   declarations: [
@@ -52,10 +53,10 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     AgmCoreModule.forRoot(
       {
-        // apiKey: '',
-        // libraries: ['places']
+        apiKey: 'AIzaSyA0RE3HqPiH1V9zijUWF1aC8BdvAOhLuXQ',
       }
-    )
+    ),
+    AgmDirectionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

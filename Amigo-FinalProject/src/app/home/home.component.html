@@ -1,32 +1,59 @@
 <div class="goal-button-row">
-    <button mat-stroked-button class="btngoal" routerLink="/placelist">Attractions & Leisure</button>
-    <button mat-stroked-button class="btngoal1" routerLink="/placelist"><i class="fa fa-futbol-o" aria-hidden="true"></i> Sport & Extreme</button>
-    <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-glass" aria-hidden="true"></i> Night Life</button>
-    <button mat-stroked-button class="btngoal" routerLink="/placelist">Culture & Historical Places</button>
-    <button mat-stroked-button class="btngoal1"routerLink="/placelist" >Relaxing</button>
-    <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button>
-    <div>
+  <button mat-stroked-button class="btngoal2" (click)="filtering('All')">All</button>
+  <button mat-stroked-button class="btngoal" (click)="filtering('Attractions & Leisure')"><i class="fa fa-bicycle" aria-hidden="true"></i> Attractions & Leisure</button>
+  <button mat-stroked-button class="btngoal1"(click)="filtering('Sport & Extreme')"><i class="fa fa-futbol-o" aria-hidden="true"></i> Sport & Extreme</button>
+  <button mat-stroked-button class="btngoal2" (click)="filtering('Night Life')"><i class="fa fa-glass" aria-hidden="true"></i> Night Life</button>
+  <button mat-stroked-button class="btngoal" (click)="filtering('Culture & Historical Places')"><i class="fa fa-university" aria-hidden="true"></i> Culture & Historical Places</button>
+  <button mat-stroked-button class="btngoal1"(click)="filtering('Relaxing')" ><i class="fa fa-bed" aria-hidden="true"></i> Relaxing</button>
+  <button mat-stroked-button class="btngoal2" (click)="filtering('Shopping')"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button>
+</div>
 <br>
 <mat-divider></mat-divider>
 
-<div class="back">
+<div class="back" *ngIf="!goalclicked">
   <div class="pic"><img src="assets/images/people6.png"></div>
   <div class="inPic">
-    <!-- <div class="picText">למצוא את הדברים הטובים בעולם.</div> -->
-    <!-- <div class="_3-KjE8YR">
-      <div class="i3bZ_gBa _3TPJs5_m" data-test-attribute="typeahead-SINGLE_SEARCH_HERO">
-        <div class="_3sXsAqz5"></div><form class="R1IsnpX3" action="/Search">
-          <input type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required="" name="q" class="_3qLQ-U8m" placeholder="לאן תרצה להגיע?" title="חיפוש" aria-label="חיפוש" value="">
-          <input type="hidden" name="searchSessionId" value="D2EC119953C5F72166BC5BC2A758982D1598878087164ssid">
-          <input type="hidden" name="searchNearby" value="false">
-          <button type="button" class="_3mLX8jwB _3djzE9Mn" title="חזרה" aria-label="חזרה">
-            <span class="E0di58-K _2HBN-k68 _3LkX-HIr _1vqRKT0F"></span>
-          </button>
-          <button type="submit" formaction="/Search" class="_3mLX8jwB _2a_Ua4Qv" title="חיפוש" aria-label="חיפוש" tabindex="-1">
-            <span class="_2LyoLJ4U _2HBN-k68 _3LkX-HIr"></span>
-          </button>
-        </form>
-        </div>
-        </div>  -->
-        </div>
-        </div>
+</div>
+</div>
+
+<div *ngIf="goalclicked">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<mat-accordion multi="true" *ngIf="places.length > 0 && !isLoading">
+
+  <mat-expansion-panel *ngFor="let place of places">
+    <mat-expansion-panel-header>
+     <strong> {{ place.name }}</strong>
+    </mat-expansion-panel-header>
+    <p>lat : {{ place.lat }}</p>
+    <p>lng : {{ place.lng }}</p>
+    <p>likes : {{ place.count_of_likes }}</p>
+
+    <div *ngIf="setMapValues(place)">
+      <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
+          <agm-marker
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)">
+            <agm-info-window #infoWindow>
+              <strong>Place Name:</strong> {{place.name}}
+              <br>
+              <strong> Place Goal: </strong> {{place.goal}}
+              <br>
+              <strong> Stars:</strong> {{place.count_of_likes}}
+              <br>
+
+            </agm-info-window>
+          </agm-marker>
+    </agm-map>
+  </div>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+<mat-paginator [length]="totalPlaces" [pageSize]="placesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+  *ngIf="places.length > 0"></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="places.length <= 0 && !isLoading">No Places added yet!</p>
+</div>
+
+

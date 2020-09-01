@@ -12,7 +12,7 @@ exports.createPlace = (req, res, next) => {
     name: req.body.name,
     lat: req.body.lat,
     lng: req.body.lng,
-    goal: 'GOAL',
+    goal: req.body.goal,
     users_array: 'EMPTY',
     gender_avg: 0,
     count_of_likes: 0,
@@ -439,7 +439,6 @@ console.log(vectors3);
       console.log(currentUserVector2);
       console.log('end currentUser2');
       console.log(vectors3);
-      console.log('aviad2');
       const machine2 = new KNearestNeighbors(
         vectors3,
       [
@@ -635,16 +634,11 @@ exports.getAllPlaces = (req, res, next) => {
           }
           else{
             stringOfPlaceOfCurrentUser = userMap[user._id].liked_place;
-            console.log("shiran is buti");
             currentUserVector = {
-            //  x: userMap[user._id].age,
-            //x: 1,
             x: userMap[user._id].avg_age20,
             y:userMap[user._id].avg_age35,
             m:userMap[user._id].avg_age50,
             d:userMap[user._id].avg_age_120
-            //a: userMap[user._id].nightLife,
-           // b: userMap[user._id].shopping
            }
              // q: userMap[user._id].id }
               currentUserVector.id = (userMap[user._id].id);
@@ -925,7 +919,7 @@ exports.getAllPlaces = (req, res, next) => {
               avg_sport_place: usertemp.avg_sport_place,
               avg_culture_place: usertemp.avg_culture_place,
               avg_food_place: usertemp.avg_food_place,
-              count_of_liked_places: usertemp.count_of_liked_places,    
+              count_of_liked_places: usertemp.count_of_liked_places,
   sportsAndExtreme: usertemp.sportsAndExtreme,
   cultureAndHistoricalPlaces: usertemp.cultureAndHistoricalPlaces,
   attractionsAndLeisure: usertemp.attractionsAndLeisure,

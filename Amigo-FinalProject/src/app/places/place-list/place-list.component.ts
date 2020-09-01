@@ -209,7 +209,6 @@ UnLikeClicked(place, infoWindow) {
     if (this.user.liked_place === 'EMPTY') {
       return false;
     }
-    console.log('placeid-aviad',placeid);
     if (this.user.liked_place.includes(placeid)) {
       return true;
     }
@@ -225,7 +224,7 @@ UnLikeClicked(place, infoWindow) {
    }
     // tslint:disable-next-line: max-line-length
     this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
-  
+
     // tslint:disable-next-line: max-line-length
     this.authService.upadateUserAfterSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
@@ -233,10 +232,10 @@ UnLikeClicked(place, infoWindow) {
     this.user.liked_place = this.authService.getUserSavedPlaces();
     this.updateUser();
   }
-  
+
   onUnSavePlaceClicked(place: Place) {
         this.usersavedplaces = this.user.liked_place;
-  
+
         this.tempplacessave = this.user.liked_place.split(',');
         this.user.liked_place = '';
         for (const temp of this.tempplacessave) {
@@ -247,10 +246,10 @@ UnLikeClicked(place, infoWindow) {
         if (this.user.liked_place === '') {
           this.user.liked_place = 'EMPTY';
         }
-  
+
         // tslint:disable-next-line: max-line-length
         this.placesService.updatePlace(place.id , place.name , place.lat, place.lng , this.userId, true, place.photo);
-  
+
           // tslint:disable-next-line: max-line-length
         this.authService.upadateUserAfterUnSavePlace(place.id, this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
             // tslint:disable-next-line: max-line-length
@@ -258,7 +257,7 @@ UnLikeClicked(place, infoWindow) {
         // this.user.liked_place = this.authService.getUserSavedPlaces();
         // this.updateUser();
     }
-  
+
 
     updateUser() {
       this.authService.getUserData(this.userId).subscribe(userData => {
@@ -280,5 +279,5 @@ UnLikeClicked(place, infoWindow) {
     });
     }
 
-    
+
 }

@@ -9,7 +9,7 @@ import { Place } from 'src/app/places/place.model';
 export class PlaceItemComponent implements OnInit, OnChanges {
     @Input() place: Place;
     @Input() userLikedPlaces: string;
-    @Input() userUnLikedPlaces:string;
+    @Input() userUnLikedPlaces: string;
     @Input() userSavedPlaces: string;
     @Input() chartPercent = 0;
     @Output() onSavePlace = new EventEmitter<any>();
@@ -28,7 +28,7 @@ export class PlaceItemComponent implements OnInit, OnChanges {
         this.setPlaceUrl();
     }
 
-    ngOnChanges({place, userLikedPlaces,userUnLikedPlaces, userSavedPlaces}: SimpleChanges) {
+    ngOnChanges({place, userLikedPlaces, userUnLikedPlaces, userSavedPlaces}: SimpleChanges) {
         if (userLikedPlaces) {
             this.isLiked = this.getIsLiked(userLikedPlaces.currentValue);
         }
@@ -45,24 +45,22 @@ export class PlaceItemComponent implements OnInit, OnChanges {
         if (userLikedPlaces === 'EMPTY') {
             return false;
           }
-          if (userLikedPlaces.includes(this.place.id)) {
+        if (userLikedPlaces.includes(this.place.id)) {
             console.log('placeid' + this.place.id);
-            //this.aviad=false;
             return true;
           }
-          return false;
+        return false;
     }
 
     getIsUnLiked(userUnLikedPlaces: string) {
         if (userUnLikedPlaces === 'EMPTY') {
             return false;
           }
-          if (userUnLikedPlaces.includes(this.place.id)) {
+        if (userUnLikedPlaces.includes(this.place.id)) {
             console.log('placeid' + this.place.id);
-            //this.aviad=false;
             return true;
           }
-          return false;
+        return false;
 
     }
 
@@ -70,17 +68,16 @@ export class PlaceItemComponent implements OnInit, OnChanges {
         if (userSavedPlaces === 'EMPTY') {
             return false;
           }
-          console.log('placeid-aviad', this.place.id);
-          if (userSavedPlaces.includes(this.place.id)) {
+        if (userSavedPlaces.includes(this.place.id)) {
             return true;
           }
-          return false;
+        return false;
     }
 
     setPlaceUrl() {
         let placeurl = 'https://www.google.com/search?q=';
         const placeName = this.place.name.split(' ');
-    
+
         for (const temp of placeName) {
             placeurl = placeurl.concat(temp);
             placeurl = placeurl.concat('+');

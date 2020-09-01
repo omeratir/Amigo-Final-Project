@@ -176,18 +176,19 @@ export class PlacesService {
   }
 
 
-  addPlace(name: string, lat: string, lng: string) {
+  addPlace(name: string, lat: string, lng: string, goal: string) {
     const placeData = new FormData();
     placeData.append('name', name);
     placeData.append('lat', lat);
     placeData.append('lng', lng);
+    placeData.append('goal', goal);
     this.http
       .post<{ message: string; place: Place }>(
         BACKEND_URL,
         placeData
       )
       .subscribe(responseData => {
-        // this.router.navigate(['/placelist']);
+        this.router.navigate(['/placelist']);
       });
   }
 
@@ -305,7 +306,7 @@ updatePlace(id: string, name: string, lat: string, lng: string, users_array: str
        avg_age35: number;
        avg_age50: number;
        avg_age_120: number;
-    
+
      }>(BACKEND_URL + 'kmeans2/' + kmeans.userid);
 
 
@@ -441,19 +442,7 @@ updatePlace(id: string, name: string, lat: string, lng: string, users_array: str
     return this.temp;
   }
 
-  // kmeans(userId: string) {
-  //   console.log('aviad azliach kmeans?');
-  //   this.http
-  //   .get(
-  //     BACKEND_URL + userId).subscribe(response => {
-  //       console.log('aviad azliach kmeans?222');
-  //     });
 
-
-  //   // this.http.get(BACKEND_URL + userId ).subscribe(response => {
-
-  //   // });
-  // }
 
 
 

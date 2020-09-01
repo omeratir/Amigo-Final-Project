@@ -24,18 +24,22 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
   private placeId: string;
   private authStatusSub: Subscription;
 
-  lat = 52.373169;
-  lng = 4.890660;
-  zoom = 12;
+
+// tslint:disable-next-line: label-position
+goals: string[] = ['Attractions & Leisure', 'Sport & Extreme', 'Night Life', 'Culture & Historical Places', 'Relaxing', 'Shopping'];
+
+lat = 52.373169;
+lng = 4.890660;
+zoom = 12;
   previous;
 
-  constructor(
+constructor(
     public placesService: PlacesService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+ngOnInit() {
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
@@ -46,7 +50,8 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required, Validators.minLength(3)]
       }),
       lat: new FormControl(null, { validators: [Validators.required] }),
-      lng: new FormControl(null, { validators: [Validators.required] })
+      lng: new FormControl(null, { validators: [Validators.required] }),
+      goal: new FormControl(null, { validators: [Validators.required] })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('placeId')) {
@@ -80,7 +85,7 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSavePlace() {
+onSavePlace() {
     if (this.form.invalid) {
       return;
     }
@@ -89,7 +94,8 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
       this.placesService.addPlace(
         this.form.value.name,
         this.form.value.lat,
-        this.form.value.lng
+        this.form.value.lng,
+        this.form.value.goal
       );
     } else {
       this.placesService.updatePlace(
@@ -105,18 +111,19 @@ export class PlaceCreateComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
 
-  placeMarker($event) {
+placeMarker($event) {
     console.log('lat:' + $event.coords.lat);
     console.log('lng:' + $event.coords.lng);
 
     this.form.setValue({
       name: this.form.value.name,
       lat: $event.coords.lat,
-      lng: $event.coords.lng
+      lng: $event.coords.lng,
+      goal: this.form.value.goal
     });
   }
 
-  ngOnDestroy() {
+ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
 

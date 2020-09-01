@@ -4,6 +4,9 @@
 
 <mat-accordion multi="true" *ngIf="places.length > 0 && !isLoading">
 
+  <a mat-flat-button href="/placecreate">Add Place</a>
+
+
   <mat-expansion-panel *ngFor="let place of places">
     <mat-expansion-panel-header>
      <strong> {{ place.name }}</strong>
@@ -19,25 +22,25 @@
           [longitude]="place.lng"
           (markerClick)="clickedMarker(infoWindow)">
             <agm-info-window #infoWindow>
-              <strong>Place Name:</strong> {{place.name}}    
-              <br>     
+              <strong>Place Name:</strong> {{place.name}}
+              <br>
               <strong> Place Goal: </strong> {{place.goal}}
               <br>
               <strong> Stars:</strong> {{place.count_of_likes}}
               <br>
               <br>
-        
+
               <div id="qr" style="display:inline-block; min-width:4.2cm; height:2.8cm; align: center;vertical-align: middle;" >
                 <img src="{{place.photo}}"
                 style ="border-radius: 20px;height: 100px;width:120px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
-        
+
                 </div>
                 <a style="
                 position: absolute;bottom: 35px;  right: 15px;" class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
                 <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
                 <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
                 <br>
-      
+
             </agm-info-window>
           </agm-marker>
     </agm-map>

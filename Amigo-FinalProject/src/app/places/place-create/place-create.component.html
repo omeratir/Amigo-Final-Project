@@ -17,6 +17,20 @@
       <mat-error *ngIf="form.get('lng').invalid">Please enter a place Longitude.</mat-error>
     </mat-form-field>
 
+    <!-- <mat-form-field>
+      <input matInput type="text" formControlName="goal" placeholder="Post place">
+      <mat-error *ngIf="form.get('goal').invalid">Please enter a post place.</mat-error>
+    </mat-form-field> -->
+
+    <p>
+      <mat-form-field>
+        <mat-label>Select Goal</mat-label>
+        <mat-select formControlName="goal">
+          <mat-option *ngFor="let temp of goals" [value]="temp">{{ temp }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+
     <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" (mapClick)="placeMarker($event)">
     </agm-map>
 

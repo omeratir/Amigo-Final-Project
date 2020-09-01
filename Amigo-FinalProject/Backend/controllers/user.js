@@ -144,9 +144,7 @@ exports.updateUser = (req, res, next) => {
     var avg_Shopping = 0;
     var tempLikePlace = new Array();
     var countHobbiesIfZero = 0;
-  console.log('aviad check:' + req.body.liked_place);
     if(req.body.liked_place == 'EMPTY'){
-      console.log('aviad check2');
       const userData = new User({
         _id: req.body.id,
         email: req.body.email,
@@ -202,7 +200,6 @@ exports.updateUser = (req, res, next) => {
 else{
 
     tempLikePlace = req.body.liked_place.split(',');
-    console.log('aviad check23');
     //for(let placeid of tempLikePlace) {
       for(var index2 = 0; index2<(tempLikePlace.length); index2++){
         console.log('placeid :' + tempLikePlace);

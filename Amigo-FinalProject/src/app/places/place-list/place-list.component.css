@@ -127,3 +127,13 @@ mat-button-toggle-group {
   position: absolute;
   color:rgb(11, 64, 212);
 }
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}

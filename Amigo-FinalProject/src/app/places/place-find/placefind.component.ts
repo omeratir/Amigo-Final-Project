@@ -32,6 +32,39 @@ export class PlaceFindComponent implements OnInit {
 
   usersavedplaces: string;
 
+  goalclicked: boolean;
+
+  places: Place[] = [
+
+  ];
+
+  night: Place[] = [
+
+  ];
+
+  attraction: Place[] = [
+
+  ];
+
+  sport: Place[] = [
+
+  ];
+
+  culture: Place[] = [
+
+  ];
+
+  shop: Place[] = [
+
+  ];
+
+  relax: Place[] = [
+
+  ];
+
+  goals: string[] = ['Attractions & Leisure', 'Sport & Extreme', 'Night Life', 'Culture & Historical Places', 'Relaxing', 'Shopping'];
+
+
   ifSave = false;
   userFulldata: UserFullData;
   colorurl: string;
@@ -51,7 +84,7 @@ export class PlaceFindComponent implements OnInit {
   likeClicked: boolean;
 
   tempafterdelete: string;
-  aviad =false;
+  aviad = false;
   lat = 52.373169;
   lng = 4.890660;
   zoom = 12;
@@ -69,6 +102,10 @@ export class PlaceFindComponent implements OnInit {
   ];
 
   placesKMEANS: Place[] = [
+
+  ];
+
+  tempplacesKMEANS: Place[] = [
 
   ];
 
@@ -263,12 +300,13 @@ export class PlaceFindComponent implements OnInit {
             console.log('place id 2 =' + this.placeFull.id);
             this.chartPercent(this.placeFull);
             this.placesKMEANS.push(this.placeFull);
+            this.tempplacesKMEANS.push(this.placeFull);
             console.log(this.placesKMEANS);
           });
         }
       }
       });
-      this.aviad =  false;
+    this.aviad =  false;
     console.log('kmeans done');
     // }
   }
@@ -285,72 +323,112 @@ clickedMarker(infoWindow) {
     if (this.user.liked_place === 'EMPTY') {
       return false;
     }
-    console.log('placeid-aviad',placeid);
     if (this.user.liked_place.includes(placeid)) {
       return true;
     }
     return false;
   }
 
+  filtering(goal: string) {
+    this.goalclicked = true;
+
+    this.placesKMEANS = this.tempplacesKMEANS;
+
+    this.night = this.placesKMEANS.filter(place => (place.goal === 'Night Life'));
+    this.shop = this.placesKMEANS.filter(place => (place.goal === 'Shopping'));
+    this.relax = this.placesKMEANS.filter(place => (place.goal === 'Relaxing'));
+    this.attraction = this.placesKMEANS.filter(place => (place.goal === 'Attractions & Leisure'));
+    this.sport = this.placesKMEANS.filter(place => (place.goal === 'Sport & Extreme'));
+    this.culture = this.placesKMEANS.filter(place => (place.goal === 'Culture & Historical Places'));
+
+    if (goal === 'All') {
+      this.placesKMEANS = this.tempplacesKMEANS;
+    }
+
+    if (goal === 'Night Life') {
+      this.placesKMEANS = this.night;
+    }
+
+    if (goal === 'Attractions & Leisure') {
+      this.placesKMEANS = this.attraction;
+    }
+
+    if (goal === 'Sport & Extreme') {
+      this.placesKMEANS = this.sport;
+    }
+
+    if (goal === 'Culture & Historical Places') {
+      this.placesKMEANS = this.culture;
+    }
+
+    if (goal === 'Relaxing') {
+      this.placesKMEANS = this.relax;
+    }
+
+    if (goal === 'Shopping') {
+      this.placesKMEANS = this.shop;
+    }
+  }
+
 
 chartPercent(place: PlaceFullData) {
-  
-if(this.aviad === true){
+
+if (this.aviad === true) {
   let chart = 0;
-      if ((this.userFull.avg_gender_place - place.gender_avg) < 0) {
+  if ((this.userFull.avg_gender_place - place.gender_avg) < 0) {
         chart += ((this.userFull.avg_gender_place - place.gender_avg) * (-1));
       } else {
         chart += (this.userFull.avg_gender_place - place.gender_avg);
       }
-      console.log('chart1'+ chart);
-      if ((this.userFull.avg_sport_place - place.avg_sport) < 0) {
+  console.log('chart1' + chart);
+  if ((this.userFull.avg_sport_place - place.avg_sport) < 0) {
         chart += ((this.userFull.avg_sport_place - place.avg_sport) * (-1));
       } else {
         chart += (this.userFull.avg_sport_place - place.avg_sport);
       }
-      console.log('chart2'+ chart);
-      if ((this.userFull.avg_culture_place - place.avg_culture) < 0) {
+  console.log('chart2' + chart);
+  if ((this.userFull.avg_culture_place - place.avg_culture) < 0) {
         chart += ((this.userFull.avg_culture_place - place.avg_culture) * (-1));
       } else {
         chart += (this.userFull.avg_culture_place - place.avg_culture);
       }
-      console.log('chart3'+ chart);
-      if ((this.userFull.avg_food_place - place.avg_food) < 0) {
+  console.log('chart3' + chart);
+  if ((this.userFull.avg_food_place - place.avg_food) < 0) {
         chart += ((this.userFull.avg_food_place - place.avg_food) * (-1));
       } else {
         chart += (this.userFull.avg_food_place - place.avg_food);
       }
-      console.log('chart4'+ chart);
-      if ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) < 0) {
+  console.log('chart4' + chart);
+  if ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes));
       }
-      console.log('chart5'+ chart);
-      if ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) < 0) {
+  console.log('chart5' + chart);
+  if ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes));
       }
-      console.log('chart6'+ chart);
-      if ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) < 0) {
+  console.log('chart6' + chart);
+  if ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes));
       }
-      console.log('chart7'+ chart);
-      if ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) < 0) {
+  console.log('chart7' + chart);
+  if ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes));
       }
-      console.log('chart8'+ chart);
-      chart = ((chart/5)-1)*(-100);
-      console.log('chart9'+ chart);
-      this.chartMap[place.id] = chart.toFixed(0);
+  console.log('chart8' + chart);
+  chart = ((chart / 5) - 1) * (-100);
+  console.log('chart9' + chart);
+  this.chartMap[place.id] = chart.toFixed(0);
     //}
 }
-     return true;
+return true;
 // console.log(place.count_of_likes);
 // this.chart = place.count_of_likes;
 // return true;
@@ -472,18 +550,18 @@ updateListAfterLikeOrUnlikeClicked(place: Place) {
       this.placesKMEANS = [];
       this.placesKMEANS = this.tempPlaces;
   });
-  this.checkIfUserLikeThePlace(this.placeFull.id);
-  this.checkIfUserUnLikeThePlace(this.placeFull.id);
-  
+    this.checkIfUserLikeThePlace(this.placeFull.id);
+    this.checkIfUserUnLikeThePlace(this.placeFull.id);
+
   }
 
 
 LikeClicked(place) {
-  this.aviad=false;
-    console.log('Like Clicked');
+  this.aviad = false;
+  console.log('Like Clicked');
     // add the placeid to the list.
-    this.placelist = '';
-    if (this.user.liked_places_array === 'EMPTY') {
+  this.placelist = '';
+  if (this.user.liked_places_array === 'EMPTY') {
       this.user.liked_places_array = place.id;
     } else {
       this.placelist = this.user.liked_places_array;
@@ -526,18 +604,18 @@ LikeClicked(place) {
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
     }
 
-    this.tempPlaces = [];
+  this.tempPlaces = [];
 
-    this.updateListAfterLikeOrUnlikeClicked(place);
+  this.updateListAfterLikeOrUnlikeClicked(place);
 }
 
 UnLikeClicked(place) {
-  this.aviad=false;
-    console.log('UnLike Clicked');
+  this.aviad = false;
+  console.log('UnLike Clicked');
     // remove the placeid to the list.
     // add the placeid to the list.
-    this.placelist = '';
-    if (this.user.unliked_places_array === 'EMPTY') {
+  this.placelist = '';
+  if (this.user.unliked_places_array === 'EMPTY') {
       this.user.unliked_places_array = place.id;
     } else {
       this.placelist = this.user.unliked_places_array;
@@ -545,7 +623,7 @@ UnLikeClicked(place) {
       this.user.unliked_places_array = this.placelist;
     }
 
-    if (this.checkIfUserLikeThePlace(place.id)) {
+  if (this.checkIfUserLikeThePlace(place.id)) {
       this.splitArray = [];
       this.splitArray = this.user.liked_places_array.split(',');
 
@@ -581,20 +659,20 @@ UnLikeClicked(place) {
 
     }
 
-    this.updateListAfterLikeOrUnlikeClicked(place);
+  this.updateListAfterLikeOrUnlikeClicked(place);
 
   }
 
 removeLike(place) {
-  this.aviad=false;
-    console.log('Remove Like Clicked');
+  this.aviad = false;
+  console.log('Remove Like Clicked');
     // remove the placeid to the list.
-    this.splitArray = [];
-    this.splitArray = this.user.liked_places_array.split(',');
+  this.splitArray = [];
+  this.splitArray = this.user.liked_places_array.split(',');
 
-    this.user.liked_places_array = 'EMPTY';
+  this.user.liked_places_array = 'EMPTY';
 
-    for (const placeid of this.splitArray) {
+  for (const placeid of this.splitArray) {
       if (placeid !== place.id) {
         if (this.user.liked_places_array === 'EMPTY') {
           this.user.liked_places_array = placeid;
@@ -609,14 +687,14 @@ removeLike(place) {
     }
 
     // tslint:disable-next-line: max-line-length
-    this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes - 1, place.count_of_place_unlikes , place.photo);
+  this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes - 1, place.count_of_place_unlikes , place.photo);
 
-    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+  this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
 
 
-    this.updateListAfterLikeOrUnlikeClicked(place);
+  this.updateListAfterLikeOrUnlikeClicked(place);
 
   }
 
@@ -627,7 +705,7 @@ removeUnlike(place) {
   this.user.unliked_places_array = this.user.unliked_places_array.replace(new RegExp(regex, 'g') , '');
 
   if (this.user.unliked_places_array === ',' || this.user.unliked_places_array === '') {
-    this.user.unliked_places_array = 'EMPTY'
+    this.user.unliked_places_array = 'EMPTY';
   }
 
   /////////////////////////////////////////////////
@@ -650,14 +728,14 @@ removeUnlike(place) {
     // }
 
     // tslint:disable-next-line: max-line-length
-    this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes , place.count_of_place_unlikes - 1, place.photo);
+  this.placesService.updatePlaceOnLikeOrUnlike(place.id , place.name , place.lat, place.lng , place.goal, place.count_of_likes, place.count_of_place_likes , place.count_of_place_unlikes - 1, place.photo);
 
-    this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
+  this.authService.updateUser(this.userId , this.user.email, this.user.password , this.user.firstName, this.user.lastName
       // tslint:disable-next-line: max-line-length
       , this.user.age, this.user.gender, this.user.sport, this.user.culture, this.user.food , this.user.liked_place, this.user.liked_places_array, this.user.unliked_places_array, this.user.kmeans_array );
 
 
-    this.updateListAfterLikeOrUnlikeClicked(place);
+  this.updateListAfterLikeOrUnlikeClicked(place);
 
   }
 
@@ -667,7 +745,7 @@ checkIfUserLikeThePlace(placeid) {
       return false;
     }
     if (this.user.liked_places_array.includes(placeid)) {
-      console.log('placeid' +placeid);
+      console.log('placeid' + placeid);
       //this.aviad=false;
       return true;
     }
@@ -678,7 +756,7 @@ checkIfUserUnLikeThePlace(placeid) {
     if (this.user.unliked_places_array === 'EMPTY') {
       return false;
     }
-    if (this.user.unliked_places_array.includes(placeid)) { 
+    if (this.user.unliked_places_array.includes(placeid)) {
      // this.aviad=false;
       return true;
     }

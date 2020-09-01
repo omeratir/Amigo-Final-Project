@@ -8,12 +8,19 @@
 <div *ngIf="placeFindBtnClicked">
 
   <div class="goal-button-row">
-    <button mat-stroked-button class="btngoal1" routerLink="/placelist"><i class="fa fa-bicycle" aria-hidden="true"></i> Attractions & Leisure</button>
+    <button mat-stroked-button class="btngoal2" (click)="filtering('All')">All</button>
+    <button mat-stroked-button class="btngoal3" (click)="filtering('Attractions & Leisure')"><i class="fa fa-bicycle" aria-hidden="true"></i> Attractions & Leisure</button>
+    <button mat-stroked-button class="btngoal1"(click)="filtering('Sport & Extreme')"><i class="fa fa-futbol-o" aria-hidden="true"></i> Sport & Extreme</button>
+    <button mat-stroked-button class="btngoal2" (click)="filtering('Night Life')"><i class="fa fa-glass" aria-hidden="true"></i> Night Life</button>
+    <button mat-stroked-button class="btngoal3" (click)="filtering('Culture & Historical Places')"><i class="fa fa-university" aria-hidden="true"></i> Culture & Historical Places</button>
+    <button mat-stroked-button class="btngoal1"(click)="filtering('Relaxing')" ><i class="fa fa-bed" aria-hidden="true"></i> Relaxing</button>
+    <button mat-stroked-button class="btngoal2" (click)="filtering('Shopping')"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button>
+    <!-- <button mat-stroked-button class="btngoal1" routerLink="/placelist"><i class="fa fa-bicycle" aria-hidden="true"></i> Attractions & Leisure</button>
     <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-futbol-o" aria-hidden="true"></i> Sport & Extreme</button>
     <button mat-stroked-button class="btngoal3" routerLink="/placelist"><i class="fa fa-glass" aria-hidden="true"></i> Night Life</button>
     <button mat-stroked-button class="btngoal2" routerLink="/placelist"><i class="fa fa-university" aria-hidden="true"></i> Culture & Historical Places</button>
     <button mat-stroked-button class="btngoal1" routerLink="/placelist" ><i class="fa fa-bed" aria-hidden="true"></i> Relaxing</button>
-    <button mat-stroked-button class="btngoal3" routerLink="/placelist"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button>
+    <button mat-stroked-button class="btngoal3" routerLink="/placelist"><i class="fa fa-shopping-bag" aria-hidden="true"></i> Shopping</button> -->
     <div>
   <br>
   <mat-divider></mat-divider>
@@ -79,22 +86,22 @@ body {
     >
 
     <agm-info-window #infoWindow>
-      
-        <strong>Place Name:</strong> {{place.name}}    
-        <br>     
+
+        <strong>Place Name:</strong> {{place.name}}
+        <br>
         <strong> Place Goal: </strong> {{place.goal}}
         <br>
         <strong> Stars:</strong> {{place.count_of_likes}}
         <br>
         <br>
-  
+
         <div id="qr" style="display:inline-block; min-width:4.2cm; height:2.8cm; align: center;vertical-align: middle;" >
           <img src="{{place.photo}}"
           style ="border-radius: 20px;height: 100px;width:120px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
-  
+
           </div>
           <a style="
-          position: absolute;bottom: 35px;  right: 15px;" class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
+          position: absolute;bottom: 35px;  right: 15px;" class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}" target="_blank"><i class="fa fa-search search" aria-hidden="true"></i></a>
           <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-disabled="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
           <a style="position: absolute;top: 70px;  right: 15px;" class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
           <br>
