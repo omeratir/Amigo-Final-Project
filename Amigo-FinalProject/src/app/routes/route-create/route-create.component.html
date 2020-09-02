@@ -1,34 +1,33 @@
-<mat-card>
+<mat-card style="border:5px solid rgb(85, 221, 226);">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 <form [formGroup] ="routeCreateForm" (submit)="onSaveRoute()" *ngIf="!isLoading">
 
-  <label>Route Name : </label>
+<img src="assets/images/AMIGO.png" alt="image" class="centerimg"/>
+<br>
+<br>
+  <label><b>Route Name:</b>&nbsp;</label>
   <input type="text" formControlName="name" placeholder="Route name">
-  <mat-error *ngIf="routeCreateForm.get('name').invalid">Please enter a route title.</mat-error>
-
+  <mat-error *ngIf="routeCreateForm.get('name').invalid">&nbsp;Please enter a route name</mat-error>
+<br>
   <div formArrayName="places">
   <div *ngFor="let place of places.controls; let i=index">
-    <label>Place {{ i + 1 }} </label>
-    <!-- <input type="text" [formControlName]="i" placeholder="place {{ i + 1 }}"> -->
+    <label><b>Place {{ i + 1 }}:</b>&nbsp;</label>
+
     <select [formControlName]="i">
       <option *ngFor="let place of placesList" [value]="'name:' + place.name + ',lat:' + place.lat + ',lng:' + place.lng">
         {{ place.name }}
       </option>
     </select>
   </div>
-  <a class="abutton" (click)="addNewPlace()">Add New Place</a>
+
+  <a class="add" (click)="addNewPlace()" style="color:blue">Add New Place <i class="fa fa-plus" aria-hidden="true"></i></a>
   </div>
   <br>
-
-  <!-- <option *ngFor="let place of placesList" [value]="'name,' + place.name + ',lat,' + place.lat + ',lng,' + place.lng"> -->
-
-
-  <!-- <label>Rate : </label>
-  <input type="text" formControlName="rating" placeholder="Route time" >
-  <mat-error *ngIf="routeCreateForm.get('rating').invalid">Please enter a route rate.</mat-error>
-  <br> -->
   <br>
+  <button mat-raised-button color="primary" routerLink="/routelist" *ngIf="!isLoading">Back To Routes</button>
+  &nbsp;
+  <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Save Route</button>
 
-  <button type="submit">Save Route</button>
+
 </form>
 </mat-card>

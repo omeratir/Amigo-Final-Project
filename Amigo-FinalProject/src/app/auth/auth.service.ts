@@ -288,8 +288,13 @@ export class AuthService {
             liked_place = liked_place.concat(place, ',');
           }
         }
+        console.log('liked1:',liked_place);
+        
         if (liked_place === '') {
           liked_place = 'EMPTY';
+        }
+        else{
+          liked_place = liked_place.substring(0,liked_place.length-1);
         }
         this.userSavedPlaces = liked_place;
         let userData: UserData | FormData;
@@ -311,18 +316,18 @@ export class AuthService {
           unliked_places_array,
           kmeans_array
         };
-
+        console.log('liked:',liked_place);
         this.http
           .put(BACKEND_URL + id, userData)
           .subscribe(response => {
             // this.router.navigate(['/']);
           });
       }
-
+    
   updateUser(id: string, email: string, password: string, firstName: string, lastName: string, age: string,
              // tslint:disable-next-line: variable-name tslint:disable-next-line: max-line-length
              gender: string, sport: boolean, culture: boolean, food: boolean, liked_place: string , liked_places_array: string , unliked_places_array: string ,  kmeans_array: string) {
-
+              
   let userData: UserData | FormData;
   userData = new FormData();
   this.userSavedPlaces = liked_place;

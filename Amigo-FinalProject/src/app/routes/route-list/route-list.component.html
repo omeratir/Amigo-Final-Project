@@ -2,15 +2,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="routes.length > 0 && !isLoading">
+  <br>
+  <a routerLink="/routecreate">Add New Route <i class="fa fa-plus" aria-hidden="true"></i></a>
+  <br>
+  <br>
   <mat-expansion-panel *ngFor="let route of routes">
     <mat-expansion-panel-header>
-      {{ route.name }}
+      <a class="title"><b>{{ route.name }}</b></a>
     </mat-expansion-panel-header>
 
     <div *ngIf="routePlaces(route.places)">
       <p *ngFor="let placeData of placesListStringArray">
         <label *ngIf="ifPlaceName(placeData);">
-          Place {{ countPlaces }} : {{ placeData.substring(5) }}
+          <b>Place {{ countPlaces }}:</b> {{ placeData.substring(5) }}
         </label>
       </p>
     </div>

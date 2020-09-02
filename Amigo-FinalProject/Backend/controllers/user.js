@@ -204,6 +204,7 @@ else{
       for(var index2 = 0; index2<(tempLikePlace.length); index2++){
         console.log('placeid :' + tempLikePlace);
       console.log('placeid[index] :' + tempLikePlace[index2]);
+      
       Place.findById(tempLikePlace[index2])
       .then(place => {
         if (place) {

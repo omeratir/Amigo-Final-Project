@@ -66,3 +66,18 @@ agm-map
 {
   height: 500px;
 }
+
+.abutton {
+  width: 141px;
+  background: rgb(85, 221, 226);
+  padding: 4px;
+  text-align: center;
+  /* border-radius: 6px; */
+  font-weight: bold;
+  cursor: pointer;
+
+}
+
+.title{
+  font-size: larger;
+}

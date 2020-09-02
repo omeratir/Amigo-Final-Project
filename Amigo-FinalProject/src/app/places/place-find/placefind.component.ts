@@ -385,58 +385,47 @@ if (this.aviad === true) {
       } else {
         chart += (this.userFull.avg_gender_place - place.gender_avg);
       }
-  console.log('chart1' + chart);
   if ((this.userFull.avg_sport_place - place.avg_sport) < 0) {
         chart += ((this.userFull.avg_sport_place - place.avg_sport) * (-1));
       } else {
         chart += (this.userFull.avg_sport_place - place.avg_sport);
       }
-  console.log('chart2' + chart);
   if ((this.userFull.avg_culture_place - place.avg_culture) < 0) {
         chart += ((this.userFull.avg_culture_place - place.avg_culture) * (-1));
       } else {
         chart += (this.userFull.avg_culture_place - place.avg_culture);
       }
-  console.log('chart3' + chart);
   if ((this.userFull.avg_food_place - place.avg_food) < 0) {
         chart += ((this.userFull.avg_food_place - place.avg_food) * (-1));
       } else {
         chart += (this.userFull.avg_food_place - place.avg_food);
       }
-  console.log('chart4' + chart);
   if ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age20 - (place.count_age20 / place.count_of_likes));
       }
-  console.log('chart5' + chart);
   if ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age35 - (place.count_age35 / place.count_of_likes));
       }
-  console.log('chart6' + chart);
   if ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age50 - (place.count_age50 / place.count_of_likes));
       }
-  console.log('chart7' + chart);
   if ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) < 0) {
         chart += ((this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes)) * (-1));
       } else {
         chart += (this.userFull.avg_age_120 - (place.count_age120 / place.count_of_likes));
       }
-  console.log('chart8' + chart);
   chart = ((chart / 5) - 1) * (-100);
-  console.log('chart9' + chart);
   this.chartMap[place.id] = chart.toFixed(0);
     //}
 }
 return true;
-// console.log(place.count_of_likes);
-// this.chart = place.count_of_likes;
-// return true;
+
 }
 
 

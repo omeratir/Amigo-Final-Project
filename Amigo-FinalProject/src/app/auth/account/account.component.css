@@ -1,6 +1,7 @@
 .header {
   font-family: cursive;
   font-weight: bold;
+  margin: -2px -72px 4px;
 }
 
 agm-map
@@ -362,6 +363,10 @@ content: '';
   animation: none;
   display: none;
 }
+.title{
+  font-family: cursive;
+  font-weight: bold;
+}
 
 @keyframes ring {
   0% {
@@ -374,4 +379,5 @@ content: '';
     height: 300px;
     opacity: 0;
   }
+
 }
