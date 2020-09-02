@@ -11,10 +11,18 @@ import { AgmCoreModule } from '@agm/core';
 import { AccountComponent } from './account/account.component';
 import { UpdateaccountComponent } from './update-account/update-account.component';
 import { AgmDirectionModule } from 'agm-direction';
+import { SuggestrouteComponent } from './suggestroute/suggestroute.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, ChoseplaceComponent, AccountComponent, UpdateaccountComponent],
-  imports: [CommonModule, AngularMaterialModule, FormsModule, AuthRoutingModule ,
+  declarations: [LoginComponent, SignupComponent, ChoseplaceComponent, AccountComponent, UpdateaccountComponent, SuggestrouteComponent],
+  imports: [CommonModule, AngularMaterialModule, FormsModule, AuthRoutingModule ,  ReactiveFormsModule,
+
     AgmCoreModule.forRoot(
       {
         apiKey: 'AIzaSyA0RE3HqPiH1V9zijUWF1aC8BdvAOhLuXQ'

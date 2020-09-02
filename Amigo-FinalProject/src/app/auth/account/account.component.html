@@ -48,12 +48,12 @@
   <div *ngIf="ifuserlikedplaces">
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
       <!-- *ngFor="let dir of directions" -->
-      <agm-direction *ngFor="let dir of directions"
+      <!-- <agm-direction *ngFor="let dir of directions"
         [origin]="dir.origin"
         [destination]="dir.destination"
         [waypoints]="waypoints"
         >
-      </agm-direction>
+      </agm-direction> -->
       <div *ngFor="let place of likedPlaces">
         <agm-marker *ngIf="checkPlaceGoal(place)"
           [latitude]="place.lat"
@@ -72,14 +72,16 @@
       </div>
     </agm-map>
 
+    <br>
+    <button mat-raised-button color="warn" class="btn-update" routerLink="/auth/suggest">Offer me a route</button>
+    <br>
+
   </div>
   </div>
-  </div> 
+  </div>
 </div>
   <div *ngIf="!ifuserlikedplaces">
     <span>you didn't like any place yet.</span>
   </div>
 
-  <br>
-  <button mat-raised-button color="warn" class="btn-update">Update my account</button>
-  <br>
+

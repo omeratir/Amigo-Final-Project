@@ -62,6 +62,8 @@ export class AccountComponent implements OnInit {
   placeslength = 1;
   currentPage = 1;
 
+  placesroute = '';
+
   directions: Dir[] = [];
 
   tempDir: Dir;
@@ -648,12 +650,10 @@ chartPercent(place: PlaceFullData) {
         if (placeid !== place.id) {
           if (this.user.liked_places_array === 'EMPTY') {
             this.user.liked_places_array = placeid;
-            //this.aviad=true;
           } else {
             this.placelist = this.user.liked_places_array;
             this.placelist = this.placelist.concat(',', placeid);
             this.user.liked_places_array = this.placelist;
-            //this.aviad=true;
           }
         }
       }

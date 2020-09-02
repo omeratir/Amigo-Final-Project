@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form class="container" [formGroup]="form" (submit)="onSaveRoute()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" [(ngModel)]="name" placeholder="Name">
+      <mat-error *ngIf="form.get('name').invalid">Please enter a route name.</mat-error>
+    </mat-form-field>
+
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <!-- *ngFor="let dir of directions" -->
+      <agm-direction *ngFor="let dir of directions"
+        [origin]="dir.origin"
+        [destination]="dir.destination"
+        [waypoints]="waypoints"
+        >
+      </agm-direction>
+      <div *ngFor="let place of likedPlaces">
+        <agm-marker *ngIf="checkPlaceGoal(place)"
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)"
+          [iconUrl] = colorurl
+          >
+        <agm-info-window #infoWindow>
+              {{ place.id }}
+              <br>
+              {{ place.name }}
+              <br>
+              {{ place.goal }}
+              <br>
+        </agm-info-window>
+        </agm-marker>
+      </div>
+    </agm-map>
+    <br>
+    <button mat-raised-button color="accent" type="submit">Save Route!</button>
+  </form>
+</mat-card>

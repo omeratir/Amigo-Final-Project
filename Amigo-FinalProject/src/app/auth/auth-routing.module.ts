@@ -6,13 +6,15 @@ import { SignupComponent } from './signup/signup.component';
 import { ChoseplaceComponent } from './choseplace/choseplace.component';
 import { AccountComponent } from './account/account.component';
 import { UpdateaccountComponent } from './update-account/update-account.component';
+import { SuggestrouteComponent } from './suggestroute/suggestroute.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'recommend', component: ChoseplaceComponent },
   { path: 'myaccount', component: AccountComponent },
-  { path: 'updatemyaccount', component: UpdateaccountComponent }
+  { path: 'updatemyaccount', component: UpdateaccountComponent },
+  { path: 'suggest', component: SuggestrouteComponent }
 ];
 
 @NgModule({

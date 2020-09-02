@@ -6,7 +6,7 @@
     <mat-expansion-panel-header>
       {{ route.name }}
     </mat-expansion-panel-header>
-   
+
     <div *ngIf="routePlaces(route.places)">
       <p *ngFor="let placeData of placesListStringArray">
         <label *ngIf="ifPlaceName(placeData);">
@@ -16,17 +16,31 @@
     </div>
 
     <!-- Map -->
-    <div>
-      <agm-map [latitude]="latitude" [zoom]="zoom" [longitude]="longitude">
-        <div *ngFor="let marker of places">
-          <agm-marker *ngIf="checkPlace(marker.name)"
-          [latitude]="marker.lat"
-          [longitude]="marker.lng"
-          (markerClick)="clickedMarker(infoWindow)">
-            <agm-info-window #infoWindow>
-              {{ marker.name }}
-            </agm-info-window>
-          </agm-marker>
+    <div *ngIf="createRoute()">
+    <!-- <div *ngIf="createRoute()"> -->
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-direction *ngFor="let dir of directions"
+        [origin]="dir.origin"
+        [destination]="dir.destination"
+        [waypoints]="waypoints"
+        >
+      </agm-direction>
+      <div *ngFor="let place of places">
+        <agm-marker *ngIf="checkPlaceGoal(place) && checkPlace(place.name)"
+          [latitude]="place.lat"
+          [longitude]="place.lng"
+          (markerClick)="clickedMarker(infoWindow)"
+          [iconUrl] = colorurl
+          >
+        <agm-info-window #infoWindow>
+              {{ place.id }}
+              <br>
+              {{ place.name }}
+              <br>
+              {{ place.goal }}
+              <br>
+        </agm-info-window>
+        </agm-marker>
       </div>
     </agm-map>
     </div>
