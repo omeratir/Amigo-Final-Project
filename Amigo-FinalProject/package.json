@@ -27,7 +27,7 @@
     "angular-weather-widget": "^1.2.4",
     "angular-x-image-viewer": "^1.1.1",
     "angular2-weather-widget": "0.0.6",
-    "bcrypt": "^4.0.0",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "canvasjs": "^1.8.3",
