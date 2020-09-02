@@ -9,30 +9,24 @@
            <div class="panel-heading"><h3 class="header">Result List</h3></div>
              <div class="panel-body">
                  <ul class="list-group">
-                   <div *ngFor="let place of likedPlaces">
-                     <li class="list-group-item">
-                      <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
-                      <img src="{{place.photo}}"
-                      style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
+                  <div *ngFor="let place of likedPlaces">
+                    <li class="list-group-item">
+                     <div id="qr" style="display:inline-block; min-width:5.3cm; height:3.8cm; align: center;vertical-align: middle;" >
+                     <img src="{{place.photo}}"
+                     style ="border-radius: 20px;height: 145px;width:180px; -webkit-filter: drop-shadow(5px 5px 5px #222);">
 
-                      </div>
-                      <div style="display:inline-block; vertical-align:top;">
-                      <strong>{{place.name}} </strong>
-                      <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" ><i class="fa fa-star-o save" aria-hidden="true"></i></a>
-                      <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
+                     </div>
+                     <div style="display:inline-block; vertical-align:top;">
+                     <strong>{{place.name}} </strong>
+                     <a class="abutton" *ngIf="!checkIfUserUnLikeThePlace(place.id)" (click)="UnLikeClicked(place)">   <i class="fa fa-star save" aria-hidden="true"></i></a>
+                     <a class="abutton" *ngIf="checkIfUserUnLikeThePlace(place.id)"(click)="removeUnlike(place)">   <i class="fa fa-star unsave" aria-hidden="true"></i></a>
 
+                     <br>
+                      {{place.goal}}
                       <br>
-                       {{place.goal}}
+                        <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
                        <br>
-                         <a class="abutton"  *ngIf="linkPlace(place.name)" href="{{placeurl}}"><i class="fa fa-search search" aria-hidden="true"></i></a>
-                        <br>
 
-                        <br>
-                        <!-- ngIf="!checkIfUserLikeThePlace(place.id)" -->
-                        <a class="abutton" *ngIf="!checkIfUserLikeThePlace(place.id)" (click)="LikeClicked(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up like" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-                        <a class="abutton" *ngIf="checkIfUserLikeThePlace(place.id)" (click)="removeLike(place)" aria-disabled="true"><i class="fa fa-thumbs-o-up liked" aria-hidden="true"></i> {{place.count_of_place_likes}} </a>
-                        <a class="abutton" *ngIf="!checkIfUserUnLikeThePlace(place.id)" (click)="UnLikeClicked(place)">   <i class="fa fa-thumbs-o-down unlike" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
-                        <a class="abutton" *ngIf="checkIfUserUnLikeThePlace(place.id)"(click)="removeUnlike(place)">   <i class="fa fa-thumbs-o-down unliked" aria-hidden="true"></i> {{place.count_of_place_unlikes}}  </a><a class="abutton" (click)="deletePlace(place.id)"><i class="fa fa-trash-o delete" aria-hidden="true"></i></a>
 
                       </div>
                       </li>

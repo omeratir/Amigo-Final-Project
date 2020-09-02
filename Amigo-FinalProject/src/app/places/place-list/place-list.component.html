@@ -23,7 +23,7 @@
                     <span>{{place.goal}}</span>
                     <br>
                     <div *ngIf="userIsAuthenticated">
-                    <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-hidden="true"><i class="fa fa-star-o save" aria-hidden="true"></i> Did you like this place? Save it!</a>
+                    <a class="abutton" *ngIf="!ifUserSaveThisPlace(place.id)" (click)="onSavePlaceClicked(place)" aria-hidden="true"><i class="fa fa-star-o save" aria-hidden="true"></i></a>
                     <a class="abutton" *ngIf="ifUserSaveThisPlace(place.id)" (click)="onUnSavePlaceClicked(place)"><i class="fa fa-star unsave" aria-hidden="true"></i></a>
                     <br>
                     <br>
