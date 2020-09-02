@@ -20,7 +20,7 @@
     </div>
 
     <!-- Map -->
-    <div *ngIf="createRoute()">
+    <div>
     <!-- <div *ngIf="createRoute()"> -->
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
       <agm-direction *ngFor="let dir of directions"

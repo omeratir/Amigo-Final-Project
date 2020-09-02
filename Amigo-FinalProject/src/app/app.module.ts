@@ -53,7 +53,6 @@ import { AgmDirectionModule } from 'agm-direction';
     CommonModule,
     AgmCoreModule.forRoot(
       {
-        apiKey: 'AIzaSyA0RE3HqPiH1V9zijUWF1aC8BdvAOhLuXQ',
       }
     ),
     AgmDirectionModule

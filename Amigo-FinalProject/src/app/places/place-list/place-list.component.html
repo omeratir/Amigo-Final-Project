@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <mat-spinner *ngIf="isLoading"></mat-spinner>
+<br>
+<a routerLink="/placecreate">Add New Place <i class="fa fa-plus" aria-hidden="true"></i></a>
+<br>
 
 <mat-accordion multi="true" *ngIf="places.length > 0 && !isLoading">
   <div class="container-fluid">

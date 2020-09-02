@@ -25,7 +25,6 @@ import { Subscription } from 'rxjs';
 
     AgmCoreModule.forRoot(
       {
-        apiKey: 'AIzaSyA0RE3HqPiH1V9zijUWF1aC8BdvAOhLuXQ'
       }
     ), AgmDirectionModule]
 })

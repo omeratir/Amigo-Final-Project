@@ -266,17 +266,17 @@ export class RouteListComponent implements OnInit, OnDestroy {
   }
 
   createRoute() {
-    this.placesRoute = [];
-    for (const place of this.places) {
-      for (const placer of this.placesListStringArray) {
-        if (placer.substring(5) === place.name) {
-          this.placesRoute.push(place);
-        }
-      }
-    }
-    console.log('crreate route');
-    console.log(this.placesRoute);
-    return true;
+    // this.placesRoute = [];
+    // for (const place of this.places) {
+    //   for (const placer of this.placesListStringArray) {
+    //     if (placer.substring(5) === place.name) {
+    //       this.placesRoute.push(place);
+    //     }
+    //   }
+    // }
+    // console.log('crreate route');
+    // console.log(this.placesRoute);
+    // return true;
   }
 
   onDelete(routeId: string) {
@@ -303,17 +303,17 @@ export class RouteListComponent implements OnInit, OnDestroy {
     this.placesListStringArray = [ ];
     this.placesListStringArray = routePlacesString.split(',');
     this.placesRoute = [];
-    for (const place of this.places) {
-      for (const placer of this.placesListStringArray) {
-        if (placer.substring(5) === place.name) {
-          this.placesRoute.push(place);
-          tempArr[this.index] = place;
-          this.index++;
-        }
-      }
-    }
-    this.origin = {lat: 0, lng: 0};
-    this.destination = {lat: 0, lng: 0};
+    // for (const place of this.places) {
+    //   for (const placer of this.placesListStringArray) {
+    //     if (placer.substring(5) === place.name) {
+    //       this.placesRoute.push(place);
+    //       tempArr[this.index] = place;
+    //       this.index++;
+    //     }
+    //   }
+    // }
+    // this.origin = {lat: 0, lng: 0};
+    // this.destination = {lat: 0, lng: 0};
   //   setTimeout(() => {
 
 

@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
 
   ];
 
+  tempPlacesList: Place[] = [];
+
   goals: string[] = ['Attractions & Leisure', 'Sport & Extreme', 'Night Life', 'Culture & Historical Places', 'Relaxing', 'Shopping'];
 
   isLoading = false;
@@ -70,6 +72,7 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
         this.totalPlaces = placeData.placeCount;
         this.places = placeData.places;
+        this.tempPlacesList = placeData.places;
         this.night = placeData.places.filter(place => (place.goal === 'Night Life'));
         this.shop = placeData.places.filter(place => (place.goal === 'Shopping'));
         this.relax = placeData.places.filter(place => (place.goal === 'Relaxing'));
@@ -88,6 +91,16 @@ export class HomeComponent implements OnInit {
 
   filtering(goal: string) {
     this.goalclicked = true;
+    console.log('g ' + goal);
+    this.places = this.tempPlacesList;
+
+    this.night = this.tempPlacesList.filter(place => (place.goal === 'Night Life'));
+    this.shop = this.tempPlacesList.filter(place => (place.goal === 'Shopping'));
+    this.relax = this.tempPlacesList.filter(place => (place.goal === 'Relaxing'));
+    this.attraction = this.tempPlacesList.filter(place => (place.goal === 'Attractions & Leisure'));
+    this.sport = this.tempPlacesList.filter(place => (place.goal === 'Sport & Extreme'));
+    this.culture = this.tempPlacesList.filter(place => (place.goal === 'Culture & Historical Places'));
+
 
     if (goal === 'Night Life') {
       this.places = this.night;
