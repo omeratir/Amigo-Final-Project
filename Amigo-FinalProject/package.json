@@ -39,7 +39,7 @@
     "express": "^4.17.1",
     "fast-csv": "^4.1.3",
     "hammerjs": "^2.0.8",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "k-nearest-neighbors": "^2.0.0",
     "kmeans-same-size": "^1.0.1",
     "mongoose": "^5.9.2",
